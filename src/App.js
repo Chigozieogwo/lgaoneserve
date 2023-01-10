@@ -1,25 +1,47 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+
+// import Footer from './components/Footer.js'
+
+import DemandNoticeScreen from './screens/DemandNoticeScreen.js'
+import DemandModuleScreen from './screens/DemandModuleScreen.js'
+import DemandSelectionScreen from './screens/DemandSelectionScreen.js'
+// import ReportScreen from './screens/ReportScreen.js'
+// import CompanyListScreen from './screens/CompanyListScreen.js'
+// import CompanyProfileScreen from './screens/CompanyProfileScreen.js'
+import LoginScreen from './screens/LoginScreen.js'
+// import HomeScreen from './screens/HomeScreen.js'
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<LoginScreen />} />
+          <Route
+                     exact
+                     path="/dashboard/profile"
+                     element={<DemandNoticeScreen />}
+                  />
+          <Route
+                     exact
+                     path="/demand_module"
+                     element={<DemandModuleScreen />}
+                  />
+          <Route
+                     exact
+                     path="/demand_selection"
+                     element={<DemandSelectionScreen />}
+                  />
+          {/* <Route path="/home" element={<HomeScreen />} />
+          <Route path="dashboard" element={<DashboardScreen />} />
+          <Route path="list" element={<CompanyListScreen />} />
+          <Route path="profile" element={<CompanyProfileScreen />} />
+          <Route path="reports" element={<ReportScreen />} /> */}
+        </Routes>
+      </BrowserRouter>
+      {/* <Footer /> */}
+    </>
+  )
 }
 
-export default App;
+export default App
