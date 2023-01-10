@@ -89,7 +89,7 @@ const HeaderLog = ({ showHandler2 }) => {
                   </Link> */}
                   <Link to="/login">
                      <li onClick={logoutHandler}>
-                        <a>Logout</a>
+                        <p>Logout</p>
                      </li>
                   </Link>
                </ul>
