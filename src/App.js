@@ -5,6 +5,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import DemandNoticeScreen from './screens/DemandNoticeScreen.js'
 import DemandModuleScreen from './screens/DemandModuleScreen.js'
 import DemandSelectionScreen from './screens/DemandSelectionScreen.js'
+import BlankScreen from './screens/BlankScreen.js'
 // import ReportScreen from './screens/ReportScreen.js'
 // import CompanyListScreen from './screens/CompanyListScreen.js'
 // import CompanyProfileScreen from './screens/CompanyProfileScreen.js'
@@ -31,6 +32,11 @@ function App() {
                      exact
                      path="/demand_selection"
                      element={<DemandSelectionScreen />}
+                  />
+          <Route
+                     exact
+                     path="/DemandNotice"
+                     element={<BlankScreen />}
                   />
           {/* <Route path="/home" element={<HomeScreen />} />
           <Route path="dashboard" element={<DashboardScreen />} />
