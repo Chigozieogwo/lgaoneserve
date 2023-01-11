@@ -27,7 +27,7 @@ import {
           }
        };
  
-       const { data } = await axios.get(`/api/deposits/userdeposit`, config);
+       const { data } = await axios.get(`/`, config);
  
        dispatch({
           type: LOCATION_DETAILS_SUCCESS,
