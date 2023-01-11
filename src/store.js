@@ -7,6 +7,14 @@ import {
    userDetailsReducer
 } from './reducers/userReducers';
 import {
+   
+   revenueCreateReducer,
+   revenueListReducer,
+   revenueDeleteReducer,
+   revenueUpdateReducer,
+   revenueDetailsReducer
+} from './reducers/revenueReducer';
+import {
    demandCreateReducer
 } from './reducers/demandReducer';
 
@@ -14,7 +22,18 @@ const reducer = combineReducers({
   
    userLogin: userLoginReducer, 
    userDetails: userDetailsReducer,
-   createDemand : demandCreateReducer
+
+   
+   createDemand: demandCreateReducer,
+
+
+
+
+   revenueCreate : revenueCreateReducer,
+   revenueList : revenueListReducer,
+   revenueDelete : revenueDeleteReducer,
+   revenueUpdate : revenueUpdateReducer,
+   revenueDetails : revenueDetailsReducer
 });
 
 const userInfoFromStorage = localStorage.getItem('userInfo')
