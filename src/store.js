@@ -15,18 +15,38 @@ import {
    revenueDetailsReducer
 } from './reducers/revenueReducer';
 import {
-   demandCreateReducer
-} from './reducers/demandReducer';
+   
+   demandCategoryCreateReducer,
+   demandCategoryUpdateReducer,
+   demandCategoryDetailsReducer
+} from './reducers/demandCategoryReducer';
+import {
+   
+   demandGenerateCreateReducer,
+   demandGenerateDownloadReducer,
+   demandGenerateListReducer
+} from './reducers/demandGenerateReducer';
+import {
+   
+   locationListReducer
+} from './reducers/locationReducer';
+
 
 const reducer = combineReducers({
   
    userLogin: userLoginReducer, 
    userDetails: userDetailsReducer,
 
-   
-   createDemand: demandCreateReducer,
+   demandCategoryCreate : demandCategoryCreateReducer,
+   demandCategoryUpdate : demandCategoryUpdateReducer,
+   demandCategoryDetails : demandCategoryDetailsReducer,
 
 
+   demandGenerateCreate : demandGenerateCreateReducer,
+   demandGenerateDownload : demandGenerateDownloadReducer,
+   demandGenerateList : demandGenerateListReducer,
+
+   locationList : locationListReducer,
 
 
    revenueCreate : revenueCreateReducer,

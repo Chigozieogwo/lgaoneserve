@@ -11,6 +11,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
 import { logout, getUserDetails } from '../actions/userActions';
+import {demandGenerateCreateAction ,listDemandGenerateLists , } from '../actions/demandGenerateActions';
+import {demandCategoryDetailsAction } from '../actions/demandCategoryActions';
+import {listLocations } from '../actions/locationActions';
 
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 
@@ -18,9 +21,17 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 
 const DemandSelectionScreen = ({ match }) => {
+
+   // const [locations, setLocations] = useState([]);
+   const [lgaKey, setLgaKey] = useState('');
+   const [demandNoticeCategoryId, setDemandNoticeCategoryId] = useState('');
+   const [numberOfEntriesToGenerate, setNumberOfEntriesToGenerate] = useState(0);
+   
+
+
     const [showModalSpecific, setShowModalSpecific] = useState(false);
     const [showModalMultiple, setShowModalMultiple] = useState(false);
-    const [name, setName] = useState('');
+   //  const [name, setName] = useState('');
 
    const location = useLocation();
    const navigate = useNavigate();
@@ -32,9 +43,60 @@ const DemandSelectionScreen = ({ match }) => {
 
    const userDetails = useSelector((state) => state.userDetails);
    const { loading, error, user } = userDetails;
-  console.log(userInfo + "here is the user")
+   console.log(userInfo + "here is the user")
+
+   
+   const locationList = useSelector((state) => state.locationList);
+   const {loading : loadingLocation, error : errorLocation,   locations } = locationList;
+   console.log(locations + " All LGA of Abia LGA is the user")
 
 
+   const demandGenerateList = useSelector((state) => state.demandGenerateList);
+   const {loading : loadingGenerateList, error : errorGenerateLIst,   demand_lists } = demandGenerateList;
+   console.log(demand_lists + " Location of Abia LGA is the user")
+
+
+   const demandCategoryDetails = useSelector((state) => state.demandCategoryDetails);
+   const {loading : loadingCategory ,   demand_category  } = demandCategoryDetails;
+   console.log(demand_category + " LGA and its Categories Location main  of Abia LGA is the user")
+   // console.log(demandNoticeCategories + " Location of Abia LGA is the user")
+
+
+
+
+   const handleChangeLga = (e) => {
+      e.preventDefault()
+
+
+      if (e.target.value === demand_category.lga.lgaKey) {
+         setLgaKey(demand_category.lga.lgaKey);
+     }
+};
+const handleChangeDemandNoticeCategoryId = (e) => {
+   setDemandNoticeCategoryId(e.target.value);
+    
+   //  console.log(Number(amount )+ " killim")
+};
+const handleChangeNumbers = (e) => {
+   setNumberOfEntriesToGenerate(e.target.value);
+};
+
+const submitHandler = (e) => {
+   e.preventDefault();
+   dispatch(
+      demandGenerateCreateAction(
+       lgaKey,
+       demandNoticeCategoryId,
+      Number (numberOfEntriesToGenerate),
+       
+       )
+       
+    );
+    
+    setShowModalMultiple(false);
+   //  window.location.reload(false);
+   
+};
   const showHandlerSpecific = (e) => {
     e.preventDefault();
     
@@ -54,7 +116,9 @@ const DemandSelectionScreen = ({ match }) => {
    
 };
    useEffect(() => {
-     
+      dispatch(listLocations());
+      dispatch(listDemandGenerateLists());
+      dispatch(demandCategoryDetailsAction());
       if (!userInfo) {
          navigate('/');
       } else {
@@ -62,6 +126,7 @@ const DemandSelectionScreen = ({ match }) => {
          if (!user || !user.firstName) {
             // dispatch({ type: USER_UPDATE_PROFILE_RESET });
             dispatch(getUserDetails('profile'));
+            // dispatch(listLocations());
            
          }
       }
@@ -175,24 +240,29 @@ const DemandSelectionScreen = ({ match }) => {
                                              </div> */}
 
 <label for="lga" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Local Govt. Area</label>
-<select id="lga" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+<select onChange={handleChangeLga} id="lga" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
   <option selected>Select LGA</option>
-  <option value="US">Abia North</option>
-  <option value="CA">Ngwa</option>
-  <option value="FR">Igbere</option>
-  <option value="DE">Ohafia</option>
+ 
+                                          {locations.map((location, index) => (
+
+<option key={location._id} value={location.lgaKey}>{location.lgaName}</option>
+//                                           
+                                          
+                                          ))}
 </select>
 <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Category</label>
-<select id="countries" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+<select onChange={handleChangeDemandNoticeCategoryId} id="countries" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
   <option selected>Select Category</option>
-  <option value="US">Local Bakery</option>
-  <option value="CA">Cold Storage</option>
-  <option value="FR">Artisan without Shop</option>
-  <option value="DE">Restuarants</option>
+  {demand_category.demandNoticeCategories.map((demand_notice_category, index) => (
+
+<option key={demand_notice_category._id} value={demand_notice_category._id}>{demand_notice_category.categoryName}</option>
+//                                           
+                                          
+                                          ))}
 </select>
                     <div>
                         <label for="number" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Quantity</label>
-                        <input type="number" name="number" id="password" placeholder="input Quantity" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" ></input>
+                        <input onChange={handleChangeNumbers} type="number" name="number" id="password" placeholder="input Quantity" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" ></input>
                     </div>
                                             
                                              
@@ -201,7 +271,7 @@ const DemandSelectionScreen = ({ match }) => {
                                             
 
                                              <button
-                                                // onClick={submitHandler}
+                                                onClick={submitHandler}
                                                 type="submit"
                                                 class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                                              >
@@ -288,19 +358,29 @@ const DemandSelectionScreen = ({ match }) => {
 
                                             <label for="lga" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Local Govt. Area</label>
 <select id="lga" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-  <option selected>Select LGA</option>
-  <option value="US">Abia North</option>
-  <option value="CA">Ngwa</option>
-  <option value="FR">Igbere</option>
-  <option value="DE">Ohafia</option>
+<option selected>Select LGA</option>
+ 
+ {locations.map((location, index) => (
+
+<option key={location._id} value={location.lgaKey}>{location.lgaName}</option>
+//                                           
+ 
+ ))}
 </select>
 <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Category</label>
 <select id="countries" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-  <option selected>Select Category</option>
+  
+
+   
+  
+  
+  
+  
+                                         <option selected>Select Category</option>
   <option value="US">Local Bakery</option>
-  <option value="CA">Cold Storage</option>
-  <option value="FR">Artisan without Shop</option>
-  <option value="DE">Restuarants</option>
+                                          <option value="CA">Cold Storage</option>
+                                          <option value="FR">Artisan without Shop</option>
+   <option value="DE">Restuarants</option>
 </select>
                    
                                             
