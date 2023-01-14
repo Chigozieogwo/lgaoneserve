@@ -24,6 +24,7 @@ import {
    
    demandGenerateCreateReducer,
    demandGenerateDownloadReducer,
+   demandGenerateBatchReducer,
    demandGenerateListReducer
 } from './reducers/demandGenerateReducer';
 import {
@@ -35,7 +36,7 @@ import {
 const reducer = combineReducers({
   
    userLogin: userLoginReducer, 
-   userDetails: userDetailsReducer,
+    userDetails: userDetailsReducer,
 
    demandCategoryCreate : demandCategoryCreateReducer,
    demandCategoryUpdate : demandCategoryUpdateReducer,
@@ -44,6 +45,7 @@ const reducer = combineReducers({
 
    demandGenerateCreate : demandGenerateCreateReducer,
    demandGenerateDownload : demandGenerateDownloadReducer,
+   demandGenerateBatch : demandGenerateBatchReducer,
    demandGenerateList : demandGenerateListReducer,
 
    locationList : locationListReducer,

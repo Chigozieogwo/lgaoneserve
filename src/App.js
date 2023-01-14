@@ -7,6 +7,8 @@ import DemandModuleScreen from './screens/DemandModuleScreen.js'
 import DemandSelectionScreen from './screens/DemandSelectionScreen.js'
 import BlankScreen from './screens/BlankScreen.js'
 import RevenueListScreen from './screens/RevenueListScreen.js'
+import BatchPreviewScreen from './screens/BatchPreviewScreen.js'
+import GeneratedListScreen from './screens/GeneratedListScreen.js'
 // import ReportScreen from './screens/ReportScreen.js'
 // import CompanyListScreen from './screens/CompanyListScreen.js'
 // import CompanyProfileScreen from './screens/CompanyProfileScreen.js'
@@ -43,6 +45,18 @@ function App() {
                      exact
                      path="/revenue"
                      element={<RevenueListScreen />}
+                  />
+          <Route
+                     exact
+                     path="/demand-notices/:id"
+                    //  path="/withdrawals/:id/edit"
+                     element={<BatchPreviewScreen />}
+                  />
+          <Route
+                     exact
+                     path="/demand-notices/batches"
+                    //  path="/withdrawals/:id/edit"
+                     element={<GeneratedListScreen />}
                   />
           {/* <Route path="/home" element={<HomeScreen />} />
           <Route path="dashboard" element={<DashboardScreen />} />

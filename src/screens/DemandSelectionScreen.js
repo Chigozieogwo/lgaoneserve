@@ -23,9 +23,10 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 const DemandSelectionScreen = ({ match }) => {
 
    // const [locations, setLocations] = useState([]);
-   const [lgaKey, setLgaKey] = useState('');
+   const [lgaKey, setLgaKey] = useState('aba-south-lga-abia-state-nigeria');
    const [demandNoticeCategoryId, setDemandNoticeCategoryId] = useState('');
    const [numberOfEntriesToGenerate, setNumberOfEntriesToGenerate] = useState(0);
+   // const [keyword, setKeyword] = useState('arochukwu-lga-abia-state-nigeria');
    
 
 
@@ -43,34 +44,40 @@ const DemandSelectionScreen = ({ match }) => {
 
    const userDetails = useSelector((state) => state.userDetails);
    const { loading, error, user } = userDetails;
-   console.log(userInfo + "here is the user")
+   // console.log(userInfo + "here is the user")
 
    
    const locationList = useSelector((state) => state.locationList);
    const {loading : loadingLocation, error : errorLocation,   locations } = locationList;
-   console.log(locations + " All LGA of Abia LGA is the user")
+   // console.log(locations + " All LGA of Abia LGA is the user")
 
 
    const demandGenerateList = useSelector((state) => state.demandGenerateList);
    const {loading : loadingGenerateList, error : errorGenerateLIst,   demand_lists } = demandGenerateList;
-   console.log(demand_lists + " Location of Abia LGA is the user")
+   // console.log(demand_lists + " Location of Abia LGA is the user")
 
 
    const demandCategoryDetails = useSelector((state) => state.demandCategoryDetails);
    const {loading : loadingCategory ,   demand_category  } = demandCategoryDetails;
-   console.log(demand_category + " LGA and its Categories Location main  of Abia LGA is the user")
+   // console.log(demand_category + " LGA and its Categories Location main  of Abia LGA is the user")
    // console.log(demandNoticeCategories + " Location of Abia LGA is the user")
-
+console.log(lgaKey)
+console.log(lgaKey + " buy here")
+console.log(lgaKey)
 
 
 
    const handleChangeLga = (e) => {
-      e.preventDefault()
-
-
-      if (e.target.value === demand_category.lga.lgaKey) {
-         setLgaKey(demand_category.lga.lgaKey);
-     }
+      // e.preventDefault()
+      // setKeyword(e.target.value);
+      // const Location = locations.filter((location) => location.lgaKey === e.target.value);
+      setLgaKey(e.target.value);
+      
+      
+      // if (e.target.value === demand_category.lga.lgaKey) {
+      //    // setKeyword(e.target.value);
+      //    setKeyword(demand_category.lga.lgaKey);
+      // } 
 };
 const handleChangeDemandNoticeCategoryId = (e) => {
    setDemandNoticeCategoryId(e.target.value);
@@ -93,7 +100,8 @@ const submitHandler = (e) => {
        
     );
     
-    setShowModalMultiple(false);
+   setShowModalMultiple(false);
+   navigate(`/demand-notices/batches`);
    //  window.location.reload(false);
    
 };
@@ -118,7 +126,7 @@ const submitHandler = (e) => {
    useEffect(() => {
       dispatch(listLocations());
       dispatch(listDemandGenerateLists());
-      dispatch(demandCategoryDetailsAction());
+      dispatch(demandCategoryDetailsAction(lgaKey));
       if (!userInfo) {
          navigate('/');
       } else {
@@ -220,29 +228,19 @@ const submitHandler = (e) => {
                                           <h5 class="text-xl text-center font-medium text-gray-900 dark:text-white">
                                                 Multiple Demand Notice
                                              </h5>   
-                                             {/* <div>
-                                                <label
-                                                   for="name"
-                                                   class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                                                >
-                                                   Your Name
-                                                </label>
-                                                <input
-                                                   type="name"
-                                                   name="name"
-                                                   value={name}
-                                                   onChange={(e) =>
-                                                      setName(e.target.value)
-                                                   }
-                                                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                                                   placeholder="john Doe"
-                                                ></input>
-                                             </div> */}
+                                             
 
 <label for="lga" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Local Govt. Area</label>
 <select onChange={handleChangeLga} id="lga" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-  <option selected>Select LGA</option>
- 
+                                          <option selected>Select LGA</option>
+                                          
+  {/* <option  value="aba-north-lga-abia-state-nigeria">Abia North</option>
+  <option  value="aba-south-lga-abia-state-nigeria">Abia South</option>
+  <option  value="arochukwu-lga-abia-state-nigeria">Arochukwu</option>
+  <option  value="bende-lga-abia-state-nigeria">Bende</option>
+  <option  value="ikwuano-lga-abia-state-nigeria">Ikwuano</option> */}
+
+
                                           {locations.map((location, index) => (
 
 <option key={location._id} value={location.lgaKey}>{location.lgaName}</option>
@@ -252,13 +250,18 @@ const submitHandler = (e) => {
 </select>
 <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Category</label>
 <select onChange={handleChangeDemandNoticeCategoryId} id="countries" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-  <option selected>Select Category</option>
-  {demand_category.demandNoticeCategories.map((demand_notice_category, index) => (
+                                          <option selected>Select Category</option>
+
+
+                                          
+                                          {
+                                             demand_category.demandNoticeCategories.map((demand_notice_category, index) => (
 
 <option key={demand_notice_category._id} value={demand_notice_category._id}>{demand_notice_category.categoryName}</option>
 //                                           
                                           
                                           ))}
+ 
 </select>
                     <div>
                         <label for="number" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Quantity</label>

@@ -76,7 +76,7 @@ console.log(revenueLineName,
 
 
 
-export const demandCategoryDetailsAction = (keyword ="aba-north-lga-abia-state-nigeria" ) => async (dispatch, getState) => {
+export const demandCategoryDetailsAction = ( lgaKey=''  ) => async (dispatch, getState) => {
    try {
       dispatch({ type: DEMAND_CATEGORY_DETAILS_REQUEST });
 
@@ -91,7 +91,11 @@ export const demandCategoryDetailsAction = (keyword ="aba-north-lga-abia-state-n
          }
       };
 
-      const { data } = await axios.get(`${url}/demand-notice-categories/?lgaKey=${keyword}`, config);
+      console.log(lgaKey + " the keyword main")
+      console.log(lgaKey + " the keyword main")
+      console.log(lgaKey + " the keyword main")
+
+      const { data } = await axios.get(`${url}/demand-notice-categories/?lgaKey=${lgaKey}`, config);
 console.log(data + 'category extend')
       dispatch({
          type: DEMAND_CATEGORY_DETAILS_SUCCESS,

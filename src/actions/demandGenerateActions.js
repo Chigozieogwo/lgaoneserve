@@ -14,9 +14,16 @@ import {
    DEMAND_GENERATE_DOWNLOAD_FAIL,
    DEMAND_GENERATE_DOWNLOAD_SUCCESS,
    DEMAND_GENERATE_DOWNLOAD_REQUEST,
+
+
+   DEMAND_GENERATE_BATCH_RESET,
+   DEMAND_GENERATE_BATCH_FAIL,
+   DEMAND_GENERATE_BATCH_SUCCESS,
+   DEMAND_GENERATE_BATCH_REQUEST,
    
 } from '../constants/demandGenerateConstants.js';
 import url from '../utils/baseUrl.js'
+import pdfUrl from '../utils/pdfUrl.js'
 
 
 
@@ -83,23 +90,76 @@ export const demandGenerateDownloadAction = (id) => async (dispatch, getState) =
          userLogin: { userInfo }
       } = getState();
 
-      const config = {
-         headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${userInfo.token}`
-         }
-      };
+      // const config = {
+      //    headers: {
+      //       'Content-Type': 'application/json',
+      //       'Accept': 'application/pdf',
+      //       Authorization: `Bearer ${userInfo.token}`
+      //    }
+      // };
 
-      const { data } = await axios.get(`/api/deposits/${id}`, config);
+      axios.get(`${pdfUrl}/demand-notices/export-pdf?demandNoticeBatchId=${id}`,
+        {
+            responseType: 'arraybuffer',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/pdf',
+                Authorization: `Bearer ${userInfo.token}`
+            }
+        })
+        .then((response) => {
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', `Demand_Notice.pdf`); //or any other extension
+            document.body.appendChild(link);
+            link.click();
+        })
+        .catch((error) => console.log(error));
+
+      // const { data } = await axios.get(`${pdfUrl}/demand-notices/export-pdf?demandNoticeBatchId=${id}`, config);
 
       dispatch({
          type: DEMAND_GENERATE_DOWNLOAD_SUCCESS,
-         payload: data
+         payload: url
       });
       // localStorage.setItem('DEPOSIT_Details', JSON.stringify(data));
    } catch (error) {
       dispatch({
          type: DEMAND_GENERATE_DOWNLOAD_FAIL,
+         payload:
+            error.response && error.response.data.message
+               ? error.response.data.message
+               : error.message
+      });
+   }
+};
+
+export const demandGenerateBatchAction = (id) => async (dispatch, getState) => {
+   try {
+      dispatch({ type: DEMAND_GENERATE_BATCH_REQUEST });
+
+      const {
+         userLogin: { userInfo }
+      } = getState();
+
+      const config = {
+         headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${userInfo.accessToken}`
+         }
+      };
+
+      const { data } = await axios.get(`${url}/demand-notices?demandNoticeBatchId=${id}`, config);
+
+      dispatch({
+         type: DEMAND_GENERATE_BATCH_SUCCESS,
+         payload: data
+      });
+      // localStorage.setItem('DEPOSIT_Details', JSON.stringify(data));
+   } catch (error) {
+      dispatch({
+         type: DEMAND_GENERATE_BATCH_FAIL,
          payload:
             error.response && error.response.data.message
                ? error.response.data.message

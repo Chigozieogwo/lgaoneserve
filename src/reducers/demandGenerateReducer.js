@@ -13,6 +13,11 @@ import {
     DEMAND_GENERATE_DOWNLOAD_FAIL,
     DEMAND_GENERATE_DOWNLOAD_SUCCESS,
     DEMAND_GENERATE_DOWNLOAD_REQUEST,
+
+    DEMAND_GENERATE_BATCH_RESET,
+    DEMAND_GENERATE_BATCH_FAIL,
+    DEMAND_GENERATE_BATCH_SUCCESS,
+    DEMAND_GENERATE_BATCH_REQUEST,
     
  } from '../constants/demandGenerateConstants.js';
  
@@ -56,6 +61,25 @@ import {
     }
  };
  
+ export const demandGenerateBatchReducer = (state = { demand_batchs: [] }, action) => {
+    //   const { type, payload } = action
+    switch (action.type) {
+       case DEMAND_GENERATE_BATCH_REQUEST:
+          return { loading: true };
+       case DEMAND_GENERATE_BATCH_SUCCESS:
+          return {
+             loading: false,
+             demand_batchs: action.payload,
+            //  count: action.payload,
+            //  pages: action.payload,
+            //  page: action.payload
+          };
+       case DEMAND_GENERATE_BATCH_FAIL:
+          return { loading: false, error: action.payload };
+       default:
+          return state;
+    }
+ };
  export const demandGenerateListReducer = (state = { demand_lists: [] }, action) => {
     //   const { type, payload } = action
     switch (action.type) {
