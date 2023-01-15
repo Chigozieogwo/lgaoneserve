@@ -99,7 +99,7 @@ const submitHandler = (e) => {
    e.preventDefault();
    dispatch(
       demandGenerateCreateAction(
-       
+       lgaKey,
        demandNoticeCategoryId,
       Number (numberOfEntriesToGenerate),
        
