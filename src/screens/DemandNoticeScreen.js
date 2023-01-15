@@ -38,7 +38,7 @@ const DashboardScreen = ({ match }) => {
          navigate('/');
       } else {
          //  dispatch(getUserDetails('profile'));
-         if (!user || !user.firstName) {
+         if (!user ) {
             // dispatch({ type: USER_UPDATE_PROFILE_RESET });
             dispatch(getUserDetails('profile'));
            

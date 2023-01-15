@@ -95,7 +95,7 @@ const DemandModuleScreen = ({ match }) => {
                       <div class="flex justify-between mx-12 mt-2 md:mt-10 h-16  grid-cols-3 md:grid-cols-3 lg:grid-cols-3 px-2 xl:p-0 gap-4 xl:gap-6">
                          
                           
-                        <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300  rounded-md text-sm px-6 py-3 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Create Demand Notice Category</button>
+                        <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300  rounded-md text-sm px-6 py-3 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"><Link className="px-2  py-3  text-center" to="/category">Create Demand Notice Category</Link></button>
                         
                        <div></div>
                        <div class=" h-16 grid grid-cols-2 md:grid-cols-2 lg:grid-cols-2 px-2 xl:p-0 gap-3 xl:gap-3">

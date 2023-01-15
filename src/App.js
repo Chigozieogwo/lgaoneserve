@@ -7,6 +7,7 @@ import DemandModuleScreen from './screens/DemandModuleScreen.js'
 import DemandSelectionScreen from './screens/DemandSelectionScreen.js'
 import BlankScreen from './screens/BlankScreen.js'
 import RevenueListScreen from './screens/RevenueListScreen.js'
+import CategoryListScreen from './screens/CategoryListScreen.js'
 import BatchPreviewScreen from './screens/BatchPreviewScreen.js'
 import GeneratedListScreen from './screens/GeneratedListScreen.js'
 // import ReportScreen from './screens/ReportScreen.js'
@@ -40,6 +41,11 @@ function App() {
                      exact
                      path="/DemandNotice"
                      element={<BlankScreen />}
+                  />
+          <Route
+                     exact
+                     path="/category"
+                     element={<CategoryListScreen />}
                   />
           <Route
                      exact

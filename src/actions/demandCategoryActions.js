@@ -76,7 +76,7 @@ console.log(revenueLineName,
 
 
 
-export const demandCategoryDetailsAction = ( lgaKey=''  ) => async (dispatch, getState) => {
+export const demandCategoryDetailsAction = ( lga='' ) => async (dispatch, getState) => {
    try {
       dispatch({ type: DEMAND_CATEGORY_DETAILS_REQUEST });
 
@@ -91,12 +91,14 @@ export const demandCategoryDetailsAction = ( lgaKey=''  ) => async (dispatch, ge
          }
       };
 
-      console.log(lgaKey + " the keyword main")
-      console.log(lgaKey + " the keyword main")
-      console.log(lgaKey + " the keyword main")
+      console.log(lga + " the keyword main")
+      console.log(lga + " the keyword main")
+      console.log(lga + " the keyword main")
 
-      const { data } = await axios.get(`${url}/demand-notice-categories/?lgaKey=${lgaKey}`, config);
-console.log(data + 'category extend')
+      const { data } = await axios.get(`${url}/demand-notice-categories/?lgaKey=${lga}`, config);
+
+
+      // console.log(JSON.stringify(data) + 'category extend')
       dispatch({
          type: DEMAND_CATEGORY_DETAILS_SUCCESS,
          payload: data

@@ -23,7 +23,9 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 const DemandSelectionScreen = ({ match }) => {
 
    // const [locations, setLocations] = useState([]);
-   const [lgaKey, setLgaKey] = useState('aba-south-lga-abia-state-nigeria');
+   const [lgaKey, setLgaKey] = useState('aba-north-lga-abia-state-nigeria');
+   // const [lgaKey2, setLgaKey2] = useState('aba-north-lga-abia-state-nigeria');
+   // const [locationn, setLocationn] = useState('');
    const [demandNoticeCategoryId, setDemandNoticeCategoryId] = useState('');
    const [numberOfEntriesToGenerate, setNumberOfEntriesToGenerate] = useState(0);
    // const [keyword, setKeyword] = useState('arochukwu-lga-abia-state-nigeria');
@@ -49,7 +51,9 @@ const DemandSelectionScreen = ({ match }) => {
    
    const locationList = useSelector((state) => state.locationList);
    const {loading : loadingLocation, error : errorLocation,   locations } = locationList;
-   // console.log(locations + " All LGA of Abia LGA is the user")
+   
+   
+   console.log(locations + " All LGA of Abia LGA is the user")
 
 
    const demandGenerateList = useSelector((state) => state.demandGenerateList);
@@ -68,12 +72,15 @@ console.log(lgaKey)
 
 
    const handleChangeLga = (e) => {
-      // e.preventDefault()
-      // setKeyword(e.target.value);
-      // const Location = locations.filter((location) => location.lgaKey === e.target.value);
-      setLgaKey(e.target.value);
+      e.preventDefault()
+ 
+      // setLgaKey(e.target.value);
       
-      
+      // console.log(data2 + '1112233311')
+      console.log(lgaKey + '1112233311')
+      console.log(lgaKey + '1112233311')
+      console.log(lgaKey + '1112233311')
+      // console.log(data2 + '1112233311')
       // if (e.target.value === demand_category.lga.lgaKey) {
       //    // setKeyword(e.target.value);
       //    setKeyword(demand_category.lga.lgaKey);
@@ -92,7 +99,7 @@ const submitHandler = (e) => {
    e.preventDefault();
    dispatch(
       demandGenerateCreateAction(
-       lgaKey,
+       
        demandNoticeCategoryId,
       Number (numberOfEntriesToGenerate),
        
@@ -113,7 +120,7 @@ const submitHandler = (e) => {
  };
   const showHandlerMultiple = (e) => {
     e.preventDefault();
-    
+   //  dispatch(demandCategoryDetailsAction(lgaKey));
     setShowModalMultiple(true);
     setShowModalSpecific(false);
  };
@@ -131,14 +138,14 @@ const submitHandler = (e) => {
          navigate('/');
       } else {
          //  dispatch(getUserDetails('profile'));
-         if (!user || !user.firstName) {
+         if (!user ) {
             // dispatch({ type: USER_UPDATE_PROFILE_RESET });
             dispatch(getUserDetails('profile'));
             // dispatch(listLocations());
            
          }
       }
-   }, [navigate, userInfo, user]);
+   }, [navigate, userInfo, user,lgaKey]);
 
    return (
       <>
@@ -241,7 +248,7 @@ const submitHandler = (e) => {
   <option  value="ikwuano-lga-abia-state-nigeria">Ikwuano</option> */}
 
 
-                                          {locations.map((location, index) => (
+                                          {locations === 'undefined' ? null : locations.map((location, index) => (
 
 <option key={location._id} value={location.lgaKey}>{location.lgaName}</option>
 //                                           
@@ -254,13 +261,13 @@ const submitHandler = (e) => {
 
 
                                           
-                                          {
-                                             demand_category.demandNoticeCategories.map((demand_notice_category, index) => (
+                                          {demand_category === 'undefined' ? null : demand_category.demandNoticeCategories.map((demand_notice_category, index) => (
 
 <option key={demand_notice_category._id} value={demand_notice_category._id}>{demand_notice_category.categoryName}</option>
 //                                           
                                           
-                                          ))}
+                                          ))
+                                             }
  
 </select>
                     <div>

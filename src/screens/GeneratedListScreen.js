@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import HeaderLog from '../components/HeaderLog';
 import { Fragment } from 'react';
 import DatePicker from "react-datepicker";
+import {listLocations } from '../actions/locationActions';
 
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -20,7 +21,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 // import { ReactComponent as DateIcon } from '../images/date.svg';
 
 
-const BatchPreviewScreen = ({ match }) => {
+const GeneratedListScreen = ({ match }) => {
    const [lgaKey, setLgaKey] = useState('aba-south-lga-abia-state-nigeria');
    const location = useLocation();
    const navigate = useNavigate();
@@ -40,17 +41,20 @@ const BatchPreviewScreen = ({ match }) => {
    console.log(demand_lists + " Batch Notice List of Abia LGA is the user")
 
    // onClick={ bot.enlisted ? () => removeBot() : () => enlistBot() }
-
+   const locationList = useSelector((state) => state.locationList);
+   const {loading : loadingLocation, error : errorLocation,   locations } = locationList;
+   console.log(locations + " All 1 LGA of Abia LGA is the user")
 
 //   const lgaKey1 = demand_lists.map((demand_list) => {
 //     return   demand_list.lgaKey
 //    })
 
-   console.log(lgaKey + " here my key thanks")
+//    console.log(lgaKey1 + " here my key thanks")
    const demandCategoryDetails = useSelector((state) => state.demandCategoryDetails);
    const {loading : loadingCategory ,   demand_category  } = demandCategoryDetails;
-
+   console.log(demand_category + "vvvvv Batch Notice List of Abia LGA is the user")
    useEffect(() => {
+      dispatch(listLocations());
       dispatch(listDemandGenerateLists());
       dispatch(demandCategoryDetailsAction(lgaKey));
       // if (!userInfo) {
@@ -124,12 +128,18 @@ const BatchPreviewScreen = ({ match }) => {
                     S/N
                 </th>
                 <th scope="col" class="px-6 py-3">
-                    LGA
+                    Batch unique ID
                 </th>
+                
                 <th scope="col" class="px-6 py-3">
                     Category
                 </th>
-                
+                <th scope="col" class="px-6 py-3">
+                    LGA
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Quantity
+                </th>
                
                 <th scope="col" class="px-6 py-3">
                     view
@@ -138,7 +148,7 @@ const BatchPreviewScreen = ({ match }) => {
         </thead>
         <tbody>
                                           {demand_lists.reverse().map((demand_list, index) => (
-                                            <tr key={demand_list._id} class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                            <tr key={demand_list.demandNoticeBatch._id} class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                                             <td class="w-4 p-4">
                                                 <div class="flex items-center">
                                                     <input id="checkbox-table-search-1" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
@@ -151,15 +161,28 @@ const BatchPreviewScreen = ({ match }) => {
                                             {index + 1}
                                             </th>
                                             <td class="px-6 py-4">
-                                            {demand_list.lgaKey}
+                                                   {
+//   locations.filter(
+//    (location) => location.lgaKey === demand_list.lgaKey
+
+
+
+                                                      demand_list.demandNoticeBatch._id
+                                                   }
                                             </td>
                                             <td class="px-6 py-4">
-                                            {demand_list.demandNoticeCategoryId}
+                                            {demand_list.demandNoticeCategory.categoryName}
+                                            </td>
+                                            <td class="px-6 py-4">
+                                            {demand_list.lga.lgaName}
+                                            </td>
+                                            <td class="px-6 py-4">
+                                            {demand_list.demandNoticeBatch.numberOfEntries}
                                             </td>
                                             
                                             
                                             <td class="flex items-center px-6 py-4 space-x-3">
-                                                <Link to={`/demand-notices/${demand_list._id}`} class="font-medium text-white dark:text-blue-500 hover:underline">
+                                                <Link to={`/demand-notices/${demand_list.demandNoticeBatch._id}`} class="font-medium text-white dark:text-blue-500 hover:underline">
                                                <button className='bg-yellow-400 px-4 py-1.5 hover:bg-yellow-500 '> view </button>
                                                 </Link>
                                                
@@ -213,4 +236,4 @@ const BatchPreviewScreen = ({ match }) => {
    );
 };
 
-export default BatchPreviewScreen;
+export default GeneratedListScreen;
