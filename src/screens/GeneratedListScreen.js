@@ -6,7 +6,7 @@ import DatePicker from "react-datepicker";
 import {listLocations } from '../actions/locationActions';
 
 import "react-datepicker/dist/react-datepicker.css";
-
+import  Moment  from 'moment'
 import Sidebar from '../components/Sidebar';
 import {demandCategoryDetailsAction } from '../actions/demandCategoryActions';
 
@@ -17,7 +17,7 @@ import Loader from '../components/Loader';
 import { logout, getUserDetails } from '../actions/userActions';
 import {demandGenerateCreateAction ,listDemandGenerateLists , } from '../actions/demandGenerateActions';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-
+import _ from 'lodash'
 // import { ReactComponent as DateIcon } from '../images/date.svg';
 
 
@@ -49,6 +49,17 @@ const GeneratedListScreen = ({ match }) => {
 //     return   demand_list.lgaKey
 //    })
 
+
+
+
+const sortedArray = _.orderBy(demand_lists, [(obj) => new Date(obj.date)], ['asc'])
+
+// const array = [{date:"2018-05-11"},{date:"2018-05-12"},{date:"2018-05-10"}]
+// const sortedArray  = demand_lists.sort((a,b) => new Moment(a.demand_list.demandNoticeBatch.createdAt).format('YYYYMMDD') - new Moment(b.demand_list.demandNoticeBatch.createdAt).format('YYYYMMDD'))
+// console.log(sortedArray)
+   
+
+   
 //    console.log(lgaKey1 + " here my key thanks")
    const demandCategoryDetails = useSelector((state) => state.demandCategoryDetails);
    const {loading : loadingCategory ,   demand_category  } = demandCategoryDetails;
@@ -140,6 +151,12 @@ const GeneratedListScreen = ({ match }) => {
                 <th scope="col" class="px-6 py-3">
                     Quantity
                 </th>
+                <th scope="col" class="px-6 py-3">
+                    Date
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    time
+                </th>
                
                 <th scope="col" class="px-6 py-3">
                     view
@@ -147,7 +164,7 @@ const GeneratedListScreen = ({ match }) => {
             </tr>
         </thead>
         <tbody>
-                                          {demand_lists.reverse().map((demand_list, index) => (
+                                          {sortedArray.reverse().map((demand_list, index) => (
                                             <tr key={demand_list.demandNoticeBatch._id} class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                                             <td class="w-4 p-4">
                                                 <div class="flex items-center">
@@ -167,7 +184,7 @@ const GeneratedListScreen = ({ match }) => {
 
 
 
-                                                      demand_list.demandNoticeBatch._id
+                                                      demand_list.demandNoticeBatch._id.toUpperCase()
                                                    }
                                             </td>
                                             <td class="px-6 py-4">
@@ -178,6 +195,12 @@ const GeneratedListScreen = ({ match }) => {
                                             </td>
                                             <td class="px-6 py-4">
                                             {demand_list.demandNoticeBatch.numberOfEntries}
+                                            </td>
+                                            <td class="px-6 py-4">
+                                            {Moment(demand_list.demandNoticeBatch.createdAt).format('DD-MM-YYYY')       }
+                                            </td>
+                                            <td class="px-6 py-4">
+                                            {Moment(demand_list.demandNoticeBatch.createdAt).format(' h:mm:ss a') }
                                             </td>
                                             
                                             
