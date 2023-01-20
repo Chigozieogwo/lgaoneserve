@@ -32,19 +32,19 @@ const DashboardScreen = ({ match }) => {
   console.log(userInfo + "here is the user")
 
   
-   useEffect(() => {
+   // useEffect(() => {
      
-      if (!userInfo) {
-         navigate('/');
-      } else {
-         //  dispatch(getUserDetails('profile'));
-         if (!user || !user.firstName) {
-            // dispatch({ type: USER_UPDATE_PROFILE_RESET });
-            dispatch(getUserDetails('profile'));
+   //    if (!userInfo) {
+   //       navigate('/');
+   //    } else {
+   //       //  dispatch(getUserDetails('profile'));
+   //       if (!user || !user.firstName) {
+   //          // dispatch({ type: USER_UPDATE_PROFILE_RESET });
+   //          dispatch(getUserDetails('profile'));
            
-         }
-      }
-   }, [navigate, userInfo, user]);
+   //       }
+   //    }
+   // }, [navigate, userInfo, user]);
 
    return (
       <>

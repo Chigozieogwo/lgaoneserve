@@ -151,7 +151,7 @@ export const demandGenerateBatchAction = (id) => async (dispatch, getState) => {
       };
 
       const { data } = await axios.get(`${url}/demand-notices?demandNoticeBatchId=${id}`, config);
-
+console.log(data + 'data batch')
       dispatch({
          type: DEMAND_GENERATE_BATCH_SUCCESS,
          payload: data
