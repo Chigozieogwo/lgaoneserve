@@ -14,6 +14,11 @@ import {
    DEMAND_CATEGORY_DETAILS_FAIL,
    DEMAND_CATEGORY_DETAILS_SUCCESS,
    DEMAND_CATEGORY_DETAILS_REQUEST,
+
+   DEMAND_CATEGORY_DETAILS_REVENUE_RESET,
+   DEMAND_CATEGORY_DETAILS_REVENUE_FAIL,
+   DEMAND_CATEGORY_DETAILS_REVENUE_SUCCESS,
+   DEMAND_CATEGORY_DETAILS_REVENUE_REQUEST,
    
 } from '../constants/demandCategoryConstants.js';
 import url from '../utils/baseUrl.js'
@@ -21,10 +26,10 @@ import url from '../utils/baseUrl.js'
 
 
 export const demandCategoryCreateAction =
-   (revenueLineName,
-    revenueLineCode,
-    revenueLineAmount,
-    revenueLineFrequency) =>
+   (categoryName,
+      categoryDescription,
+      lgaKey,
+      revenueLineCodes) =>
    async (dispatch, getState) => {
       try {
          dispatch({ type: DEMAND_CATEGORY_CREATE_REQUEST });
@@ -35,24 +40,24 @@ export const demandCategoryCreateAction =
          const config = {
             headers: {
                'Content-Type': 'application/json',
-               Authorization: `Bearer ${userInfo.token}`
+               Authorization: `Bearer ${userInfo.accessToken}`
             }
           };
           
 
-console.log(revenueLineName,
-    revenueLineCode,
-    revenueLineAmount,
-    revenueLineFrequency)
+console.log(categoryName,
+   categoryDescription,
+   lgaKey,
+   revenueLineCodes)
 
           
          const { data } = await axios.post(
-            `${url}/revenuelines`,
+            `${url}/demand-notice-categories`,
             {
-                revenueLineName,
-                revenueLineCode,
-                revenueLineAmount,
-                revenueLineFrequency
+               categoryName,
+               categoryDescription,
+               lgaKey,
+               revenueLineCodes
             },
             config
          );
@@ -107,6 +112,42 @@ export const demandCategoryDetailsAction = ( lga='' ) => async (dispatch, getSta
    } catch (error) {
       dispatch({
          type: DEMAND_CATEGORY_DETAILS_FAIL,
+         payload:
+            error.response && error.response.data.message
+               ? error.response.data.message
+               : error.message
+      });
+   }
+};
+export const demandCategoryDetailsRevenueAction = ( id ) => async (dispatch, getState) => {
+   try {
+      dispatch({ type: DEMAND_CATEGORY_DETAILS_REVENUE_REQUEST });
+
+      const {
+         userLogin: { userInfo }
+      } = getState();
+
+      const config = {
+         headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${userInfo.accessToken}`
+         }
+      };
+
+      
+
+      const { data } = await axios.get(`${url}/demand-notice-categories/${id}`, config);
+
+
+      // console.log(JSON.stringify(data) + 'category extend')
+      dispatch({
+         type: DEMAND_CATEGORY_DETAILS_REVENUE_SUCCESS,
+         payload: data
+      });
+      // localStorage.setItem('DEPOSIT_DETAILS_REVENUE', JSON.stringify(data));
+   } catch (error) {
+      dispatch({
+         type: DEMAND_CATEGORY_DETAILS_REVENUE_FAIL,
          payload:
             error.response && error.response.data.message
                ? error.response.data.message

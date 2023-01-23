@@ -10,6 +10,8 @@ import RevenueListScreen from './screens/RevenueListScreen.js'
 import CategoryListScreen from './screens/CategoryListScreen.js'
 import BatchPreviewScreen from './screens/BatchPreviewScreen.js'
 import GeneratedListScreen from './screens/GeneratedListScreen.js'
+import CreateCategoryScreen from './screens/CreateCategoryScreen.js'
+import CategoryDetailRevenueScreen from './screens/CategoryDetailRevenueScreen.js'
 // import ReportScreen from './screens/ReportScreen.js'
 // import CompanyListScreen from './screens/CompanyListScreen.js'
 // import CompanyProfileScreen from './screens/CompanyProfileScreen.js'
@@ -49,6 +51,11 @@ function App() {
                   />
           <Route
                      exact
+                     path="/category/create"
+                     element={<CreateCategoryScreen />}
+                  />
+          <Route
+                     exact
                      path="/revenue"
                      element={<RevenueListScreen />}
                   />
@@ -58,6 +65,11 @@ function App() {
                     //  path="/withdrawals/:id/edit"
                      element={<BatchPreviewScreen />}
                   />
+           <Route
+                     exact
+                     path="demand-notice-categories/:id"
+                     element={<CategoryDetailRevenueScreen />}
+                  />      
           <Route
                      exact
                      path="/demand-notices/batches"

@@ -2,39 +2,30 @@
 import React, { useState, useEffect } from 'react';
 import HeaderLog from '../components/HeaderLog';
 import { Fragment } from 'react';
-
+import DatePicker from "react-datepicker";
+import _ from "lodash";
 
 import "react-datepicker/dist/react-datepicker.css";
 
 import Sidebar from '../components/Sidebar';
-import {
-    listRevenues,
-    revenueDeleteAction
- } from '../actions/revenueActions.js';
- import { useParams } from 'react-router-dom';
+
+
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
 import { logout, getUserDetails } from '../actions/userActions';
-import { revenueCreateAction } from '../actions/revenueActions';
-import {demandCategoryDetailsAction } from '../actions/demandCategoryActions';
-import {listLocations } from '../actions/locationActions';
+import { demandCategoryDetailsRevenueAction } from '../actions/demandCategoryActions';
+
+import { Link, useLocation, useNavigate,useParams } from 'react-router-dom';
+
+// import { ReactComponent as DateIcon } from '../images/date.svg';
 
 
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+const CategoryDetailRevenueScreen = ({ match }) => {
+    const {id} = useParams()
 
-
-
-
-const CategoryListScreen = ({ match }) => {
-
-    //  const [locations, setLocations] = useState([]);
-   const [lgaKey, setLgaKey] = useState('aba-north-lga-abia-state-nigeria');
-    
-   
-   
-    const [showModal, setShowModal] = useState(false);
+   console.log(id + "params")
    const location = useLocation();
    const navigate = useNavigate();
 
@@ -47,87 +38,45 @@ const CategoryListScreen = ({ match }) => {
    const { loading, error, user } = userDetails;
   console.log(userInfo + "here is the user")
 
-  const locationList = useSelector((state) => state.locationList);
-  const {loading : loadingLocation, error : errorLocation,   locations } = locationList;
   
-  
-  console.log(locations + " All LGA of Abia LGA is the user")
+
+  const demandCategoryDetailsRevenue = useSelector((state) => state.demandCategoryDetailsRevenue);
+  const { loading:loadingCateRevenue, error:errorCateRevenue,demand_category } = demandCategoryDetailsRevenue;
+  // const {  demandNoticeList ,lgaRecord ,revenueLinesEntities} = demand_batchs
+ console.log(demand_category + "demand_category here is the user")
  
 
-  const demandCategoryDetails = useSelector((state) => state.demandCategoryDetails);
 
-  const { loading:loadingCategory, error:errorCategory, demand_category } = demandCategoryDetails;
-  console.log(demand_category +" mine category here it is");
-  console.log(demand_category +" mine category here it is");
-  console.log(demand_category +" mine category here it is");
+ const total = demand_category?.dnc_revenueLinesEntities.map((revenue) =>(
+    revenue.revenueLineAmount
+))
 
-
-
-
-  const showHandler = (e) => {
-    e.preventDefault();
-    setShowModal(true);
- };
-  
-  
- const handleClose = () => {
-  
-    setShowModal(false);
-   
-};
+const totals = _.sum(total)
+console.log (_.sum(total) + "game mane")
+console.log (_.sum(total) + "game mane")
+console.log (_.sum(total) + "game mane")
 
 
-// const handleChangeCode = (e) => {
-//     setRevenueLineCode(e.target.value);
-//  };
-//  const handleChangeAmount = (e) => {
-//       setRevenueLineAmount(e.target.value);
+function sformatCurrency(totalz) {
+    var neg = false;
+    if (total < 0) {
+       neg = true;
+       total = Math.abs(total);
+    }
+    return (
+       (neg ? '-#' : '#') +
+       parseFloat(total, 10)
+          .toFixed(2)
+          .replace(/(\d)(?=(\d{3})+\.)/g, '$1,')
+          .toString()
+    );}
+
+   useEffect(() => {
      
-//     //  console.log(Number(amount )+ " killim")
-//  };
-//  const handleChangeName = (e) => {
-//     setRevenueLineName(e.target.value);
-//  };
-
-
-//  const handleChangeFrequency = (e) => {
-//     setRevenueLineFrequency(e.target.value);
-//  };
-
-//  const revenueCreate = useSelector((state) => state.revenueCreate);
-//  const {
-//     revenue,
-//     success,
-//     loading: loadingRevenue,
-//     error: errorRevenue
-//  } = revenueCreate;
-
- const submitHandler = (e) => {
-    e.preventDefault();
-   
-    //  dispatch(listRevenues());
-    //  setShowModal(true);
-     setShowModal(false);
-    //  window.location.reload(false);
-    
- };
-    
-
-
-    
-   useEffect(() => {
-    dispatch(listLocations());
-       dispatch(demandCategoryDetailsAction(lgaKey));
+       dispatch(demandCategoryDetailsRevenueAction(id));
       
-   }, [lgaKey]);
+   }, []);
 
-
-    
-   useEffect(() => {
-    
-    // deactivate()
- }, [dispatch]);
-    
    return (
       <>
          <div>
@@ -150,8 +99,8 @@ const CategoryListScreen = ({ match }) => {
                   <div>
                   <div className="bg-[#F4F5FA] overscroll-none  px-5  py-5">
                         <div className="flex justify-between py-4 px-6 text-xl">
-                                   <h5> List of Revenue Codes  </h5>
-                                   <Link to='/demand_module'>
+                                   <div></div>
+                                   <Link to='/category'>
                                    <div className='bg-white rounded-full p-1 shadow-lg hover:bg-blue-600 hover:text-white'>
                                         <svg className='h-6 w-6  ' fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
   <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5"></path>
@@ -162,37 +111,39 @@ const CategoryListScreen = ({ match }) => {
                                   
                                    
                         </div>
-
-                        {showModal ? (
-                              <h1>Modal</h1>
-                           ) : null}
-
-
-                               
-                        <div className="flex justify-between py-4 px-6 text-xl">
-                                  <div></div> 
-                                  <Link to='/category/create'>
-
-                        <button  type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300  rounded-md text-sm px-6 py-3 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Create  Category</button>
-                                  </Link>
-                        
-                                  
-                                   
-                        </div>
                       </div>
-
-
-
-                           
                     
 
-                       {loadingCategory ? (
+
+                      <div class=" max-w-xl -mt-6 mb-24 md:-mt-12 bg-white rounded-lg mx-12 md:mx-auto  ">
+                      <div className="flex  items-center justify-center rounded-t-lg  bg-blue-700 h-32 ">
+
+<h5 class="text-3xl  text-center text-white  font-bold  dark:text-white">
+                                               {demand_category?.categoryName}
+                                             </h5>  
+    </div>
+
+<form className="mx-4">
+    
+    <div class="grid gap-6 mb-2 md:grid-cols-2">
+       
+        
+        
+        
+        
+        
+        
+    </div>
+    <div class="mb-6">
+        <label for="message" class="block mb-2 mt-4 text-2xl font-medium text-blue-600 dark:text-white">Details</label>
+
+        {loadingCateRevenue ? (
                                  <Loader />
                               ) : error ? (
-                                 <div>{errorCategory}</div>
+                                 <div>{errorCateRevenue}</div>
                               ) : (
-<div className='mx-12 mt-4'>
-                      <div class="relative overflow-x-auto shadow-md sm:rounded-lg ">
+<div className=' mt-4'>
+                      <div class="relative overflow-x-auto ">
     <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
@@ -208,26 +159,24 @@ const CategoryListScreen = ({ match }) => {
                     S/N
                 </th>
                 <th scope="col" class="px-6 py-3">
-                     Category Name
+                     Revenue Map
                 </th>
                 <th scope="col" class="px-6 py-3">
-                    Category Description
+                    Revenue Code
                 </th>
                 {/* <th scope="col" class="px-6 py-3">
                     Amount
                 </th> */}
                 <th scope="col" class="px-6 py-3">
-                    View
+                    Amount
                 </th>
                
-                <th scope="col" class="px-6 py-3">
-                    Edit
-                </th>
+                
                 
             </tr>
         </thead>
         <tbody>
-                                          {demand_category?.demandNoticeCategories?.map((revenue, index) => (
+                                          {demand_category?.dnc_revenueLinesEntities?.map((revenue, index) => (
                                             <tr key={revenue._id} class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                                             {/* <td class="w-4 p-4">
                                                 <div class="flex items-center">
@@ -241,27 +190,17 @@ const CategoryListScreen = ({ match }) => {
                                             {index + 1}
                                             </th>
                                             <td class="px-6 py-4">
-                                            {revenue.categoryName}
+                                            {revenue.revenueLineName}
                                             </td>
                                              <td class="px-6 py-4">
-                                            {revenue.categoryDescription}
+                                            {revenue.revenueLineCode}
+                                            </td>
+                                             <td class="px-6 py-4">
+                                            {revenue.revenueLineAmount}
                                             </td>
                                             
-                                            <td class=" px-6 py-4 ">
-                                                <Link  to={`/demand-notice-categories/${revenue._id}`}  class="font-medium text-white dark:text-blue-500 hover:underline">
-                                               <button className='bg-yellow-400 px-4 py-1.5 hover:bg-yellow-500 '> view </button>
-                                                </Link>
-                                               
-                                            </td>
                                             
-                                            <td class=" px-6 py-4 ">
-                                                <Link to={`/revenues/${revenue.revenueLineCode}/edit`} class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
-                                                <svg className='h-6 w-6 ' fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-  <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10"></path>
-</svg>
-                                                </Link>
-                                               
-                                            </td>
+                                          
                                         </tr>
                                           
                                           ))}
@@ -273,6 +212,34 @@ const CategoryListScreen = ({ match }) => {
                                </div>
                                </div>
 )} 
+
+<div className="flex justify-between py-4 px-6 mx-4 text-xl">
+                                   <div className="text-2xl font-bold text-gray-700">Total</div>
+                                   <div className="text-xl font-bold text-blue-700">{
+                                      totals
+                                   
+                                 }</div>
+                                   
+                                  
+                                   
+                        </div>
+   
+    </div>
+
+    
+     
+    
+    
+  
+    
+    
+    
+</form>
+
+</div>
+
+          
+
 
                            
                       
@@ -303,4 +270,4 @@ const CategoryListScreen = ({ match }) => {
    );
 };
 
-export default CategoryListScreen;
+export default CategoryDetailRevenueScreen;

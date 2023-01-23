@@ -18,7 +18,8 @@ import {
    
    demandCategoryCreateReducer,
    demandCategoryUpdateReducer,
-   demandCategoryDetailsReducer
+   demandCategoryDetailsReducer,
+   demandCategoryDetailsRevenueReducer,
 } from './reducers/demandCategoryReducer';
 import {
    
@@ -41,6 +42,7 @@ const reducer = combineReducers({
    demandCategoryCreate : demandCategoryCreateReducer,
    demandCategoryUpdate : demandCategoryUpdateReducer,
    demandCategoryDetails : demandCategoryDetailsReducer,
+   demandCategoryDetailsRevenue : demandCategoryDetailsRevenueReducer,
 
 
    demandGenerateCreate : demandGenerateCreateReducer,

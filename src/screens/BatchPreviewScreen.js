@@ -18,12 +18,12 @@ import Loader from '../components/Loader';
 import { logout, getUserDetails } from '../actions/userActions';
 
 import { Link, useLocation, useNavigate,useParams } from 'react-router-dom';
-
+import { ExportToCsv } from 'export-to-csv';
 // import { ReactComponent as DateIcon } from '../images/date.svg';
-
+import { CSVLink,CSVDownload } from "react-csv";
 
 const BatchPreviewScreen = ({ match }) => {
- 
+   const [url, setUrl] = useState('https://billable-dev.herokuapp.com/demand-notices/template?demandNoticeId=63c431c3ddbd64368df75fbd');
 
    // const {demandNoticeBatchId } = useParams()
    // const pageNumber = match.params.pageNumber || 1
@@ -32,8 +32,13 @@ const BatchPreviewScreen = ({ match }) => {
 
    console.log(id + "params")
    // console.log(match.params + "params match")
-
-
+   
+    const demand_batchs1 =[
+      ['firstname', 'lastname', 'email'] ,
+      ['John', 'Doe' , 'john.doe@xyz.com'] ,
+      ['Jane', 'Doe' , 'jane.doe@xyz.com']
+    ];
+    
    const location = useLocation();
    const navigate = useNavigate();
 
@@ -49,7 +54,32 @@ const BatchPreviewScreen = ({ match }) => {
 //   console.log(demand_batchs.demandNoticeList + " Serial Number Batch here is the user")
 //   console.log(lgaRecord + "Batch here is the user")
 //   console.log(revenueLinesEntities + "Batch here is the user")
-// const url = `https://billable-dev.herokuapp.com/demand-notices/template?demandNoticeId=${demand_batchs && demand_batchs?.demandNoticesList[0]?._id}`
+// const url = `https://billable-dev.herokuapp.com/demand-notices/template?demandNoticeId=${demand_batchs?.demandNoticesList[0]?._id}`
+
+
+
+// console.log(flatten(demand_batchs))
+// const csvreport = {
+//    data: demand_batchs,
+//    headers: headers,
+//    filename: 'Clue_Mediator_Report.csv'
+//  };
+
+ 
+const options = { 
+   fieldSeparator: ',',
+   quoteStrings: '"',
+   decimalSeparator: '.',
+   showLabels: true, 
+   showTitle: true,
+   title: 'My Awesome CSV',
+   useTextFile: false,
+   useBom: true,
+   useKeysAsHeaders: true,
+   // headers: ['Column 1', 'Column 2', etc...] <-- Won't work with useKeysAsHeaders present!
+ };
+const csvExporter = new ExportToCsv(options);
+
 
    const userDetails = useSelector((state) => state.userDetails);
    const { loading, error, user } = userDetails;
@@ -59,11 +89,91 @@ const BatchPreviewScreen = ({ match }) => {
   ? JSON.parse(localStorage.getItem('userInfo'))
   : null
 
+
+
+
+  const downloadFile = ({ data, fileName, fileType }) => {
+   const blob = new Blob([data], { type: fileType })
+ 
+   const a = document.createElement('a')
+   a.download = fileName
+   a.href = window.URL.createObjectURL(blob)
+   const clickEvt = new MouseEvent('click', {
+     view: window,
+     bubbles: true,
+     cancelable: true,
+   })
+   a.dispatchEvent(clickEvt)
+   a.remove()
+ }
+ 
+//  const exportToJson = e => {
+//    e.preventDefault()
+//    downloadFile({
+//      data: JSON.stringify(demand_batchs.users),
+//      fileName: 'users.json',
+//      fileType: 'text/json',
+//    })
+//  }
+
+const flatten = (demand_batchs) => {
+   let demandNotices = demand_batchs.demandNoticesList;
+
+   let lgaKeyAgainstRecordDict = {}
+   lgaKeyAgainstRecordDict[`${demand_batchs.lgaRecord.lgaKey}`] = demand_batchs.lgaRecord
+
+
+   let flattenedDemandNoticeList = []
+   for (let demandNoticeRecord of demandNotices) {
+       flattenedDemandNoticeList.push({...demandNoticeRecord, demandNoticeCategoryName: demand_batchs.demandNoticeCategory.categoryName, lgaName: lgaKeyAgainstRecordDict[demandNoticeRecord.lgaKey].lgaName, revenueLines: demand_batchs.revenueLinesEntities})
+   }
+
+   return flattenedDemandNoticeList;
+}
+ 
+ const exportToCsv = e => {
+   e.preventDefault()
+ 
+   // Headers for each column
+   let headers = ['Name,Category,LGA,Revenue']
+ 
+   // Convert users data to a csv
+   // let usersCsv = demand_batchs.users.reduce((acc, user) => {
+   //   const { id, name, surname, age } = user
+   //   acc.push([id, name, surname, age].join(','))
+   //   return acc
+   // }, [])
+
+
+ 
+   
+ 
+   downloadFile({
+     data: [...headers,JSON.stringify(flatten(demand_batchs))].join('\n'),
+     fileName: 'husers.csv',
+     fileType: 'text/csv',
+   })
+ }
+
+
+// const baseUrl = flatten(demand_batchs)
+
+// console.log(baseUrl + "baseUrl")
+ 
+
+
    // const url = `${lo}`
   const showHandler = (e) => {
    e.preventDefault();
    // window.open("_blank");
    dispatch(demandGenerateDownloadAction(id));
+    setUrl(`https://billable-dev.herokuapp.com/demand-notices/template?demandNoticeId=${demand_batchs?.demandNoticesList[0]?._id}`);
+};
+  const showExportCsv = (e) => {
+   e.preventDefault();
+   
+
+csvExporter.generateCsv(demand_batchs)
    // setShowModal(true);
 };
 
@@ -146,8 +256,16 @@ const BatchPreviewScreen = ({ match }) => {
                          <ul>
                          <div className="flex justify-between ">
                                    <h5 className="font-bold text-xl"> Total : <span> {demand_batchs?.demandNoticesList?.length}</span> </h5>
-                                   <button className="bg-blue-600 hover:bg-blue-800 mb-2 px-4 py-2 text-white ">Export as Csv</button>
-                                  
+                                   {/* <CSVLink data={demand_batchs1} > 
+                                   
+                                   </CSVLink> */}
+                                   <button  onClick={exportToCsv} className="bg-blue-600 hover:bg-blue-800 mb-2 px-4 py-2 text-white ">Export as Csv</button>
+
+{/* <CSVDownload data={demand_batchs1} target="_blank" ><button  className="bg-blue-600 hover:bg-blue-800 mb-2 px-4 py-2 text-white ">Export as Csv</button>
+                                   </CSVDownload> */}
+                                   {/* <csvlink {...csvreport}>
+                                      
+                                   </csvlink> */}
                                    
                         </div>
  {  demand_batchs?.demandNoticesList?.map((batch,index) => 
@@ -171,7 +289,7 @@ const BatchPreviewScreen = ({ match }) => {
                         }</ul>
                          <div class="col-span-2 -mt-32">
                          <h5> Preview </h5>
-                         <iframe className="mx-auto overflow-hidden" src= "https://billable-dev.herokuapp.com/demand-notices/template?demandNoticeId=63c431c3ddbd64368df75fbd"
+                         <iframe className="mx-auto overflow-hidden" src= {url}
  width="100%" height="900"></iframe>
                     
                          </div>
