@@ -3,6 +3,7 @@ import {
     DEMAND_GENERATE_CREATE_REQUEST,
     DEMAND_GENERATE_CREATE_SUCCESS,
     DEMAND_GENERATE_CREATE_FAIL,
+   DEMAND_GENERATE_CREATE_RESET,
     
     DEMAND_GENERATE_LIST_RESET,
     DEMAND_GENERATE_LIST_FAIL,
@@ -32,6 +33,8 @@ import {
           return { loading: true };
        case DEMAND_GENERATE_CREATE_SUCCESS:
           return { loading: false, demand_generate: action.payload, success: true };
+       case DEMAND_GENERATE_CREATE_RESET:
+         return {demand_generate: {} };
        case DEMAND_GENERATE_CREATE_FAIL:
           return { loading: false, error: action.payload };
        default:
@@ -70,6 +73,7 @@ import {
           return {
              loading: false,
              demand_batchs: action.payload,
+             success: true
             //  count: action.payload,
             //  pages: action.payload,
             //  page: action.payload

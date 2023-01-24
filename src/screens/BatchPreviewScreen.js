@@ -48,7 +48,7 @@ const BatchPreviewScreen = ({ match }) => {
    // const { userInfo } = userLogin;
 
    const demandGenerateBatch = useSelector((state) => state.demandGenerateBatch);
-   const { loading:loadingBatch, error:errorBatch,demand_batchs } = demandGenerateBatch;
+   const { loading:loadingBatch, error:errorBatch,success ,demand_batchs } = demandGenerateBatch;
    // const {  demandNoticeList ,lgaRecord ,revenueLinesEntities} = demand_batchs
   console.log(demand_batchs + "Batch here is the user")
 //   console.log(demand_batchs.demandNoticeList + " Serial Number Batch here is the user")
@@ -166,18 +166,20 @@ const flatten = (demand_batchs) => {
   const showHandler = (e) => {
    e.preventDefault();
    // window.open("_blank");
-   setUrl(`https://billable-dev.herokuapp.com/demand-notices/template?demandNoticeId=${demand_batchs?.demandNoticesList[0]?._id}`);
    dispatch(demandGenerateDownloadAction(id));
 };
-  const showExportCsv = (e) => {
+const showExportCsv = (e) => {
    e.preventDefault();
    
-
+  
 csvExporter.generateCsv(demand_batchs)
    // setShowModal(true);
 };
 
+// if(success){
+//    setUrl(`https://billable-dev.herokuapp.com/demand-notices/template?demandNoticeId=${demand_batchs?.demandNoticesList[0]?._id}`);
 
+// }
    useEffect(() => {
       // setUrl(`https://billable-dev.herokuapp.com/demand-notices/template?demandNoticeId=${demand_batchs?.demandNoticesList[0]?._id}`);
       dispatch(demandGenerateBatchAction(id));
@@ -189,14 +191,7 @@ csvExporter.generateCsv(demand_batchs)
       //  }, 1000);
       
    }, [id,url]);
-   useEffect(() => {
-      
-      // if(demand_batchs !== 'undefined'){
-
-      //    setUrl(`https://billable-dev.herokuapp.com/demand-notices/template?demandNoticeId=${demand_batchs?.demandNoticesList[0]?._id}`);
-      // }
-      
-   }, [demand_batchs]);
+  
 
    return (
       <>

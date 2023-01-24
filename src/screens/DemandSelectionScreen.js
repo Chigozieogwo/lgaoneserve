@@ -16,6 +16,7 @@ import {demandCategoryDetailsAction } from '../actions/demandCategoryActions';
 import {listLocations } from '../actions/locationActions';
 
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { DEMAND_GENERATE_CREATE_RESET } from '../constants/demandGenerateConstants';
 
 // import { ReactComponent as DateIcon } from '../images/date.svg';
 
@@ -63,7 +64,7 @@ const DemandSelectionScreen = ({ match }) => {
 
 
    const demandGenerateCreate = useSelector((state) => state.demandGenerateCreate);
-   const {loading : loadingGenerateCreate, error : errorGenerateCreate,   demand_generate } = demandGenerateCreate;
+   const {loading : loadingGenerateCreate, error : errorGenerateCreate,success,   demand_generate } = demandGenerateCreate;
    // console.log(demand_lists + " Location of Abia LGA is the user")
 
 
@@ -114,21 +115,23 @@ const submitHandler = (e) => {
     );
     
    setShowModalMultiple(false);
-// windows.reload()
+
 // window.location.reload(false)
-   navigate(`/demand-notices/${demand_generate?.demandNoticesList[0].demandNoticeBatchId}`);
-
-setTimeout(() => {
-   console.log('Hello, World!')
    // navigate(`/demand-notices/${demand_generate?.demandNoticesList[0].demandNoticeBatchId}`);
- }, 1000);
 
-   // if(demand_generate){
+// setTimeout(() => {
+  
+//    navigate(`/demand-notices/${demand_generate?.demandNoticesList[0].demandNoticeBatchId}`);
+//  }, 3000);
 
-   // }
-   //  window.location.reload(false);
+  
    
 };
+
+if (success) {
+   navigate(`/demand-notices/${demand_generate?.demandNoticesList[0].demandNoticeBatchId}`);
+  
+}
   const showHandlerSpecific = (e) => {
     e.preventDefault();
     
@@ -151,9 +154,16 @@ setTimeout(() => {
       dispatch(listLocations());
       dispatch(listDemandGenerateLists());
       dispatch(demandCategoryDetailsAction(lgaKey));
-      
-      
+      // navigate(`/demand-notices/${demand_generate?.demandNoticesList[0].demandNoticeBatchId}`);
+      dispatch({
+         type:DEMAND_GENERATE_CREATE_RESET
+      });
    }, [navigate, userInfo, user,lgaKey]);
+   // useEffect(() => {
+     
+   //    navigate(`/demand-notices/${demand_generate?.demandNoticesList[0].demandNoticeBatchId}`);
+      
+   // }, [demand_generate]);
 
    return (
       <>
@@ -290,7 +300,7 @@ setTimeout(() => {
                                              }
  
 </select>
-                    <div>
+                    <div className=''>
                         <label for="number" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Quantity</label>
                         <input onChange={handleChangeNumbers} type="number" name="number" id="password" placeholder="input Quantity" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" ></input>
                     </div>
@@ -300,13 +310,13 @@ setTimeout(() => {
                                              
                                             
 
-                                           <Link to= {`/demand-notices/${demand_generate?.demandNoticesList[0].demandNoticeBatchId}`}> <button
+                                            <button
                                                 onClick={submitHandler}
                                                 type="submit"
                                                 class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                                              >
                                                 Generate
-                                             </button></Link>
+                                             </button>
                                           </form>
                                        </div>
                                     </div>
