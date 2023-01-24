@@ -23,7 +23,7 @@ import { ExportToCsv } from 'export-to-csv';
 import { CSVLink,CSVDownload } from "react-csv";
 
 const BatchPreviewScreen = ({ match }) => {
-   const [url, setUrl] = useState('https://billable-dev.herokuapp.com/demand-notices/template?demandNoticeId=63c431c3ddbd64368df75fbd');
+   // const [url, setUrl] = useState('https://billable-dev.herokuapp.com/demand-notices/template?demandNoticeId=63c431c3ddbd64368df75fbd');
 
    // const {demandNoticeBatchId } = useParams()
    // const pageNumber = match.params.pageNumber || 1
@@ -190,7 +190,7 @@ csvExporter.generateCsv(demand_batchs)
        
       //  }, 1000);
       
-   }, [id,url]);
+   }, [id]);
   
 
    return (
@@ -287,9 +287,11 @@ csvExporter.generateCsv(demand_batchs)
                           
                         }</ul>
                          <div class="col-span-2 -mt-32">
-                         <h5> Preview </h5>
-                         <iframe className="mx-auto overflow-hidden" src= {url}
- width="100%" height="900"></iframe>
+                              <h5> Preview </h5>
+                              {success ? (<iframe className="mx-auto overflow-hidden" src= {`https://billable-dev.herokuapp.com/demand-notices/template?demandNoticeId=${demand_batchs?.demandNoticesList[0]?._id}`}
+ width="100%" height="900"></iframe>):<iframe className="mx-auto overflow-hidden" src= {'https://billable-dev.herokuapp.com/demand-notices/template?demandNoticeId=63c431c3ddbd64368df75fbd'}
+ width="100%" height="900"></iframe>}
+                         
                          {/* {demand_batchs === "undefined" ? (<Loader />) : } */}
                          
                     
