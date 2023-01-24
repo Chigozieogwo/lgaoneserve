@@ -53,7 +53,7 @@ import {
           if (action.payload === undefined) {
              action.payload = {};
           }
-          return { loading: false, demand_download: action.payload };
+          return { loading: false, demand_download: action.payload,successDownload: true };
  
        case DEMAND_GENERATE_DOWNLOAD_FAIL:
           return { loading: false, error: action.payload };

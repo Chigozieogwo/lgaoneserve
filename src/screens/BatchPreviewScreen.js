@@ -28,16 +28,13 @@ const BatchPreviewScreen = ({ match }) => {
    // const {demandNoticeBatchId } = useParams()
    // const pageNumber = match.params.pageNumber || 1
    // const demandNoticeBatchId = match.params.id
+   const [showModalPrint , setShowModalPrint ] = useState(false)
    const {id} = useParams()
 
    console.log(id + "params")
    // console.log(match.params + "params match")
    
-    const demand_batchs1 =[
-      ['firstname', 'lastname', 'email'] ,
-      ['John', 'Doe' , 'john.doe@xyz.com'] ,
-      ['Jane', 'Doe' , 'jane.doe@xyz.com']
-    ];
+    
     
    const location = useLocation();
    const navigate = useNavigate();
@@ -85,6 +82,11 @@ const csvExporter = new ExportToCsv(options);
    const { loading, error, user } = userDetails;
 //   console.log(userInfo + "here is the user")
 
+   
+   const demandGenerateDownload = useSelector((state) => state.demandGenerateDownload);
+   const { loading : loadingDownload, error : errorDownload, successDownload } = demandGenerateDownload;
+//   console.log(userInfo + "here is the user")
+
   const userInfo = localStorage.getItem('userInfo')
   ? JSON.parse(localStorage.getItem('userInfo'))
   : null
@@ -115,7 +117,10 @@ const csvExporter = new ExportToCsv(options);
 //      fileType: 'text/json',
 //    })
 //  }
+// if (successDownload) {
+//    setShowModalPrint(false);
 
+// }
 const flatten = (demand_batchs) => {
    let demandNotices = demand_batchs.demandNoticesList;
 
@@ -160,20 +165,31 @@ const flatten = (demand_batchs) => {
 
 // console.log(baseUrl + "baseUrl")
  
-
-
+const handleClose = () => {
+   setShowModalPrint(false);
+   
+   
+};
+// setTimeout(() => {
+//    setShowModalPrint(false);
+        
+//   }, 3000);
    // const url = `${lo}`
   const showHandler = (e) => {
    e.preventDefault();
    // window.open("_blank");
    dispatch(demandGenerateDownloadAction(id));
+   setShowModalPrint(true);
+   setTimeout(() => {
+      setShowModalPrint(false);
+           
+     }, 8000);
 };
 const showExportCsv = (e) => {
    e.preventDefault();
    
-  
+   
 csvExporter.generateCsv(demand_batchs)
-   // setShowModal(true);
 };
 
 // if(success){
@@ -215,7 +231,28 @@ csvExporter.generateCsv(demand_batchs)
                   <div>
                          <div className="bg-[#F4F5FA] overscroll-none  px-5  py-5">
                         
-
+                         {showModalPrint ? (
+                              <div
+                              onClick={handleClose}
+                              tabindex="-1"
+                              class="flex  justify-center  bg-[rgb(0,0,0,0.35)] align-center overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 md:inset-0 h-modal md:h-full"
+                           >
+                              <div class="relative  w-full max-w-md h-full md:h-auto">
+                              <div>
+                              
+                                         </div>
+                                 
+                                 <div class="">
+                                     
+                                    <div class=" max-w-sm bg-white mt-20 ml-8 p-4 md:ml-16 rounded-lg border border-gray-200 shadow-md sm:p-6 lg:p-8 dark:bg-gray-800 dark:border-gray-700">
+                                      <Loader /> 
+                                       <h5 className='text-md font-italics text-blue-700 text-center'> Downloading Demand  Notice ...</h5>
+                                       </div> 
+                                    
+                                    </div>
+                                 </div>
+                              </div>
+                           ) : null}
 
                         <div className="flex justify-between py-4 px-6 text-xl">
                                  
