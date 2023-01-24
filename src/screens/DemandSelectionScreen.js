@@ -23,7 +23,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 const DemandSelectionScreen = ({ match }) => {
 
    // const [locations, setLocations] = useState([]);
-   const [lgaKey, setLgaKey] = useState('aba-north-lga-abia-state-nigeria');
+   const [lgaKey, setLgaKey] = useState('ikwuano-lga-abia-state-nigeria');
    // const [lgaKey2, setLgaKey2] = useState('aba-north-lga-abia-state-nigeria');
    // const [locationn, setLocationn] = useState('');
    const [demandNoticeCategoryId, setDemandNoticeCategoryId] = useState('');
@@ -61,6 +61,12 @@ const DemandSelectionScreen = ({ match }) => {
    // console.log(demand_lists + " Location of Abia LGA is the user")
 
 
+
+   const demandGenerateCreate = useSelector((state) => state.demandGenerateCreate);
+   const {loading : loadingGenerateCreate, error : errorGenerateCreate,   demand_generate } = demandGenerateCreate;
+   // console.log(demand_lists + " Location of Abia LGA is the user")
+
+
    const demandCategoryDetails = useSelector((state) => state.demandCategoryDetails);
    const {loading : loadingCategory ,   demand_category  } = demandCategoryDetails;
    // console.log(demand_category + " LGA and its Categories Location main  of Abia LGA is the user")
@@ -74,8 +80,8 @@ console.log(lgaKey)
    const handleChangeLga = (e) => {
       e.preventDefault()
  
-      // setLgaKey(e.target.value);
-      
+      setLgaKey(e.target.value);
+      dispatch(demandCategoryDetailsAction(lgaKey));
       // console.log(data2 + '1112233311')
       console.log(lgaKey + '1112233311')
       console.log(lgaKey + '1112233311')
@@ -108,7 +114,18 @@ const submitHandler = (e) => {
     );
     
    setShowModalMultiple(false);
-   navigate(`/demand-notices/batches`);
+// windows.reload()
+// window.location.reload(false)
+   navigate(`/demand-notices/${demand_generate?.demandNoticesList[0].demandNoticeBatchId}`);
+
+setTimeout(() => {
+   console.log('Hello, World!')
+   // navigate(`/demand-notices/${demand_generate?.demandNoticesList[0].demandNoticeBatchId}`);
+ }, 1000);
+
+   // if(demand_generate){
+
+   // }
    //  window.location.reload(false);
    
 };
@@ -134,17 +151,8 @@ const submitHandler = (e) => {
       dispatch(listLocations());
       dispatch(listDemandGenerateLists());
       dispatch(demandCategoryDetailsAction(lgaKey));
-      if (!userInfo) {
-         navigate('/');
-      } else {
-         //  dispatch(getUserDetails('profile'));
-         if (!user ) {
-            // dispatch({ type: USER_UPDATE_PROFILE_RESET });
-            dispatch(getUserDetails('profile'));
-            // dispatch(listLocations());
-           
-         }
-      }
+      
+      
    }, [navigate, userInfo, user,lgaKey]);
 
    return (
@@ -241,19 +249,31 @@ const submitHandler = (e) => {
 <select onChange={handleChangeLga} id="lga" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                           <option selected>Select LGA</option>
                                           
-  {/* <option  value="aba-north-lga-abia-state-nigeria">Abia North</option>
+  <option  value="aba-north-lga-abia-state-nigeria">Abia North</option>
   <option  value="aba-south-lga-abia-state-nigeria">Abia South</option>
   <option  value="arochukwu-lga-abia-state-nigeria">Arochukwu</option>
   <option  value="bende-lga-abia-state-nigeria">Bende</option>
-  <option  value="ikwuano-lga-abia-state-nigeria">Ikwuano</option> */}
+  <option  value="ikwuano-lga-abia-state-nigeria">Ikwuano</option>
+  <option  value="isiala-ngwa-north-lga-abia-state-nigeria">Isiala Ngwa North</option>
+  <option  value="isiala-ngwa-south-lga-abia-state-nigeria">Isiala Ngwa South</option>
+  <option  value="isuikwuato-lga-abia-state-nigeria">Isuikwuato</option>
+  <option  value="obi-ngwa-lga-abia-state-nigeria">Obi Ngwa</option>
+  <option  value="ohafia-lga-abia-state-nigeria">Ohafia</option>
+  <option  value="osisioma-ngwa-lga-abia-state-nigeria">Osisioma Ngwa</option>
+  <option  value="ugwunagbo-lga-abia-state-nigeria">Ugwunagbo</option>
+  <option  value="ukwa-east-lga-abia-state-nigeria">Ukwa East</option>
+  <option  value="ukwa-west-lga-abia-state-nigeria">Ukwa West</option>
+  <option  value="umu-nneochi-lga-abia-state-nigeria">Umu Nneochi</option>
+  <option  value="umuahia-north-lga-abia-state-nigeria">Umuahia North</option>
+  <option  value="umuahia-south-lga-abia-state-nigeria">Umuahia South</option>
 
 
-                                          {locations === 'undefined' ? null : locations.map((location, index) => (
+                                          {/* {locations === 'undefined' ? null : locations.map((location, index) => (
 
 <option key={location._id} value={location.lgaKey}>{location.lgaName}</option>
 //                                           
                                           
-                                          ))}
+                                          ))} */}
 </select>
 <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Category</label>
 <select onChange={handleChangeDemandNoticeCategoryId} id="countries" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
@@ -261,7 +281,7 @@ const submitHandler = (e) => {
 
 
                                           
-                                          {demand_category === 'undefined' ? null : demand_category.demandNoticeCategories.map((demand_notice_category, index) => (
+                                          {demand_category === 'undefined' ? null : demand_category?.demandNoticeCategories.map((demand_notice_category, index) => (
 
 <option key={demand_notice_category._id} value={demand_notice_category._id}>{demand_notice_category.categoryName}</option>
 //                                           
@@ -280,13 +300,13 @@ const submitHandler = (e) => {
                                              
                                             
 
-                                             <button
+                                           <Link to= {`/demand-notices/${demand_generate?.demandNoticesList[0].demandNoticeBatchId}`}> <button
                                                 onClick={submitHandler}
                                                 type="submit"
                                                 class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                                              >
                                                 Generate
-                                             </button>
+                                             </button></Link>
                                           </form>
                                        </div>
                                     </div>
@@ -355,12 +375,12 @@ const submitHandler = (e) => {
 <select id="lga" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
 <option selected>Select LGA</option>
  
- {locations.map((location, index) => (
+ {/* {locations.map((location, index) => (
 
 <option key={location._id} value={location.lgaKey}>{location.lgaName}</option>
 //                                           
  
- ))}
+ ))} */}
 </select>
         </div>
         <div>

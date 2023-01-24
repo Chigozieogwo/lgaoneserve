@@ -166,8 +166,8 @@ const flatten = (demand_batchs) => {
   const showHandler = (e) => {
    e.preventDefault();
    // window.open("_blank");
+   setUrl(`https://billable-dev.herokuapp.com/demand-notices/template?demandNoticeId=${demand_batchs?.demandNoticesList[0]?._id}`);
    dispatch(demandGenerateDownloadAction(id));
-    setUrl(`https://billable-dev.herokuapp.com/demand-notices/template?demandNoticeId=${demand_batchs?.demandNoticesList[0]?._id}`);
 };
   const showExportCsv = (e) => {
    e.preventDefault();
@@ -179,20 +179,24 @@ csvExporter.generateCsv(demand_batchs)
 
 
    useEffect(() => {
-     
+      // setUrl(`https://billable-dev.herokuapp.com/demand-notices/template?demandNoticeId=${demand_batchs?.demandNoticesList[0]?._id}`);
       dispatch(demandGenerateBatchAction(id));
-     
-      // if (!userInfo) {
-      //    navigate('/');
-      // } else {
-      //    //  dispatch(getUserDetails('profile'));
-      //    if (!user || !user.firstName) {
-      //       // dispatch({ type: USER_UPDATE_PROFILE_RESET });
-      //       dispatch(getUserDetails('profile'));
-           
-      //    }
+      
+      // setUrl(`https://billable-dev.herokuapp.com/demand-notices/template?demandNoticeId=${demand_batchs?.demandNoticesList[0]?._id}`);
+      //    setTimeout(() => {
+      //       setUrl(`https://billable-dev.herokuapp.com/demand-notices/template?demandNoticeId=${demand_batchs?.demandNoticesList[0]?._id}`);
+       
+      //  }, 1000);
+      
+   }, [id,url]);
+   useEffect(() => {
+      
+      // if(demand_batchs !== 'undefined'){
+
+      //    setUrl(`https://billable-dev.herokuapp.com/demand-notices/template?demandNoticeId=${demand_batchs?.demandNoticesList[0]?._id}`);
       // }
-   }, [id]);
+      
+   }, [demand_batchs]);
 
    return (
       <>
@@ -291,6 +295,8 @@ csvExporter.generateCsv(demand_batchs)
                          <h5> Preview </h5>
                          <iframe className="mx-auto overflow-hidden" src= {url}
  width="100%" height="900"></iframe>
+                         {/* {demand_batchs === "undefined" ? (<Loader />) : } */}
+                         
                     
                          </div>
                          </div>
