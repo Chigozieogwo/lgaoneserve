@@ -12,6 +12,7 @@ import Message from '../components/Message';
 import Loader from '../components/Loader';
 import { logout, getUserDetails } from '../actions/userActions';
 import {demandGenerateCreateAction ,listDemandGenerateLists , } from '../actions/demandGenerateActions';
+import {demandSpecificCreateAction } from '../actions/demandSpecificActions';
 import {demandCategoryDetailsAction } from '../actions/demandCategoryActions';
 import {listLocations } from '../actions/locationActions';
 
@@ -23,19 +24,21 @@ import { DEMAND_GENERATE_CREATE_RESET } from '../constants/demandGenerateConstan
 
 const DemandSelectionScreen = ({ match }) => {
 
-   // const [locations, setLocations] = useState([]);
    const [lgaKey, setLgaKey] = useState('ikwuano-lga-abia-state-nigeria');
-   // const [lgaKey2, setLgaKey2] = useState('aba-north-lga-abia-state-nigeria');
-   // const [locationn, setLocationn] = useState('');
    const [demandNoticeCategoryId, setDemandNoticeCategoryId] = useState('');
    const [numberOfEntriesToGenerate, setNumberOfEntriesToGenerate] = useState(0);
-   // const [keyword, setKeyword] = useState('arochukwu-lga-abia-state-nigeria');
-   
-
 
     const [showModalSpecific, setShowModalSpecific] = useState(false);
     const [showModalMultiple, setShowModalMultiple] = useState(false);
-   //  const [name, setName] = useState('');
+
+   
+    const [payerFirstName, setPayerFirstName] = useState('');
+    const [payerLastName, setPayerLastName] = useState('');
+    const [payerHomeAddress, setPayerHomeAddress] = useState('');
+    const [payerABBSIN, setPayerABBSIN] = useState('');
+    const [payerPhoneNumber, setPayerPhoneNumber] = useState('');
+    const [payerEmail, setPayerEmail] = useState('');
+    const [message, setMessage] = useState('');
 
    const location = useLocation();
    const navigate = useNavigate();
@@ -68,6 +71,11 @@ const DemandSelectionScreen = ({ match }) => {
    // console.log(demand_lists + " Location of Abia LGA is the user")
 
 
+   const demandSpecificCreate = useSelector((state) => state.demandSpecificCreate);
+   const {loading : loadingSpecificCreate, error : errorSpecificCreate,success : success_Specific,   demand_specific } = demandSpecificCreate;
+   // console.log(demand_lists + " Location of Abia LGA is the user")
+
+
    const demandCategoryDetails = useSelector((state) => state.demandCategoryDetails);
    const {loading : loadingCategory ,   demand_category  } = demandCategoryDetails;
    // console.log(demand_category + " LGA and its Categories Location main  of Abia LGA is the user")
@@ -83,15 +91,7 @@ console.log(lgaKey)
  
       setLgaKey(e.target.value);
       dispatch(demandCategoryDetailsAction(lgaKey));
-      // console.log(data2 + '1112233311')
-      console.log(lgaKey + '1112233311')
-      console.log(lgaKey + '1112233311')
-      console.log(lgaKey + '1112233311')
-      // console.log(data2 + '1112233311')
-      // if (e.target.value === demand_category.lga.lgaKey) {
-      //    // setKeyword(e.target.value);
-      //    setKeyword(demand_category.lga.lgaKey);
-      // } 
+    
 };
 const handleChangeDemandNoticeCategoryId = (e) => {
    setDemandNoticeCategoryId(e.target.value);
@@ -113,7 +113,7 @@ const submitHandler = (e) => {
        )
        
     );
-    
+  
    setShowModalMultiple(false);
 
 // window.location.reload(false)
@@ -127,9 +127,41 @@ const submitHandler = (e) => {
   
    
 };
+const submitSpecificHandler = (e) => {
+   e.preventDefault();
+   dispatch(
+      demandSpecificCreateAction(
+         payerPhoneNumber,
+         payerFirstName,
+         payerLastName,
+         payerABBSIN,
+         payerHomeAddress,
+         payerEmail,
+       lgaKey,
+       demandNoticeCategoryId,
+      Number (numberOfEntriesToGenerate),
+       
+       )
+       
+    );
+    
+
+    if (!errorSpecificCreate) {
+       
+       setShowModalSpecific(false);
+   } else {
+      
+    }
+
+   
+};
 
 if (success) {
    navigate(`/demand-notices/${demand_generate?.demandNoticesList[0].demandNoticeBatchId}`);
+  
+}
+if (success_Specific) {
+   navigate(`/demand-notices/template/specificpayer/${demand_specific?.demandNoticeGenerated?.demandNotice._id}`);
   
 }
   const showHandlerSpecific = (e) => {
@@ -148,6 +180,10 @@ if (success) {
  const handleClose = () => {
    setShowModalMultiple(false);
     setShowModalSpecific(false);
+   
+};
+ const showList = () => {
+  navigate('/demand-notices/batches')
    
 };
    useEffect(() => {
@@ -199,6 +235,15 @@ if (success) {
                                   
                                    
                         </div>
+
+
+                        <div className="flex justify-between py-4 px-6 text-xl">
+                                  <div></div> 
+                        <button onClick={showList} type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300  rounded-md text-sm px-6 py-3 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Batch List</button>
+                        
+                                  
+                                   
+                        </div>
                       </div>
 
 
@@ -239,11 +284,11 @@ if (success) {
                                              </svg>
                                           </button>
                                        </div> 
-                                       {/* {message && (
+                                       {message && (
                                           <Message variant="danger">
-                                             {message}
+                                             {errorSpecificCreate}
                                           </Message>
-                                       )} */}
+                                       )}
                                        <form
                                          //  onSubmit={submitHandler}
                                           class="space-y-6 px-4 md:p-0"
@@ -259,8 +304,8 @@ if (success) {
 <select onChange={handleChangeLga} id="lga" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                           <option selected>Select LGA</option>
                                           
-  <option  value="aba-north-lga-abia-state-nigeria">Abia North</option>
-  <option  value="aba-south-lga-abia-state-nigeria">Abia South</option>
+  <option  value="aba-north-lga-abia-state-nigeria">Aba North</option>
+  <option  value="aba-south-lga-abia-state-nigeria">Aba South</option>
   <option  value="arochukwu-lga-abia-state-nigeria">Arochukwu</option>
   <option  value="bende-lga-abia-state-nigeria">Bende</option>
   <option  value="ikwuano-lga-abia-state-nigeria">Ikwuano</option>
@@ -360,11 +405,11 @@ if (success) {
                                               </svg>
                                            </button>
                                         </div> 
-                                        {/* {message && (
-                                           <Message variant="danger">
-                                              {message}
-                                           </Message>
-                                        )} */}
+
+                                    {errorSpecificCreate ? (<Message >
+                                              {errorSpecificCreate}
+                                           </Message> ): null}
+                                        
 
 
 
@@ -376,39 +421,65 @@ if (success) {
                                              </h5>  
     <div class="grid gap-6 mb-6 md:grid-cols-2">
         <div>
-        <label for="text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Profile Payer</label>
-                        <input type="text" name="text" id="text" placeholder="Name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" ></input>
+        <label for="text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">First Name</label>
+                        <input onChange={(e) => setPayerFirstName(e.target.value)} type="text" name="text" id="text" placeholder="First Name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required></input>
+                    
+        </div>
+        <div>
+        <label for="text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Last Name</label>
+                        <input onChange={(e) => setPayerLastName(e.target.value)} type="text" name="text" id="text" placeholder="Last Name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required ></input>
                     
         </div>
         <div>
         <label for="lga" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Local Govt. Area</label>
-<select id="lga" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-<option selected>Select LGA</option>
- 
- {/* {locations.map((location, index) => (
+        <select onChange={handleChangeLga} id="lga" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                          <option selected>Select LGA</option>
+                                          
+  <option  value="aba-north-lga-abia-state-nigeria">Aba North</option>
+  <option  value="aba-south-lga-abia-state-nigeria">Aba South</option>
+  <option  value="arochukwu-lga-abia-state-nigeria">Arochukwu</option>
+  <option  value="bende-lga-abia-state-nigeria">Bende</option>
+  <option  value="ikwuano-lga-abia-state-nigeria">Ikwuano</option>
+  <option  value="isiala-ngwa-north-lga-abia-state-nigeria">Isiala Ngwa North</option>
+  <option  value="isiala-ngwa-south-lga-abia-state-nigeria">Isiala Ngwa South</option>
+  <option  value="isuikwuato-lga-abia-state-nigeria">Isuikwuato</option>
+  <option  value="obi-ngwa-lga-abia-state-nigeria">Obi Ngwa</option>
+  <option  value="ohafia-lga-abia-state-nigeria">Ohafia</option>
+  <option  value="osisioma-ngwa-lga-abia-state-nigeria">Osisioma Ngwa</option>
+  <option  value="ugwunagbo-lga-abia-state-nigeria">Ugwunagbo</option>
+  <option  value="ukwa-east-lga-abia-state-nigeria">Ukwa East</option>
+  <option  value="ukwa-west-lga-abia-state-nigeria">Ukwa West</option>
+  <option  value="umu-nneochi-lga-abia-state-nigeria">Umu Nneochi</option>
+  <option  value="umuahia-north-lga-abia-state-nigeria">Umuahia North</option>
+  <option  value="umuahia-south-lga-abia-state-nigeria">Umuahia South</option>
+
+
+                                          {/* {locations === 'undefined' ? null : locations.map((location, index) => (
 
 <option key={location._id} value={location.lgaKey}>{location.lgaName}</option>
 //                                           
- 
- ))} */}
+                                          
+                                          ))} */}
 </select>
         </div>
         <div>
-            <label for="company" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">ABSSIN</label>
-            <input type="text" id="company" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="24500180045" required></input>
+            <label for="" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">ABSSIN</label>
+            <input onChange={(e) => setPayerABBSIN(e.target.value)} type="text" id="company" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="24500180045" required></input>
         </div>  
         <div>
-            <label for="phone" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Phone number</label>
-            <input type="tel" id="phone" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="07034564908" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" required></input>
+        <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email address</label>
+        <input onChange={(e) => setPayerEmail(e.target.value)} type="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="john.doe@gmail.com" ></input>
+    
         </div>
+        
         <div>
-        <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Category</label>
-<select onChange={handleChangeDemandNoticeCategoryId} id="countries" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+        <label for="" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Category</label>
+        <select onChange={handleChangeDemandNoticeCategoryId} id="countries" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                           <option selected>Select Category</option>
 
 
                                           
-                                          {demand_category === 'undefined' ? null : demand_category.demandNoticeCategories.map((demand_notice_category, index) => (
+                                          {demand_category === 'undefined' ? null : demand_category?.demandNoticeCategories.map((demand_notice_category, index) => (
 
 <option key={demand_notice_category._id} value={demand_notice_category._id}>{demand_notice_category.categoryName}</option>
 //                                           
@@ -420,8 +491,12 @@ if (success) {
         
         </div>  
         <div>
-        <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email address</label>
-        <input type="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="john.doe@gmail.com" required></input>
+            <label for="phone" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Phone number</label>
+            <input onChange={(e) => setPayerPhoneNumber(e.target.value)} type="tel" id="phone" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="07034564908" pattern="[0-9]{11}" required></input>
+        </div>
+        <div>
+        <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Address</label>
+        <input onChange={(e) => setPayerHomeAddress(e.target.value)} type="text" id="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Address" required ></input>
     
         </div>
         
@@ -433,7 +508,7 @@ if (success) {
   
     
     <button
-                                                // onClick={submitHandler}
+                                                onClick={submitSpecificHandler}
                                                 type="submit"
                                                 class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                                              >
@@ -491,12 +566,12 @@ if (success) {
                                  </div>
                               </div>
                            ) : null}
-                      <div class="mx-12 mt-6 md:mt-20 grid grid-cols-2 h-32 md:grid-cols-2 lg:grid-cols-2 px-5 xl:p-0 gap-4 xl:gap-6">
+                      <div class="mx-12 mt-2 md:mt-4 grid grid-cols-2 h-32 md:grid-cols-2 lg:grid-cols-2 px-5 xl:p-0 gap-4 xl:gap-6">
                          
                         
                           
                         
-                      <Link onClick={showHandlerMultiple}>
+                      <button onClick={showHandlerMultiple}>
                         <div class="bg-white  p-6 shadow-lg text-gray-700  hover:bg-blue-600 hover:text-white ease-out rounded-xl border border-gray-50">
                               <div >
                                  <div class="flex justify-center aligns-center hover:text-white ">
@@ -509,12 +584,12 @@ if (success) {
                                </p>
                               </div>
                            </div>
-                        </Link> 
+                        </button> 
                         
 
 
                         
-                        <Link onClick={showHandlerSpecific}>
+                        <button onClick={showHandlerSpecific}>
                         <div class="bg-white  p-6 shadow-lg text-gray-700 hover:bg-blue-600 hover:text-white ease-out rounded-xl border border-gray-50">
                               <div >
                                  <div class="flex justify-center aligns-center hover:text-white ">
@@ -523,11 +598,11 @@ if (success) {
 </svg>
                                  </div>
                                  <p class="text-lg text-center  font-bold  tracking-wide">
-                                       Specific Payer
+                                       Specific
                                </p>
                               </div>
                            </div>
-                        </Link> 
+                        </button> 
                         
                         
                         

@@ -30,6 +30,13 @@ import {
 } from './reducers/demandGenerateReducer';
 import {
    
+   demandSpecificCreateReducer,
+   demandSpecificDownloadReducer,
+   demandSpecificBatchReducer,
+   demandSpecificListReducer
+} from './reducers/demandSpecificReducer';
+import {
+   
    locationListReducer
 } from './reducers/locationReducer';
 
@@ -49,6 +56,12 @@ const reducer = combineReducers({
    demandGenerateDownload : demandGenerateDownloadReducer,
    demandGenerateBatch : demandGenerateBatchReducer,
    demandGenerateList : demandGenerateListReducer,
+
+
+   demandSpecificCreate : demandSpecificCreateReducer,
+   demandSpecificDownload : demandSpecificDownloadReducer,
+   demandSpecificBatch : demandSpecificBatchReducer,
+   demandSpecificList : demandSpecificListReducer,
 
    locationList : locationListReducer,
 

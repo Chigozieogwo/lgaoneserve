@@ -21,13 +21,13 @@ import { revenueCreateAction } from '../actions/revenueActions';
 import {demandCategoryDetailsAction } from '../actions/demandCategoryActions';
 import {listLocations } from '../actions/locationActions';
 
-
+import _ from "lodash";
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 
 
 
-const CategoryListScreen = ({ match }) => {
+const CategoryListScreen = ({  }) => {
 
     //  const [locations, setLocations] = useState([]);
    const [lgaKey, setLgaKey] = useState('aba-north-lga-abia-state-nigeria');
@@ -62,6 +62,15 @@ const CategoryListScreen = ({ match }) => {
   console.log(demand_category +" mine category here it is");
 
 
+  const demandCategoryDetailsRevenue = useSelector((state) => state.demandCategoryDetailsRevenue);
+  const { loading:loadingCateRevenue, error:errorCateRevenue,demand_categoryRevenue } = demandCategoryDetailsRevenue;
+  // const {  demandNoticeList ,lgaRecord ,revenueLinesEntities} = demand_batchs
+ console.log(demand_categoryRevenue + "demand_category here is the user")
+
+
+    // const amount = () => {
+    //     demand_categoryRevenue.filter((a) => a._id === demand_category.demandNoticeCategories._id )
+    // }
 
 
   const showHandler = (e) => {
@@ -246,6 +255,18 @@ const CategoryListScreen = ({ match }) => {
                                              <td class="px-6 py-4">
                                             {revenue.categoryDescription}
                                             </td>
+                                             {/* <td class="px-6 py-4">
+                                            { 
+                                            
+                                            demand_categoryRevenue?.filter(a => 
+       '63c3e0c981cb87c326863d83' === revenue._id
+    ).dnc_revenueLinesEntities?.map((revenue2) =>(
+       console.log(_.sum(revenue2.revenueLineAmount))
+    ))
+                                            
+                                            }
+                                            
+                                            </td> */}
                                             
                                             <td class=" px-6 py-4 ">
                                                 <Link  to={`/demand-notice-categories/${revenue._id}`}  class="font-medium text-white dark:text-blue-500 hover:underline">

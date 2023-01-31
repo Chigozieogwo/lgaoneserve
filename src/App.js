@@ -9,6 +9,7 @@ import BlankScreen from './screens/BlankScreen.js'
 import RevenueListScreen from './screens/RevenueListScreen.js'
 import CategoryListScreen from './screens/CategoryListScreen.js'
 import BatchPreviewScreen from './screens/BatchPreviewScreen.js'
+import SpecificPreviewScreen from './screens/SpecificPreviewScreen.js'
 import GeneratedListScreen from './screens/GeneratedListScreen.js'
 import CreateCategoryScreen from './screens/CreateCategoryScreen.js'
 import CategoryDetailRevenueScreen from './screens/CategoryDetailRevenueScreen.js'
@@ -64,6 +65,12 @@ function App() {
                      path="/demand-notices/:id"
                     //  path="/withdrawals/:id/edit"
                      element={<BatchPreviewScreen />}
+                  />
+          <Route
+                     exact
+                     path="/demand-notices/template/specificpayer/:id"
+                   
+                     element={<SpecificPreviewScreen />}
                   />
            <Route
                      exact

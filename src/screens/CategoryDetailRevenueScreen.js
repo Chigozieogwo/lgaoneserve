@@ -22,7 +22,7 @@ import { Link, useLocation, useNavigate,useParams } from 'react-router-dom';
 // import { ReactComponent as DateIcon } from '../images/date.svg';
 
 
-const CategoryDetailRevenueScreen = ({ match }) => {
+const CategoryDetailRevenueScreen = ({ matchRev }) => {
     const {id} = useParams()
 
    console.log(id + "params")

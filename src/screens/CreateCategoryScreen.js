@@ -28,19 +28,9 @@ const CreateCategoryScreen = ({ match }) => {
 
     const [categoryName, setCategoryName] = useState('');
    const [categoryDescription, setCategoryDescription] = useState('');
-   const [ lgaKey, setLgaKey] = useState('aba-south-lga-abia-state-nigeria');
-   const [revenueLineCodes, setRevenueLineCodes] = useState('');
-   const [selected, setSelected] = useState([]);
-   
-   const handleChangeRevenueLinesCode = (e) => {
-       let picked = []
-   const selectentry = setRevenueLineCodes( e.target.value );
-   setSelected(picked.push(selectentry))
-    console.log(picked + " reve")
-    console.log(revenueLineCodes + " reve")
-    console.log(revenueLineCodes + " reve")
-    console.log(revenueLineCodes + " reve")
-};
+   const [lgaKey, setLgaKey] = useState('');
+   const [revenueLineCodes, setRevenueLineCodes] = useState([]);
+
    const location = useLocation();
    const navigate = useNavigate();
 
@@ -59,7 +49,7 @@ const CreateCategoryScreen = ({ match }) => {
   const {loading : loadingLocation, error : errorLocation,   locations } = locationList;
   
   
-  console.log(locations + " All LGA of Abia LGA is the user")
+//   console.log(locations + " All LGA of Abia LGA is the user")
 
 
   const revenueList = useSelector((state) => state.revenueList);
@@ -78,6 +68,7 @@ const CreateCategoryScreen = ({ match }) => {
     ));
     
      dispatch(listRevenues());
+   //   setRevenueLineCodes(revenues)
     //  setShowModal(true);
     //  setShowModal(false);
     //  window.location.reload(false);
@@ -89,19 +80,35 @@ const CreateCategoryScreen = ({ match }) => {
 
  const handleChangeCategoryName = (e) => {
     setCategoryName(e.target.value);
-    console.log(e.target.value)
+   //  console.log(e.target.value)
  };
  const handleChangeCategoryDescription = (e) => {
     setCategoryDescription(e.target.value);
  };
  const handleChangeLgaKey = (e) => {
-    //   locations.filter(location.lgaKey === e.target.value)
+    
        setLgaKey(e.target.value);
-    console.log(lgaKey + "locat me locate me")
+   //  console.log(lgaKey + "locat me locate me")
  };
-//  const handleChangeRevenueLinesCode = (e) => {
-//     setRevenueLineCodes(e.target.value);
-//  };
+ 
+ const handleChangeRevenueLinesCode = (e) => {
+
+   const { value, checked } = e.target;
+   console.log(e.target + ' Target')
+   console.log(e.target + ' Target')
+   console.log(e.target + ' Target')
+ 
+   if (checked) {
+      setRevenueLineCodes((prev) => [...prev,value]);
+    }
+    // Case 2  : The user unchecks the box
+   else {
+      setRevenueLineCodes((prev) => prev.filter((e) => e !== value))
+     
+    }
+   // setRevenueLineCodes((prev) => [...prev,e.target.value]);
+   
+};
 
    useEffect(() => {
        dispatch(listLocations());
@@ -157,20 +164,39 @@ const CreateCategoryScreen = ({ match }) => {
     <div class="grid gap-6 mb-2 md:grid-cols-2">
         <div>
         <label for="text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Category Name</label>
-                        <input onChange={handleChangeCategoryName} type="text" name="text" id="text" placeholder="Category Name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" ></input>
+                        <input onChange={handleChangeCategoryName} type="text" name="text" id="text" placeholder="Eg: Artisan with shop " class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" ></input>
                     
         </div>
         <div>
         <label for="lga" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Local Govt. Area</label>
-<select id="lga" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-<option >Select LGA</option>
- 
- {locations?.map((location, index) => (
+        <select onChange={handleChangeLgaKey} id="lga" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                          <option selected>Select LGA</option>
+                                          
+  <option  value="aba-north-lga-abia-state-nigeria">Aba North</option>
+  <option  value="aba-south-lga-abia-state-nigeria">Aba South</option>
+  <option  value="arochukwu-lga-abia-state-nigeria">Arochukwu</option>
+  <option  value="bende-lga-abia-state-nigeria">Bende</option>
+  <option  value="ikwuano-lga-abia-state-nigeria">Ikwuano</option>
+  <option  value="isiala-ngwa-north-lga-abia-state-nigeria">Isiala Ngwa North</option>
+  <option  value="isiala-ngwa-south-lga-abia-state-nigeria">Isiala Ngwa South</option>
+  <option  value="isuikwuato-lga-abia-state-nigeria">Isuikwuato</option>
+  <option  value="obi-ngwa-lga-abia-state-nigeria">Obi Ngwa</option>
+  <option  value="ohafia-lga-abia-state-nigeria">Ohafia</option>
+  <option  value="osisioma-ngwa-lga-abia-state-nigeria">Osisioma Ngwa</option>
+  <option  value="ugwunagbo-lga-abia-state-nigeria">Ugwunagbo</option>
+  <option  value="ukwa-east-lga-abia-state-nigeria">Ukwa East</option>
+  <option  value="ukwa-west-lga-abia-state-nigeria">Ukwa West</option>
+  <option  value="umu-nneochi-lga-abia-state-nigeria">Umu Nneochi</option>
+  <option  value="umuahia-north-lga-abia-state-nigeria">Umuahia North</option>
+  <option  value="umuahia-south-lga-abia-state-nigeria">Umuahia South</option>
 
-<option onChange={handleChangeLgaKey} key={location._id} value={location?.lgaKey}>{location.lgaName}</option>
+
+                                          {/* {locations === 'undefined' ? null : locations.map((location, index) => (
+
+<option key={location._id} value={location.lgaKey}>{location.lgaName}</option>
 //                                           
- 
- ))}
+                                          
+                                          ))} */}
 </select>
         </div>
         
@@ -180,9 +206,12 @@ const CreateCategoryScreen = ({ match }) => {
         
     </div>
     <div class="mb-6">
-        <label for="message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label>
+        <label for="message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Business </label>
 
-<textarea  onChange={handleChangeCategoryDescription} id="message" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Write your thoughts here..."></textarea>
+                              <textarea onChange={handleChangeCategoryDescription} id="message" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Eg: Tailoring/Fashion Designing,
+ Hair Dressing/Plaiting,Barbing Salon,
+ Computer Based Business Center License,
+ Furniture Makers and Carvers"></textarea>
 
    
     </div>
@@ -195,7 +224,11 @@ const CreateCategoryScreen = ({ match }) => {
     {revenues?.map((revenue, index) => (
                                        
                                         <div key={revenue._id} class="flex items-center ">
-                                        <input selected onChange={handleChangeRevenueLinesCode} id="default-checkbox" type="checkbox" value={revenue.revenueLineCode} class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
+                                        <input
+                                          type="checkbox"
+                                           value={revenue.revenueLineCode}
+                                           onClick={ handleChangeRevenueLinesCode}
+                                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
                                         <label for="default-checkbox" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">{revenue.revenueLineName}</label>
                                     </div>
                                           

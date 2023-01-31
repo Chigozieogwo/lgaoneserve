@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
 
-let baseUrl = 'https://billable-dev.herokuapp.com'
+let baseUrl = 'https://api.billable.site'
 
 export default baseUrl
