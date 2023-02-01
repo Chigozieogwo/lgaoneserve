@@ -68,7 +68,7 @@ function App() {
                   />
           <Route
                      exact
-                     path="/demand-notices/template/specificpayer/:id"
+                     path="/demand-notices/specific/:id"
                    
                      element={<SpecificPreviewScreen />}
                   />

@@ -161,7 +161,7 @@ if (success) {
   
 }
 if (success_Specific) {
-   navigate(`/demand-notices/template/specificpayer/${demand_specific?.demandNoticeGenerated?.demandNotice._id}`);
+   navigate(`/demand-notices/specific/${demand_specific?.demandNoticeGenerated?.demandNotice._id}`);
   
 }
   const showHandlerSpecific = (e) => {

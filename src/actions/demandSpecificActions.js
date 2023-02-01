@@ -172,7 +172,7 @@ export const demandSpecificBatchAction = (id) => async (dispatch, getState) => {
          }
       };
 
-      const { data } = await axios.get(`${url}/demand-notices/template/specificpayer?demandNoticeId=${id}`, config);
+      const { data } = await axios.get(`${url}/demand-notices/specific?demandNoticeId=${id}`, config);
 console.log(data + 'data batch')
       dispatch({
          type: DEMAND_SPECIFIC_BATCH_SUCCESS,

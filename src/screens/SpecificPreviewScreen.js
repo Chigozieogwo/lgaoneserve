@@ -208,11 +208,7 @@ csvExporter.generateCsv(demand_Specificbatchs)
       // setUrl(`https://billable-dev.herokuapp.com/demand-notices/template?demandNoticeId=${demand_batchs?.demandNoticesList[0]?._id}`);
       dispatch(demandSpecificBatchAction(id));
       
-      // setUrl(`https://billable-dev.herokuapp.com/demand-notices/template?demandNoticeId=${demand_batchs?.demandNoticesList[0]?._id}`);
-      //    setTimeout(() => {
-      //       setUrl(`https://billable-dev.herokuapp.com/demand-notices/template?demandNoticeId=${demand_batchs?.demandNoticesList[0]?._id}`);
-       
-      //  }, 1000);
+      
       
    }, [id]);
   
@@ -299,10 +295,12 @@ csvExporter.generateCsv(demand_Specificbatchs)
                          <div class="grid grid-cols-3 gap-2 ml-12">
                          <ul>
                          <div className="flex justify-between ">
-                                   <h5 className="font-bold text-xl"> Total : <span> {demand_Specificbatchs?.demandNoticesList?.length}</span> </h5>
-                                   {/* <CSVLink data={demand_batchs1} > 
+                                   {/* <h5 className="font-bold text-xl"> Total : <span> {demand_Specificbatchs?.demandNoticesList?.length}</span> </h5> */}
+                                   {/* <CSVLink data={demand_batchs1} >
+                                    
                                    
                                    </CSVLink> */}
+                                   <div></div>
                                    <button  onClick={exportToCsv} className="bg-blue-600 hover:bg-blue-800 mb-2 px-4 py-2 text-white ">Export as Csv</button>
 
 {/* <CSVDownload data={demand_batchs1} target="_blank" ><button  className="bg-blue-600 hover:bg-blue-800 mb-2 px-4 py-2 text-white ">Export as Csv</button>
@@ -319,7 +317,7 @@ csvExporter.generateCsv(demand_Specificbatchs)
  
  <div class="flex flex-row justify-between  leading-normal">
      <h6 class="pr-0 pl-2 text-2xl font-bold tracking-tight text-blue-900 dark:text-white">S/N:</h6>
-     <h5 class="px-4 text-2xl font-bold text-blue-700 dark:text-gray-400">{demand_specific?.demandNoticeGenerated?.demandNotice.serialNumber}</h5>
+     <h5 class="px-4 text-2xl font-bold text-blue-700 dark:text-gray-400">{success ? demand_Specificbatchs[0]?.demandNotice?.serialNumber : null}</h5>
  
  </div>
 
@@ -330,10 +328,11 @@ csvExporter.generateCsv(demand_Specificbatchs)
  </ul>
                          <div class="col-span-2 -mt-32">
                               <h5> Preview </h5>
-                              {success ? (<iframe className="mx-auto overflow-hidden" src= {`https://api.billable.site/demand-notices/template/specificpayer?demandNoticeId=${demand_specific?.demandNoticeGenerated?.demandNotice?._id}`}
- width="100%" height="900"></iframe>):<iframe className="mx-auto overflow-hidden" src= {'https://api.billable.site/demand-notices/template/specificpayer?demandNoticeId=63d3960dd66128f278a8a0e2'}
+                              {success ? (<iframe className="mx-auto overflow-hidden" src= {`https://api.billable.site/demand-notices/template/specificpayer?demandNoticeId=${demand_Specificbatchs[0]?.demandNotice?._id}`}
+ width="100%" height="900"></iframe>):<iframe className="mx-auto overflow-hidden" src= {'https://api.billable.site/demand-notices/template/specificpayer?demandNoticeId=63d9146c152aae36cc34ba0c'}
  width="100%" height="900"></iframe>}
-                         
+                              
+                         {/* {success ? (demandSpecificBatch?.demand_Specificbatchs) : null} */}
                          {/* {demand_batchs === "undefined" ? (<Loader />) : } */}
                          
                     

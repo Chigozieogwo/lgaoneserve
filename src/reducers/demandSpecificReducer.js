@@ -64,7 +64,7 @@ import {
     }
  };
  
- export const demandSpecificBatchReducer = (state = { demand_Specificbatchs: [] }, action) => {
+ export const demandSpecificBatchReducer = (state = { demand_Specificbatchs: {} }, action) => {
     //   const { type, payload } = action
     switch (action.type) {
        case DEMAND_SPECIFIC_BATCH_REQUEST:
