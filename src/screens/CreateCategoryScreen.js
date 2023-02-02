@@ -180,7 +180,7 @@ const CreateCategoryScreen = ({ match }) => {
   <option  value="isiala-ngwa-north-lga-abia-state-nigeria">Isiala Ngwa North</option>
   <option  value="isiala-ngwa-south-lga-abia-state-nigeria">Isiala Ngwa South</option>
   <option  value="isuikwuato-lga-abia-state-nigeria">Isuikwuato</option>
-  <option  value="obi-ngwa-lga-abia-state-nigeria">Obi Ngwa</option>
+  <option  value="obi-ngwa-lga-abia-state-nigeria">Obingwa</option>
   <option  value="ohafia-lga-abia-state-nigeria">Ohafia</option>
   <option  value="osisioma-ngwa-lga-abia-state-nigeria">Osisioma Ngwa</option>
   <option  value="ugwunagbo-lga-abia-state-nigeria">Ugwunagbo</option>
