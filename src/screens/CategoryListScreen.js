@@ -159,7 +159,7 @@ const CategoryListScreen = ({  }) => {
                   <div>
                   <div className="bg-[#F4F5FA] overscroll-none  px-5  py-5">
                         <div className="flex justify-between py-4 px-6 text-xl">
-                                   <h5> List of Revenue Codes  </h5>
+                                   <h5> List of Category  </h5>
                                    <Link to='/demand_module'>
                                    <div className='bg-white rounded-full p-1 shadow-lg hover:bg-blue-600 hover:text-white'>
                                         <svg className='h-6 w-6  ' fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
