@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
 import { logout, getUserDetails } from '../actions/userActions';
+import { listDemandSpecificLists,demandSpecificDownloadAction } from '../actions/demandSpecificActions';
 
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 
@@ -21,7 +22,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 
 const DemandModuleScreen = ({ match }) => {
-   
+    const [showModalPrint , setShowModalPrint ] = useState(false)
    const location = useLocation();
    const navigate = useNavigate();
 
@@ -34,27 +35,43 @@ const DemandModuleScreen = ({ match }) => {
    const { loading, error, user } = userDetails;
   console.log(userInfo + "here is the user")
 
-  const [startDate, setStartDate] = useState(new Date());
-  const [startDate2, setStartDate2] = useState(new Date());
-  const [display, setIsdiplay] = useState(false);
-
-  const isDiplayed =()=>{
-      setIsdiplay(true)
-  }
+ 
+  const demandSpecificList = useSelector((state) => state.demandSpecificList);
+  const { loading:loadingSpecificList, error:errorSpecificList,demand_Specificlists } = demandSpecificList;
+  // const {  demandNoticeList ,lgaRecord ,revenueLinesEntities} = demand_batchs
+ console.log(demand_Specificlists + "Specific Screen here is the user")
 
 
+ const showHandler = (id) => {
+    
+    dispatch(demandSpecificDownloadAction(id));
+    setShowModalPrint(true);
+    setTimeout(() => {
+       setShowModalPrint(false);
+            
+      }, 8000);
+ };
+
+
+  
+  
+ const handleClose = () => {
+    setShowModalPrint(false);
+    
+    
+ };
    useEffect(() => {
+       dispatch(listDemandSpecificLists());
      
-      if (!userInfo) {
-         navigate('/');
-      } else {
-         //  dispatch(getUserDetails('profile'));
-         if (!user || !user.firstName) {
-            // dispatch({ type: USER_UPDATE_PROFILE_RESET });
-            dispatch(getUserDetails('profile'));
+    //   if (!userInfo) {
+    //      navigate('/');
+    //   } else {
+    //      //  dispatch(getUserDetails('profile'));
+    //      if (!user || !user.firstName) {
+    //         // dispatch({ type: USER_UPDATE_PROFILE_RESET });
            
-         }
-      }
+    //      }
+    //   }
    }, [navigate, userInfo, user]);
 
    return (
@@ -110,7 +127,28 @@ const DemandModuleScreen = ({ match }) => {
                         
                            
                            </div>
-
+                           {showModalPrint ? (
+                              <div
+                              onClick={handleClose}
+                              tabindex="-1"
+                              class="flex  justify-center  bg-[rgb(0,0,0,0.35)] align-center overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 md:inset-0 h-modal md:h-full"
+                           >
+                              <div class="relative  w-full max-w-md h-full md:h-auto">
+                              <div>
+                              
+                                         </div>
+                                 
+                                 <div class="">
+                                     
+                                    <div class=" max-w-sm bg-white mt-20 ml-8 p-4 md:ml-16 rounded-lg border border-gray-200 shadow-md sm:p-6 lg:p-8 dark:bg-gray-800 dark:border-gray-700">
+                                      <Loader /> 
+                                       <h5 className='text-md font-italics text-blue-700 text-center'> Downloading Demand  Notice ...</h5>
+                                       </div> 
+                                    
+                                    </div>
+                                 </div>
+                              </div>
+                           ) : null}
 
 
 
@@ -182,24 +220,27 @@ const DemandModuleScreen = ({ match }) => {
                 <div >
                     <div class="flex justify-between items-center">
                     <h2 class="text-sm mb-8 text-gray-600 font-bold tracking-wide">
-                    List Of Demand Notice
+                    List Of Specific Payer Demand Notice
                   </h2>
                     </div>
                   
                                        <div>
 
-                                       <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+
+
+
+
+                                       {loadingSpecificList ? (
+                                 <Loader />
+                              ) : error ? (
+                                 <div>{errorSpecificList}</div>
+                              ) : (
+<div className=' mt-2'>
+                      <div class="relative overflow-x-auto shadow-md sm:rounded-lg ">
     <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-            <tr>
-                <th scope="col" class="p-4">
-                    <div class="flex items-center">
-                        <input id="checkbox-all-search" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                        </input>
-                        
-                        <label for="checkbox-all-search" class="sr-only">checkbox</label>
-                    </div>
-                </th>
+             <tr>
+                
                 <th scope="col" class="px-6 py-3">
                     S/N
                 </th>
@@ -207,10 +248,13 @@ const DemandModuleScreen = ({ match }) => {
                     Name
                 </th>
                 <th scope="col" class="px-6 py-3">
-                    ABSSIN
+                    ID NO:.
                 </th>
                 <th scope="col" class="px-6 py-3">
                     Email
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    ABSSIN
                 </th>
                 <th scope="col" class="px-6 py-3">
                     Phone Number
@@ -222,351 +266,82 @@ const DemandModuleScreen = ({ match }) => {
             </tr>
         </thead>
         <tbody>
-        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                <td class="w-4 p-4">
-                    <div class="flex items-center">
-                        <input id="checkbox-table-search-1" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                        </input>
-                    
-                        <label for="checkbox-table-search-1" class="sr-only">checkbox</label>
-                    </div>
-                </td>
-                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    243674022
-                </th>
-                <td class="px-6 py-4">
-                    John Agwu
-                </td>
-                <td class="px-6 py-4">
-                    ABS-34290WUWN
-                </td>
-                <td class="px-6 py-4">
-                    johnag@gmail.com
-                </td>
-                <td class="px-6 py-4">
-                    0703451904589
-                </td>
-                
-                <td class="flex items-center px-6 py-4 space-x-3">
-                    <Link to="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
-                    <svg className='h-6 w-6 ' fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-  <path stroke-linecap="round" stroke-linejoin="round" d="M6.72 13.829c-.24.03-.48.062-.72.096m.72-.096a42.415 42.415 0 0110.56 0m-10.56 0L6.34 18m10.94-4.171c.24.03.48.062.72.096m-.72-.096L17.66 18m0 0l.229 2.523a1.125 1.125 0 01-1.12 1.227H7.231c-.662 0-1.18-.568-1.12-1.227L6.34 18m11.318 0h1.091A2.25 2.25 0 0021 15.75V9.456c0-1.081-.768-2.015-1.837-2.175a48.055 48.055 0 00-1.913-.247M6.34 18H5.25A2.25 2.25 0 013 15.75V9.456c0-1.081.768-2.015 1.837-2.175a48.041 48.041 0 011.913-.247m10.5 0a48.536 48.536 0 00-10.5 0m10.5 0V3.375c0-.621-.504-1.125-1.125-1.125h-8.25c-.621 0-1.125.504-1.125 1.125v3.659M18 10.5h.008v.008H18V10.5zm-3 0h.008v.008H15V10.5z"></path>
-</svg>
-                    </Link>
-                   
-                </td>
-            </tr>
-            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                <td class="w-4 p-4">
-                    <div class="flex items-center">
-                        <input id="checkbox-table-search-1" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                        </input>
-                    
-                        <label for="checkbox-table-search-1" class="sr-only">checkbox</label>
-                    </div>
-                </td>
-                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    243674022
-                </th>
-                <td class="px-6 py-4">
-                    John Agwu
-                </td>
-                <td class="px-6 py-4">
-                    ABS-34290WUWN
-                </td>
-                <td class="px-6 py-4">
-                    johnag@gmail.com
-                </td>
-                <td class="px-6 py-4">
-                    0703451904589
-                </td>
-                
-                <td class="flex items-center px-6 py-4 space-x-3">
-                    <Link to="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
-                    <svg className='h-6 w-6 ' fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-  <path stroke-linecap="round" stroke-linejoin="round" d="M6.72 13.829c-.24.03-.48.062-.72.096m.72-.096a42.415 42.415 0 0110.56 0m-10.56 0L6.34 18m10.94-4.171c.24.03.48.062.72.096m-.72-.096L17.66 18m0 0l.229 2.523a1.125 1.125 0 01-1.12 1.227H7.231c-.662 0-1.18-.568-1.12-1.227L6.34 18m11.318 0h1.091A2.25 2.25 0 0021 15.75V9.456c0-1.081-.768-2.015-1.837-2.175a48.055 48.055 0 00-1.913-.247M6.34 18H5.25A2.25 2.25 0 013 15.75V9.456c0-1.081.768-2.015 1.837-2.175a48.041 48.041 0 011.913-.247m10.5 0a48.536 48.536 0 00-10.5 0m10.5 0V3.375c0-.621-.504-1.125-1.125-1.125h-8.25c-.621 0-1.125.504-1.125 1.125v3.659M18 10.5h.008v.008H18V10.5zm-3 0h.008v.008H15V10.5z"></path>
-</svg>
-                    </Link>
-                   
-                </td>
-            </tr>
-            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                <td class="w-4 p-4">
-                    <div class="flex items-center">
-                        <input id="checkbox-table-search-1" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                        </input>
-                    
-                        <label for="checkbox-table-search-1" class="sr-only">checkbox</label>
-                    </div>
-                </td>
-                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    243674022
-                </th>
-                <td class="px-6 py-4">
-                    John Agwu
-                </td>
-                <td class="px-6 py-4">
-                    ABS-34290WUWN
-                </td>
-                <td class="px-6 py-4">
-                    johnag@gmail.com
-                </td>
-                <td class="px-6 py-4">
-                    0703451904589
-                </td>
-                
-                <td class="flex items-center px-6 py-4 space-x-3">
-                    <Link to="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
-                    <svg className='h-6 w-6 ' fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-  <path stroke-linecap="round" stroke-linejoin="round" d="M6.72 13.829c-.24.03-.48.062-.72.096m.72-.096a42.415 42.415 0 0110.56 0m-10.56 0L6.34 18m10.94-4.171c.24.03.48.062.72.096m-.72-.096L17.66 18m0 0l.229 2.523a1.125 1.125 0 01-1.12 1.227H7.231c-.662 0-1.18-.568-1.12-1.227L6.34 18m11.318 0h1.091A2.25 2.25 0 0021 15.75V9.456c0-1.081-.768-2.015-1.837-2.175a48.055 48.055 0 00-1.913-.247M6.34 18H5.25A2.25 2.25 0 013 15.75V9.456c0-1.081.768-2.015 1.837-2.175a48.041 48.041 0 011.913-.247m10.5 0a48.536 48.536 0 00-10.5 0m10.5 0V3.375c0-.621-.504-1.125-1.125-1.125h-8.25c-.621 0-1.125.504-1.125 1.125v3.659M18 10.5h.008v.008H18V10.5zm-3 0h.008v.008H15V10.5z"></path>
-</svg>
-                    </Link>
-                   
-                </td>
-            </tr>
-            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                <td class="w-4 p-4">
-                    <div class="flex items-center">
-                        <input id="checkbox-table-search-1" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                        </input>
-                    
-                        <label for="checkbox-table-search-1" class="sr-only">checkbox</label>
-                    </div>
-                </td>
-                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    243674022
-                </th>
-                <td class="px-6 py-4">
-                    John Agwu
-                </td>
-                <td class="px-6 py-4">
-                    ABS-34290WUWN
-                </td>
-                <td class="px-6 py-4">
-                    johnag@gmail.com
-                </td>
-                <td class="px-6 py-4">
-                    0703451904589
-                </td>
-                
-                <td class="flex items-center px-6 py-4 space-x-3">
-                    <Link to="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
-                    <svg className='h-6 w-6 ' fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-  <path stroke-linecap="round" stroke-linejoin="round" d="M6.72 13.829c-.24.03-.48.062-.72.096m.72-.096a42.415 42.415 0 0110.56 0m-10.56 0L6.34 18m10.94-4.171c.24.03.48.062.72.096m-.72-.096L17.66 18m0 0l.229 2.523a1.125 1.125 0 01-1.12 1.227H7.231c-.662 0-1.18-.568-1.12-1.227L6.34 18m11.318 0h1.091A2.25 2.25 0 0021 15.75V9.456c0-1.081-.768-2.015-1.837-2.175a48.055 48.055 0 00-1.913-.247M6.34 18H5.25A2.25 2.25 0 013 15.75V9.456c0-1.081.768-2.015 1.837-2.175a48.041 48.041 0 011.913-.247m10.5 0a48.536 48.536 0 00-10.5 0m10.5 0V3.375c0-.621-.504-1.125-1.125-1.125h-8.25c-.621 0-1.125.504-1.125 1.125v3.659M18 10.5h.008v.008H18V10.5zm-3 0h.008v.008H15V10.5z"></path>
-</svg>
-                    </Link>
-                   
-                </td>
-            </tr>
-            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                <td class="w-4 p-4">
-                    <div class="flex items-center">
-                        <input id="checkbox-table-search-1" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                        </input>
-                    
-                        <label for="checkbox-table-search-1" class="sr-only">checkbox</label>
-                    </div>
-                </td>
-                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    243674022
-                </th>
-                <td class="px-6 py-4">
-                    John Agwu
-                </td>
-                <td class="px-6 py-4">
-                    ABS-34290WUWN
-                </td>
-                <td class="px-6 py-4">
-                    johnag@gmail.com
-                </td>
-                <td class="px-6 py-4">
-                    0703451904589
-                </td>
-                
-                <td class="flex items-center px-6 py-4 space-x-3">
-                    <Link to="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
-                    <svg className='h-6 w-6 ' fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-  <path stroke-linecap="round" stroke-linejoin="round" d="M6.72 13.829c-.24.03-.48.062-.72.096m.72-.096a42.415 42.415 0 0110.56 0m-10.56 0L6.34 18m10.94-4.171c.24.03.48.062.72.096m-.72-.096L17.66 18m0 0l.229 2.523a1.125 1.125 0 01-1.12 1.227H7.231c-.662 0-1.18-.568-1.12-1.227L6.34 18m11.318 0h1.091A2.25 2.25 0 0021 15.75V9.456c0-1.081-.768-2.015-1.837-2.175a48.055 48.055 0 00-1.913-.247M6.34 18H5.25A2.25 2.25 0 013 15.75V9.456c0-1.081.768-2.015 1.837-2.175a48.041 48.041 0 011.913-.247m10.5 0a48.536 48.536 0 00-10.5 0m10.5 0V3.375c0-.621-.504-1.125-1.125-1.125h-8.25c-.621 0-1.125.504-1.125 1.125v3.659M18 10.5h.008v.008H18V10.5zm-3 0h.008v.008H15V10.5z"></path>
-</svg>
-                    </Link>
-                   
-                </td>
-            </tr>
-            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                <td class="w-4 p-4">
-                    <div class="flex items-center">
-                        <input id="checkbox-table-search-1" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                        </input>
-                    
-                        <label for="checkbox-table-search-1" class="sr-only">checkbox</label>
-                    </div>
-                </td>
-                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    243674022
-                </th>
-                <td class="px-6 py-4">
-                    John Agwu
-                </td>
-                <td class="px-6 py-4">
-                    ABS-34290WUWN
-                </td>
-                <td class="px-6 py-4">
-                    johnag@gmail.com
-                </td>
-                <td class="px-6 py-4">
-                    0703451904589
-                </td>
-                
-                <td class="flex items-center px-6 py-4 space-x-3">
-                    <Link to="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
-                    <svg className='h-6 w-6 ' fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-  <path stroke-linecap="round" stroke-linejoin="round" d="M6.72 13.829c-.24.03-.48.062-.72.096m.72-.096a42.415 42.415 0 0110.56 0m-10.56 0L6.34 18m10.94-4.171c.24.03.48.062.72.096m-.72-.096L17.66 18m0 0l.229 2.523a1.125 1.125 0 01-1.12 1.227H7.231c-.662 0-1.18-.568-1.12-1.227L6.34 18m11.318 0h1.091A2.25 2.25 0 0021 15.75V9.456c0-1.081-.768-2.015-1.837-2.175a48.055 48.055 0 00-1.913-.247M6.34 18H5.25A2.25 2.25 0 013 15.75V9.456c0-1.081.768-2.015 1.837-2.175a48.041 48.041 0 011.913-.247m10.5 0a48.536 48.536 0 00-10.5 0m10.5 0V3.375c0-.621-.504-1.125-1.125-1.125h-8.25c-.621 0-1.125.504-1.125 1.125v3.659M18 10.5h.008v.008H18V10.5zm-3 0h.008v.008H15V10.5z"></path>
-</svg>
-                    </Link>
-                   
-                </td>
-            </tr>
-            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                <td class="w-4 p-4">
-                    <div class="flex items-center">
-                        <input id="checkbox-table-search-1" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                        </input>
-                    
-                        <label for="checkbox-table-search-1" class="sr-only">checkbox</label>
-                    </div>
-                </td>
-                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    243674022
-                </th>
-                <td class="px-6 py-4">
-                    John Agwu
-                </td>
-                <td class="px-6 py-4">
-                    ABS-34290WUWN
-                </td>
-                <td class="px-6 py-4">
-                    johnag@gmail.com
-                </td>
-                <td class="px-6 py-4">
-                    0703451904589
-                </td>
-                
-                <td class="flex items-center px-6 py-4 space-x-3">
-                    <Link to="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
-                    <svg className='h-6 w-6 ' fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-  <path stroke-linecap="round" stroke-linejoin="round" d="M6.72 13.829c-.24.03-.48.062-.72.096m.72-.096a42.415 42.415 0 0110.56 0m-10.56 0L6.34 18m10.94-4.171c.24.03.48.062.72.096m-.72-.096L17.66 18m0 0l.229 2.523a1.125 1.125 0 01-1.12 1.227H7.231c-.662 0-1.18-.568-1.12-1.227L6.34 18m11.318 0h1.091A2.25 2.25 0 0021 15.75V9.456c0-1.081-.768-2.015-1.837-2.175a48.055 48.055 0 00-1.913-.247M6.34 18H5.25A2.25 2.25 0 013 15.75V9.456c0-1.081.768-2.015 1.837-2.175a48.041 48.041 0 011.913-.247m10.5 0a48.536 48.536 0 00-10.5 0m10.5 0V3.375c0-.621-.504-1.125-1.125-1.125h-8.25c-.621 0-1.125.504-1.125 1.125v3.659M18 10.5h.008v.008H18V10.5zm-3 0h.008v.008H15V10.5z"></path>
-</svg>
-                    </Link>
-                   
-                </td>
-            </tr>
-            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                <td class="w-4 p-4">
-                    <div class="flex items-center">
-                        <input id="checkbox-table-search-1" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                        </input>
-                    
-                        <label for="checkbox-table-search-1" class="sr-only">checkbox</label>
-                    </div>
-                </td>
-                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    243674022
-                </th>
-                <td class="px-6 py-4">
-                    John Agwu
-                </td>
-                <td class="px-6 py-4">
-                    ABS-34290WUWN
-                </td>
-                <td class="px-6 py-4">
-                    johnag@gmail.com
-                </td>
-                <td class="px-6 py-4">
-                    0703451904589
-                </td>
-                
-                <td class="flex items-center px-6 py-4 space-x-3">
-                    <Link to="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
-                    <svg className='h-6 w-6 ' fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-  <path stroke-linecap="round" stroke-linejoin="round" d="M6.72 13.829c-.24.03-.48.062-.72.096m.72-.096a42.415 42.415 0 0110.56 0m-10.56 0L6.34 18m10.94-4.171c.24.03.48.062.72.096m-.72-.096L17.66 18m0 0l.229 2.523a1.125 1.125 0 01-1.12 1.227H7.231c-.662 0-1.18-.568-1.12-1.227L6.34 18m11.318 0h1.091A2.25 2.25 0 0021 15.75V9.456c0-1.081-.768-2.015-1.837-2.175a48.055 48.055 0 00-1.913-.247M6.34 18H5.25A2.25 2.25 0 013 15.75V9.456c0-1.081.768-2.015 1.837-2.175a48.041 48.041 0 011.913-.247m10.5 0a48.536 48.536 0 00-10.5 0m10.5 0V3.375c0-.621-.504-1.125-1.125-1.125h-8.25c-.621 0-1.125.504-1.125 1.125v3.659M18 10.5h.008v.008H18V10.5zm-3 0h.008v.008H15V10.5z"></path>
-</svg>
-                    </Link>
-                   
-                </td>
-            </tr>
-            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                <td class="w-4 p-4">
-                    <div class="flex items-center">
-                        <input id="checkbox-table-search-1" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                        </input>
-                    
-                        <label for="checkbox-table-search-1" class="sr-only">checkbox</label>
-                    </div>
-                </td>
-                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    243674022
-                </th>
-                <td class="px-6 py-4">
-                    John Agwu
-                </td>
-                <td class="px-6 py-4">
-                    ABS-34290WUWN
-                </td>
-                <td class="px-6 py-4">
-                    johnag@gmail.com
-                </td>
-                <td class="px-6 py-4">
-                    0703451904589
-                </td>
-                
-                <td class="flex items-center px-6 py-4 space-x-3">
-                    <Link to="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
-                    <svg className='h-6 w-6 ' fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-  <path stroke-linecap="round" stroke-linejoin="round" d="M6.72 13.829c-.24.03-.48.062-.72.096m.72-.096a42.415 42.415 0 0110.56 0m-10.56 0L6.34 18m10.94-4.171c.24.03.48.062.72.096m-.72-.096L17.66 18m0 0l.229 2.523a1.125 1.125 0 01-1.12 1.227H7.231c-.662 0-1.18-.568-1.12-1.227L6.34 18m11.318 0h1.091A2.25 2.25 0 0021 15.75V9.456c0-1.081-.768-2.015-1.837-2.175a48.055 48.055 0 00-1.913-.247M6.34 18H5.25A2.25 2.25 0 013 15.75V9.456c0-1.081.768-2.015 1.837-2.175a48.041 48.041 0 011.913-.247m10.5 0a48.536 48.536 0 00-10.5 0m10.5 0V3.375c0-.621-.504-1.125-1.125-1.125h-8.25c-.621 0-1.125.504-1.125 1.125v3.659M18 10.5h.008v.008H18V10.5zm-3 0h.008v.008H15V10.5z"></path>
-</svg>
-                    </Link>
-                   
-                </td>
-            </tr>
-            
-            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                <td class="w-4 p-4">
-                    <div class="flex items-center">
-                        <input id="checkbox-table-search-1" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                        </input>
-                    
-                        <label for="checkbox-table-search-1" class="sr-only">checkbox</label>
-                    </div>
-                </td>
-                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    243674022
-                </th>
-                <td class="px-6 py-4">
-                    John Agwu
-                </td>
-                <td class="px-6 py-4">
-                    ABS-34290WUWN
-                </td>
-                <td class="px-6 py-4">
-                    johnag@gmail.com
-                </td>
-                <td class="px-6 py-4">
-                    0703451904589
-                </td>
-                
-                <td class="flex items-center px-6 py-4 space-x-3">
-                    <Link to="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
-                    <svg className='h-6 w-6 ' fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-  <path stroke-linecap="round" stroke-linejoin="round" d="M6.72 13.829c-.24.03-.48.062-.72.096m.72-.096a42.415 42.415 0 0110.56 0m-10.56 0L6.34 18m10.94-4.171c.24.03.48.062.72.096m-.72-.096L17.66 18m0 0l.229 2.523a1.125 1.125 0 01-1.12 1.227H7.231c-.662 0-1.18-.568-1.12-1.227L6.34 18m11.318 0h1.091A2.25 2.25 0 0021 15.75V9.456c0-1.081-.768-2.015-1.837-2.175a48.055 48.055 0 00-1.913-.247M6.34 18H5.25A2.25 2.25 0 013 15.75V9.456c0-1.081.768-2.015 1.837-2.175a48.041 48.041 0 011.913-.247m10.5 0a48.536 48.536 0 00-10.5 0m10.5 0V3.375c0-.621-.504-1.125-1.125-1.125h-8.25c-.621 0-1.125.504-1.125 1.125v3.659M18 10.5h.008v.008H18V10.5zm-3 0h.008v.008H15V10.5z"></path>
-</svg>
-                    </Link>
-                   
-                </td>
-            </tr>
-     </tbody>
-    </table>
-</div>
+                                          {demand_Specificlists.reverse().map((Specificlist, index) => (
+                                            <tr key={Specificlist?.demandNotice?._id} class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                            
+                                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                            {index + 1}
+                                            </th>
+                                            <td class="px-6 py-4">
+                                            {Specificlist?.payerRecord?.firstName} {Specificlist?.payerRecord?.lastName}
+                                            </td>
+                                            <td class="px-6 py-4">
+                                            {Specificlist?.demandNotice?.serialNumber}
+                                            </td>
+                                           
+                                            <td class="px-6 py-4">
+                                            {Specificlist?.payerRecord?.email}
+                                            </td>
+                                            <td class="px-6 py-4">
+                                            {Specificlist?.payerRecord?.abbsin}
+                                            </td>
+                                            <td class="px-6 py-4">
+                                            {Specificlist?.payerRecord?.phoneNumber}
+                                            </td>
 
+                                            <td class="flex items-center px-6 py-4 space-x-3">
+                                                      <Link onClick={() => {
+                                                          dispatch(demandSpecificDownloadAction(Specificlist?.demandNotice?._id));
+                                                          setShowModalPrint(true);
+                                                          setTimeout(() => {
+                                                             setShowModalPrint(false);
+                                                                  
+                                                            }, 8000);
+                    }} class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
+                    <svg className='h-6 w-6 ' fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M6.72 13.829c-.24.03-.48.062-.72.096m.72-.096a42.415 42.415 0 0110.56 0m-10.56 0L6.34 18m10.94-4.171c.24.03.48.062.72.096m-.72-.096L17.66 18m0 0l.229 2.523a1.125 1.125 0 01-1.12 1.227H7.231c-.662 0-1.18-.568-1.12-1.227L6.34 18m11.318 0h1.091A2.25 2.25 0 0021 15.75V9.456c0-1.081-.768-2.015-1.837-2.175a48.055 48.055 0 00-1.913-.247M6.34 18H5.25A2.25 2.25 0 013 15.75V9.456c0-1.081.768-2.015 1.837-2.175a48.041 48.041 0 011.913-.247m10.5 0a48.536 48.536 0 00-10.5 0m10.5 0V3.375c0-.621-.504-1.125-1.125-1.125h-8.25c-.621 0-1.125.504-1.125 1.125v3.659M18 10.5h.008v.008H18V10.5zm-3 0h.008v.008H15V10.5z"></path>
+</svg>
+                    </Link>
+                   
+                </td>
+                                            
+                                            {/* <td class="flex items-center px-6 py-4 space-x-3">
+                                                <Link to={`/revenues/${revenue.revenueLineCode}/edit`} class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
+                                                <svg className='h-6 w-6 ' fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10"></path>
+</svg>
+                                                </Link>
+                                               
+                                            </td> */}
+                                        </tr>
+                                          
+                                          ))}
+                                       </tbody>
+
+                                       
+                                       
+                               </table>
+                               </div>
+                               </div>
+)}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                                         
 
                   </div>
                 </div>

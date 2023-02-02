@@ -175,15 +175,56 @@ const handleClose = () => {
         
 //   }, 3000);
    // const url = `${lo}`
-  const showHandler = (e) => {
-   e.preventDefault();
+  const showHandler = () => {
+   
    // window.open("_blank");
-   dispatch(demandGenerateDownloadAction(id));
-   setShowModalPrint(true);
-   setTimeout(() => {
+   // window.location.reload();
+   // setShowModalPrint(true);
+   console.log( demand_batchs.demandNoticeBatch?.generatedStatus + "1112  status")
+   console.log( demand_batchs.demandNoticeBatch.generatedStatus + "1112  status")
+   // if(demand_batchs?.demandNoticeBatch?.generatedStatus === 'undefined' ){
+
+   //    console.log( demand_batchs?.demandNoticeBatch?.generatedStatus + "status")
+   //    console.log( demand_batchs?.demandNoticeBatch?.generatedStatus + "status")
+   //    dispatch(demandGenerateBatchAction(id));
+   //    window.location.reload();
+   //    setTimeout(() => {
+   //       console.log( demand_batchs?.demandNoticeBatch?.generatedStatus + "time startus")
+   //       console.log( demand_batchs?.demandNoticeBatch?.generatedStatus + "time startus")
+   //       console.log( demand_batchs?.demandNoticeBatch?.generatedStatus + "time startus")
+   //       dispatch(demandGenerateBatchAction(id));
+   //       location.reload();
+   //       setShowModalPrint(false);
+         
+   //    }, 1000);
+   //    setShowModalPrint(false);
+   // }
+
+
+   if(demand_batchs?.demandNoticeBatch?.generationStatus === 'in_progress' ){
+      
+      window.open(`${demand_batchs?.demandNoticeBatch?.presignedFileUrl}`);
+      dispatch(demandGenerateBatchAction(id));
+         //  window.location.reload();
+      setShowModalPrint(true);
+      // dispatch(demandGenerateDownloadAction(id));
+   }
+   dispatch(demandGenerateBatchAction(id));
+   if(demand_batchs?.demandNoticeBatch?.generationStatus === 'successful' ){
+      
+      window.open(`${demand_batchs?.demandNoticeBatch?.presignedFileUrl}`);
       setShowModalPrint(false);
+      // dispatch(demandGenerateDownloadAction(id));
+   }else{
+        dispatch(demandGenerateBatchAction(id));
+         //  window.location.reload();
+          setShowModalPrint(true);
+      } 
+   // setShowModalPrint(true);
+   // setTimeout(() => {
+   //    setShowModalPrint(false);
            
-     }, 8000);
+   //   }, 8000);
 };
 const showExportCsv = (e) => {
    e.preventDefault();
@@ -192,26 +233,29 @@ const showExportCsv = (e) => {
 csvExporter.generateCsv(demand_batchs)
 };
 
-// if(success){
-//    setUrl(`https://billable-dev.herokuapp.com/demand-notices/template?demandNoticeId=${demand_batchs?.demandNoticesList[0]?._id}`);
-
+if(demand_batchs?.demandNoticeBatch?.generatedStatus === 'not_yet_started' || demand_batchs?.demandNoticeBatch?.generatedStatus === 'in_progress' ){
+   dispatch(demandGenerateBatchAction(id));
+} 
+// if(demand_batchs?.demandNoticeBatch?.generatedStatus === 'not_yet_started' || demand_batchs?.demandNoticeBatch?.generatedStatus === 'in_progress' ){
+//    dispatch(demandGenerateBatchAction(id));
+// } else if (demand_batchs?.demandNoticeBatch?.generatedStatus === 'failed') {
+//    dispatch(demandGenerateBatchAction(id));
+// } else {
+//    showHandler()
 // }
    useEffect(() => {
-      // setUrl(`https://billable-dev.herokuapp.com/demand-notices/template?demandNoticeId=${demand_batchs?.demandNoticesList[0]?._id}`);
+      if (demand_batchs?.demandNoticeBatch?.generatedStatus === 'not_yet_started' || demand_batchs?.demandNoticeBatch?.generatedStatus === 'in_progress') {
+      
+         dispatch(demandGenerateBatchAction(id));
+      }
       dispatch(demandGenerateBatchAction(id));
-      
-      // setUrl(`https://billable-dev.herokuapp.com/demand-notices/template?demandNoticeId=${demand_batchs?.demandNoticesList[0]?._id}`);
-      //    setTimeout(() => {
-      //       setUrl(`https://billable-dev.herokuapp.com/demand-notices/template?demandNoticeId=${demand_batchs?.demandNoticesList[0]?._id}`);
-       
-      //  }, 1000);
-      
-   }, [id]);
+     
+   }, [id,demand_batchs?.demandNoticeBatch?.generatedStatus]);
   
 
    return (
       <>
-         <div>
+         <div key={location.key}>
             <div class="drawer drawer-mobile bg-[#F4F5FA]">
                <input
                   id="my-drawer-3"
@@ -246,6 +290,8 @@ csvExporter.generateCsv(demand_batchs)
                                      
                                     <div class=" max-w-sm bg-white mt-20 ml-8 p-4 md:ml-16 rounded-lg border border-gray-200 shadow-md sm:p-6 lg:p-8 dark:bg-gray-800 dark:border-gray-700">
                                       <Loader /> 
+                                       {/* <Message className='-mt-8'>{demand_batchs?.demandNoticeBatch?.generatedStatus === 'not_yet_started' ? (<p> Please Wait</p>) : demand_batchs?.demandNoticeBatch?.generatedStatus === 'in_progress' ? (<p> Generation in Progress</p>):demand_batchs?.demandNoticeBatch?.generatedStatus === 'failed' ? (<p> failed</p>) : null }</Message> */}
+                                       <Message className='-mt-8'>{ demand_batchs?.demandNoticeBatch?.generatedStatus === 'in_progress' ? (<p> Generation in Progress</p>) : null }</Message>
                                        <h5 className='text-md font-italics text-blue-700 text-center'> Downloading Demand  Notice ...</h5>
                                        </div> 
                                     
@@ -291,7 +337,7 @@ csvExporter.generateCsv(demand_batchs)
                          <div class="grid grid-cols-3 gap-2 ml-12">
                          <ul>
                          <div className="flex justify-between ">
-                                   <h5 className="font-bold text-xl"> Total : <span> {demand_batchs?.demandNoticesList?.length}</span> </h5>
+                                   <h5 className="font-bold text-xl"> Total : <span> {demand_batchs?.demandNoticeBatch?.numberOfEntries}</span> </h5>
                                    {/* <CSVLink data={demand_batchs1} > 
                                    
                                    </CSVLink> */}

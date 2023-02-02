@@ -135,6 +135,7 @@ export const demandGenerateDownloadAction = (id) => async (dispatch, getState) =
    }
 };
 
+
 export const demandGenerateBatchAction = (id) => async (dispatch, getState) => {
    try {
       dispatch({ type: DEMAND_GENERATE_BATCH_REQUEST });

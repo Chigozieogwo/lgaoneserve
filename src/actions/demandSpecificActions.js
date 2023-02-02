@@ -214,7 +214,7 @@ async (dispatch, getState) => {
       //   config
       // )
       const { data } = await axios.get(
-         `${url}/demand-notices/batches`,
+         `${url}/demand-notices/specific`,
          config
       );
       // const { data } = await axios.get('/api/users')

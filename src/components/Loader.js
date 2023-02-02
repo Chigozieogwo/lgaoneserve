@@ -3,7 +3,7 @@ import React from 'react';
 import './css/Loader.css';
 const Loader = () => {
    return (
-      <div className=" text-center pb-14 ">
+      <div className=" text-center pb-2 ">
          <span className="loader"></span>
       </div>
    );
