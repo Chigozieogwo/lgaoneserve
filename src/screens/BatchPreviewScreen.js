@@ -23,18 +23,16 @@ import { ExportToCsv } from 'export-to-csv';
 import { CSVLink,CSVDownload } from "react-csv";
 
 const BatchPreviewScreen = ({ match }) => {
-   // const [url, setUrl] = useState('https://billable-dev.herokuapp.com/demand-notices/template?demandNoticeId=63c431c3ddbd64368df75fbd');
-
-   // const {demandNoticeBatchId } = useParams()
-   // const pageNumber = match.params.pageNumber || 1
-   // const demandNoticeBatchId = match.params.id
+  
    const [showModalPrint , setShowModalPrint ] = useState(false)
+   const [generationStatus , setGenerationStatus ] = useState('')
    const {id} = useParams()
 
    console.log(id + "params")
    // console.log(match.params + "params match")
    
-    
+
+
     
    const location = useLocation();
    const navigate = useNavigate();
@@ -48,19 +46,10 @@ const BatchPreviewScreen = ({ match }) => {
    const { loading:loadingBatch, error:errorBatch,success ,demand_batchs } = demandGenerateBatch;
    // const {  demandNoticeList ,lgaRecord ,revenueLinesEntities} = demand_batchs
   console.log(demand_batchs + "Batch here is the user")
-//   console.log(demand_batchs.demandNoticeList + " Serial Number Batch here is the user")
-//   console.log(lgaRecord + "Batch here is the user")
-//   console.log(revenueLinesEntities + "Batch here is the user")
-// const url = `https://billable-dev.herokuapp.com/demand-notices/template?demandNoticeId=${demand_batchs?.demandNoticesList[0]?._id}`
+  console.log(demand_batchs + "Batch here is the user")
+  console.log(generationStatus + "status Batch here is the user")
+  console.log(generationStatus + " status Batch here is the user")
 
-
-
-// console.log(flatten(demand_batchs))
-// const csvreport = {
-//    data: demand_batchs,
-//    headers: headers,
-//    filename: 'Clue_Mediator_Report.csv'
-//  };
 
  
 const options = { 
@@ -177,55 +166,66 @@ const handleClose = () => {
    // const url = `${lo}`
   const showHandler = () => {
    
-   // window.open("_blank");
-   // window.location.reload();
-   // setShowModalPrint(true);
-   console.log( demand_batchs.demandNoticeBatch?.generatedStatus + "1112  status")
-   console.log( demand_batchs.demandNoticeBatch.generatedStatus + "1112  status")
-   // if(demand_batchs?.demandNoticeBatch?.generatedStatus === 'undefined' ){
+     setShowModalPrint(true);
 
-   //    console.log( demand_batchs?.demandNoticeBatch?.generatedStatus + "status")
-   //    console.log( demand_batchs?.demandNoticeBatch?.generatedStatus + "status")
-   //    dispatch(demandGenerateBatchAction(id));
-   //    window.location.reload();
-   //    setTimeout(() => {
-   //       console.log( demand_batchs?.demandNoticeBatch?.generatedStatus + "time startus")
-   //       console.log( demand_batchs?.demandNoticeBatch?.generatedStatus + "time startus")
-   //       console.log( demand_batchs?.demandNoticeBatch?.generatedStatus + "time startus")
-   //       dispatch(demandGenerateBatchAction(id));
-   //       location.reload();
-   //       setShowModalPrint(false);
-         
-   //    }, 1000);
-   //    setShowModalPrint(false);
-   // }
+     dispatch(demandGenerateBatchAction(id));
+     setTimeout(() => {
+    
+     if(demand_batchs?.demandNoticeBatch?.generationStatus === 'successful' ){
+  
+        window.open(`${demand_batchs?.demandNoticeBatch?.presignedFileUrl}`);
+       
+        clearInterval()
+        setShowModalPrint(false)
 
 
-   if(demand_batchs?.demandNoticeBatch?.generationStatus === 'in_progress' ){
-      
-      window.open(`${demand_batchs?.demandNoticeBatch?.presignedFileUrl}`);
+       
+    } 
+     }, 1000);
+     
+     setTimeout(() => {
       dispatch(demandGenerateBatchAction(id));
-         //  window.location.reload();
-      setShowModalPrint(true);
-      // dispatch(demandGenerateDownloadAction(id));
-   }
-   dispatch(demandGenerateBatchAction(id));
-   if(demand_batchs?.demandNoticeBatch?.generationStatus === 'successful' ){
+         // setShowModalPrint(false);
+              
+     }, 4000);
+     
+     
+   
+   //  if(demand_batchs?.demandNoticeBatch?.generationStatus === 'successful' ){
       
-      window.open(`${demand_batchs?.demandNoticeBatch?.presignedFileUrl}`);
-      setShowModalPrint(false);
-      // dispatch(demandGenerateDownloadAction(id));
-   }else{
-        dispatch(demandGenerateBatchAction(id));
-         //  window.location.reload();
-          setShowModalPrint(true);
-      } 
+   //     setTimeout(() => {
+   //       window.open(`${demand_batchs?.demandNoticeBatch?.presignedFileUrl}`);
+   //          setShowModalPrint(false);
+                 
+   //       }, 4000);
+   //    // dispatch(demandGenerateDownloadAction(id));
+   // } 
    // setShowModalPrint(true);
    // setTimeout(() => {
    //    setShowModalPrint(false);
            
    //   }, 8000);
 };
+
+function Interval(){
+   setTimeout(() => {
+      dispatch(demandGenerateBatchAction(id));
+      setGenerationStatus(demand_batchs.demandNoticeBatch?.generationStatus)
+      if(demand_batchs.demandNoticeBatch?.generationStatus === 'in_progress' ){
+         console.log(generationStatus + " bye bye")
+        
+         dispatch(demandGenerateBatchAction(id));
+            //  window.location.reload();
+         setShowModalPrint(true);
+        
+      }
+    },4000)
+}
+
+
+// useEffect(()=>Interval(),[generationStatus])
+ 
+   
 const showExportCsv = (e) => {
    e.preventDefault();
    
@@ -233,24 +233,18 @@ const showExportCsv = (e) => {
 csvExporter.generateCsv(demand_batchs)
 };
 
-if(demand_batchs?.demandNoticeBatch?.generatedStatus === 'not_yet_started' || demand_batchs?.demandNoticeBatch?.generatedStatus === 'in_progress' ){
-   dispatch(demandGenerateBatchAction(id));
-} 
-// if(demand_batchs?.demandNoticeBatch?.generatedStatus === 'not_yet_started' || demand_batchs?.demandNoticeBatch?.generatedStatus === 'in_progress' ){
-//    dispatch(demandGenerateBatchAction(id));
-// } else if (demand_batchs?.demandNoticeBatch?.generatedStatus === 'failed') {
-//    dispatch(demandGenerateBatchAction(id));
-// } else {
-//    showHandler()
-// }
+//   setTimeout(() => {
+//       dispatch(demandGenerateBatchAction(id));
+           
+//       }, 2000);
+
    useEffect(() => {
-      if (demand_batchs?.demandNoticeBatch?.generatedStatus === 'not_yet_started' || demand_batchs?.demandNoticeBatch?.generatedStatus === 'in_progress') {
-      
-         dispatch(demandGenerateBatchAction(id));
-      }
       dispatch(demandGenerateBatchAction(id));
-     
-   }, [id,demand_batchs?.demandNoticeBatch?.generatedStatus]);
+      // setTimeout(() => {
+         
+                 
+      //       }, 500);
+   }, [id]);
   
 
    return (
@@ -291,8 +285,31 @@ if(demand_batchs?.demandNoticeBatch?.generatedStatus === 'not_yet_started' || de
                                     <div class=" max-w-sm bg-white mt-20 ml-8 p-4 md:ml-16 rounded-lg border border-gray-200 shadow-md sm:p-6 lg:p-8 dark:bg-gray-800 dark:border-gray-700">
                                       <Loader /> 
                                        {/* <Message className='-mt-8'>{demand_batchs?.demandNoticeBatch?.generatedStatus === 'not_yet_started' ? (<p> Please Wait</p>) : demand_batchs?.demandNoticeBatch?.generatedStatus === 'in_progress' ? (<p> Generation in Progress</p>):demand_batchs?.demandNoticeBatch?.generatedStatus === 'failed' ? (<p> failed</p>) : null }</Message> */}
-                                       <Message className='-mt-8'>{ demand_batchs?.demandNoticeBatch?.generatedStatus === 'in_progress' ? (<p> Generation in Progress</p>) : null }</Message>
-                                       <h5 className='text-md font-italics text-blue-700 text-center'> Downloading Demand  Notice ...</h5>
+                                       {/* <Message className='-mt-8'>{ demand_batchs?.demandNoticeBatch?.generatedStatus === 'in_progress' ? (<p> Generation in Progress</p>) : null }</Message> */}
+                                       { demand_batchs?.demandNoticeBatch?.generationStatus === 'in_progress' ? (<div class="flex p-4 mb-4 text-sm text-blue-800 border border-blue-300 rounded-lg bg-blue-50 dark:bg-gray-800 dark:text-blue-400 dark:border-blue-800" role="alert">
+  <svg aria-hidden="true" class="flex-shrink-0 inline w-5 h-5 mr-3" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
+  <span class="sr-only">Info</span>
+  <div>
+    <span class="font-medium">Generating <span> {demand_batchs?.demandNoticeBatch?.numberOfEntries}</span>  Demand Notice!</span> 
+  </div>
+</div>):null}
+                                       { demand_batchs?.demandNoticeBatch?.generationStatus === 'successful' ? (<div class="flex p-4 mb-4 text-sm text-green-800 border border-green-300 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400 dark:border-green-800" role="alert">
+  <svg aria-hidden="true" class="flex-shrink-0 inline w-5 h-5 mr-3" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
+  <span class="sr-only"></span>
+  <div>
+    <span class="font-medium"> <span> {demand_batchs?.demandNoticeBatch?.numberOfEntries}</span> Demand Notice Generation Completed!</span> 
+  </div>
+</div>):null}
+                                       { demand_batchs?.demandNoticeBatch?.generationStatus === 'failed' ? (<div class="flex p-4 mb-4 text-sm text-red-800 border border-red-300 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400 dark:border-red-800" role="alert">
+  <svg aria-hidden="true" class="flex-shrink-0 inline w-5 h-5 mr-3" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
+  <span class="sr-only">Info</span>
+  <div>
+    <span class="font-medium"><span> {demand_batchs?.demandNoticeBatch?.numberOfEntries}</span> Demand Notice Generation Failed!</span> 
+  </div>
+</div>):null}
+                                       
+                                       { demand_batchs?.demandNoticeBatch?.generationStatus === 'successful' ? (<a className='flex justify-center' href={`${demand_batchs?.demandNoticeBatch?.presignedFileUrl}`} target="_blank"><span className='text-center bg-green-700 text-white px-4 py-1 rounded-sm'>Click to Download ...</span></a>):null}
+                                       {/* <h5 className='text-md font-italics text-blue-700 text-center'> Downloading Demand  Notice ...</h5> */}
                                        </div> 
                                     
                                     </div>
@@ -304,16 +321,20 @@ if(demand_batchs?.demandNoticeBatch?.generatedStatus === 'not_yet_started' || de
                                  
                                    <div className="ml-4">
                                    <h5 className="text-3xl font-bold mb-4"> Print </h5>
-                         <button onClick={showHandler} type="button" class="text-white outline outline-offset-2 outline-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 text-white  rounded-md text-sm px-6 py-4 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
-                         <svg xmlns="http://www.w3.org/2000/svg" className="text-blue-700" version="1.1" id="mdi-printer" width="24" height="24" viewBox="0 0 24 24"><path d="M18,3H6V7H18M19,12A1,1 0 0,1 18,11A1,1 0 0,1 19,10A1,1 0 0,1 20,11A1,1 0 0,1 19,12M16,19H8V14H16M19,8H5A3,3 0 0,0 2,11V17H6V21H18V17H22V11A3,3 0 0,0 19,8Z" /></svg>
-                                 </button>
+                         <button onClick={showHandler} type="button" class=" outline outline-offset-2 hover:text-white outline-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300   rounded-md text-sm px-6 py-4 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+                        
+                                 
+                                 <svg className='h-8 w-8 ' fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M6.72 13.829c-.24.03-.48.062-.72.096m.72-.096a42.415 42.415 0 0110.56 0m-10.56 0L6.34 18m10.94-4.171c.24.03.48.062.72.096m-.72-.096L17.66 18m0 0l.229 2.523a1.125 1.125 0 01-1.12 1.227H7.231c-.662 0-1.18-.568-1.12-1.227L6.34 18m11.318 0h1.091A2.25 2.25 0 0021 15.75V9.456c0-1.081-.768-2.015-1.837-2.175a48.055 48.055 0 00-1.913-.247M6.34 18H5.25A2.25 2.25 0 013 15.75V9.456c0-1.081.768-2.015 1.837-2.175a48.041 48.041 0 011.913-.247m10.5 0a48.536 48.536 0 00-10.5 0m10.5 0V3.375c0-.621-.504-1.125-1.125-1.125h-8.25c-.621 0-1.125.504-1.125 1.125v3.659M18 10.5h.008v.008H18V10.5zm-3 0h.008v.008H15V10.5z"></path>
+</svg>
+                              </button>
                                    </div>
                                    <div>
                                    <Link to='/demand-notices/batches'>
                                    <div className='bg-white rounded-full p-1 shadow-lg hover:bg-blue-600 hover:text-white'>
-                                        <svg className='h-6 w-6  ' fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                   <svg className='h-6 w-6  ' fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
   <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5"></path>
-</svg> 
+                                 </svg> 
 </div>
 
                                    </Link>
@@ -359,7 +380,7 @@ if(demand_batchs?.demandNoticeBatch?.generatedStatus === 'not_yet_started' || de
  </div>
  
  <div class="flex flex-row justify-between  leading-normal">
-     <h6 class="pr-0 pl-2 text-2xl font-bold tracking-tight text-blue-900 dark:text-white">S/N:</h6>
+     <h6 class="pr-0 pl-2 text-2xl font-bold tracking-tight text-blue-900 dark:text-white">No:.</h6>
      <h5 class="px-4 text-2xl font-bold text-blue-700 dark:text-gray-400">{batch.serialNumber}</h5>
  
  </div>

@@ -122,8 +122,8 @@ const sortedArray = _.orderBy(demand_lists, [(obj) => new Date(obj.date)], ['asc
                               ) : error ? (
                                  <div>{errorGenerateLIst}</div>
                               ) : (
-<div className='mx-4 mt-4'>
-                      <div class="relative mx-8 overflow-x-auto shadow-md sm:rounded-lg ">
+<div className=' mt-4'>
+                      <div class="relative  overflow-x-auto shadow-md sm:rounded-lg ">
     <table class="w-full text-sm text-left  text-gray-500 dark:text-gray-400">
         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
@@ -143,6 +143,9 @@ const sortedArray = _.orderBy(demand_lists, [(obj) => new Date(obj.date)], ['asc
                 </th>
                 <th scope="col" class="px-6 py-3">
                     Quantity
+                </th>
+                <th scope="col" class="px-6 py-3">
+                   Generation Status
                 </th>
                 <th scope="col" class="px-6 py-3">
                     Date
@@ -181,6 +184,9 @@ const sortedArray = _.orderBy(demand_lists, [(obj) => new Date(obj.date)], ['asc
                                             </td>
                                             <td class="px-6 py-4">
                                             {demand_list.demandNoticeBatch.numberOfEntries}
+                                            </td>
+                                            <td class="px-6 py-4">
+                                            {demand_list.demandNoticeBatch.generationStatus}
                                             </td>
                                             <td class="px-6 py-4">
                                             {Moment(demand_list.demandNoticeBatch.createdAt).format('DD-MM-YYYY')       }
