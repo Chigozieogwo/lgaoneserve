@@ -30,7 +30,10 @@ const CreateCategoryScreen = ({ match }) => {
    const [categoryDescription, setCategoryDescription] = useState('');
    const [lgaKey, setLgaKey] = useState('');
    const [revenueLineCodes, setRevenueLineCodes] = useState([]);
+   const [showDropdown, setShowDropdown] = useState(false);
 
+
+   const [lgaFilter, setLgaFilter] = useState('');
    const location = useLocation();
    const navigate = useNavigate();
 
@@ -67,7 +70,7 @@ const CreateCategoryScreen = ({ match }) => {
       revenueLineCodes
     ));
     
-     dispatch(listRevenues());
+   //   dispatch(listRevenues());
    //   setRevenueLineCodes(revenues)
     //  setShowModal(true);
     //  setShowModal(false);
@@ -75,9 +78,21 @@ const CreateCategoryScreen = ({ match }) => {
     
  };
 
-
+ const handleLgaFilter = (e) => {
+   setLgaFilter(e.target.value);
+ };
  
 
+ const handleShowDropdown = (e) => {
+    if(showDropdown ===true){
+       setShowDropdown(false);
+       
+      }else{
+       setShowDropdown(true);
+       dispatch(listRevenues(lgaKey));
+    }
+   //  console.log(e.target.value)
+ };
  const handleChangeCategoryName = (e) => {
     setCategoryName(e.target.value);
    //  console.log(e.target.value)
@@ -88,6 +103,7 @@ const CreateCategoryScreen = ({ match }) => {
  const handleChangeLgaKey = (e) => {
     
        setLgaKey(e.target.value);
+      //  dispatch(listRevenues(lgaKey));
    //  console.log(lgaKey + "locat me locate me")
  };
  
@@ -112,10 +128,10 @@ const CreateCategoryScreen = ({ match }) => {
 
    useEffect(() => {
        dispatch(listLocations());
-       dispatch(listRevenues());
-     
+      //  dispatch(listRevenues(lgaKey));
+       dispatch(listRevenues(lgaKey));
       
-   }, [navigate, userInfo, user]);
+   }, [lgaKey]);
 
    return (
       <>
@@ -168,8 +184,8 @@ const CreateCategoryScreen = ({ match }) => {
                     
         </div>
         <div>
-        <label for="lga" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Local Govt. Area</label>
-        <select onChange={handleChangeLgaKey} id="lga" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                 <label for="lga" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Local Govt. Area</label>
+<select onChange={handleChangeLgaKey} id="lga" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                           <option selected>Select LGA</option>
                                           
   <option  value="aba-north-lga-abia-state-nigeria">Aba North</option>
@@ -188,17 +204,17 @@ const CreateCategoryScreen = ({ match }) => {
   <option  value="ukwa-west-lga-abia-state-nigeria">Ukwa West</option>
   <option  value="umu-nneochi-lga-abia-state-nigeria">Umu Nneochi</option>
   <option  value="umuahia-north-lga-abia-state-nigeria">Umuahia North</option>
-  <option  value="umuahia-south-lga-abia-state-nigeria">Umuahia South</option>
+  <option  value="umuhaia-south-lga-abia-state-nigeria">Umuahia South</option>
 
 
-                                          {/* {locations === 'undefined' ? null : locations.map((location, index) => (
+                                          {/* { locations?.map((location, index) => (
 
 <option key={location._id} value={location.lgaKey}>{location.lgaName}</option>
 //                                           
                                           
                                           ))} */}
 </select>
-        </div>
+                 </div>
         
         
         
@@ -216,30 +232,46 @@ const CreateCategoryScreen = ({ match }) => {
    
     </div>
 
-    <label for="message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select Revenue Maps</label>
 
-    <div class="grid gap-2 mx-4  grid-cols-2 md:grid-cols-3 mb-4">
-         
+        
+        
 
-    {revenues?.map((revenue, index) => (
-                                       
-                                        <div key={revenue._id} class="flex items-center ">
-                                        <input
-                                          type="checkbox"
-                                           value={revenue.revenueLineCode}
-                                           onClick={ handleChangeRevenueLinesCode}
-                                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
-                                        <label for="default-checkbox" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">{revenue.revenueLineName}</label>
-                                    </div>
-                                          
-                                          ))}
-    
-    
-    </div>
-     
-    
-    
-  
+<div>
+
+   <label for="message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select Revenue Maps</label>
+<div onClick={handleShowDropdown}
+                                               
+                                               class="mb-4 cursor-pointer active:border-black bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                                             >
+                                                <div className='flex justify-between'>
+<p className='text-gray-400'> Click Dropdown to Select ... </p>
+<svg fill="none" className='w-5 h-5' stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"></path>
+</svg>
+                                               </div>
+                                             </div>
+{showDropdown ? (<div class="grid gap-2 mx-4 mt-4 grid-cols-2 md:grid-cols-3 mb-4">
+      
+
+      {revenues?.map((revenue, index) => (
+                                         
+                                          <div key={revenue._id} class="flex items-center ">
+                                          <input
+                                            type="checkbox"
+                                             value={revenue.revenueLineCode}
+                                             onClick={ handleChangeRevenueLinesCode}
+                                              class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
+                                          <label for="default-checkbox" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">{revenue.revenueLineName}</label>
+                                      </div>
+                                            
+                                            ))}
+      
+      
+      </div>): null }
+                                             
+</div>
+
+
     
     <button
                                                 onClick={submitHandler}

@@ -121,6 +121,10 @@ console.log(revenueLineCode + 'RevenueLineCode code')
  };
  const handleLgaFilter = (e) => {
    setLgaFilter(e.target.value);
+   // setTimeout(() => {
+
+   //    dispatch(listRevenues(lgaFilter));
+   // },1000)
  };
 
 
@@ -187,7 +191,8 @@ console.log(revenueLineCode + 'RevenueLineCode code')
 
     
    useEffect(() => {
-    dispatch(listRevenues(lgaFilter));
+    if(lgaFilter) {
+       dispatch(listRevenues(lgaFilter));}
     // deactivate()
  }, [dispatch,lgaFilter]);
     

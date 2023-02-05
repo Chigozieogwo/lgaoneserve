@@ -219,7 +219,7 @@ const DemandModuleScreen = ({ match }) => {
                   
                 <div >
                     <div class="flex justify-between items-center">
-                    <h2 class="text-sm mb-8 text-gray-600 font-bold tracking-wide">
+                    <h2 class="text-sm mb-8 mx-8 text-gray-600 font-bold tracking-wide">
                     List Of Specific Payer Demand Notice
                   </h2>
                     </div>
@@ -256,6 +256,9 @@ const DemandModuleScreen = ({ match }) => {
                 <th scope="col" class="px-6 py-3">
                     LGA
                 </th>
+                {/* <th scope="col" class="px-6 py-3">
+                    Acronym
+                </th> */}
                 <th scope="col" class="px-6 py-3">
                     ABSSIN
                 </th>
@@ -269,7 +272,7 @@ const DemandModuleScreen = ({ match }) => {
             </tr>
         </thead>
         <tbody>
-                                          {demand_Specificlists.reverse().map((Specificlist, index) => (
+                                          {demand_Specificlists?.reverse()?.map((Specificlist, index) => (
                                             <tr key={Specificlist?.demandNotice?._id} class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                                             
                                             <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
@@ -288,8 +291,11 @@ const DemandModuleScreen = ({ match }) => {
                                             <td class="px-6 py-4">
                                             {Specificlist?.lgaRecord?.lgaName}
                                             </td>
+                                            {/* <td class="px-6 py-4">
+                                            {Specificlist?.lgaRecord?.acronym}
+                                            </td> */}
                                             <td class="px-6 py-4">
-                                            {Specificlist?.lgaRecord?.acronym}-{Specificlist?.payerRecord?.abbsin}
+                                            {Specificlist?.payerRecord?.abbsin}
                                             </td>
                                             <td class="px-6 py-4">
                                             {Specificlist?.payerRecord?.phoneNumber}

@@ -31,7 +31,7 @@ const CategoryListScreen = ({  }) => {
 
     //  const [locations, setLocations] = useState([]);
    const [lgaKey, setLgaKey] = useState('aba-north-lga-abia-state-nigeria');
-    
+   const [lgaFilter, setLgaFilter] = useState('');
    
    
     const [showModal, setShowModal] = useState(false);
@@ -85,6 +85,9 @@ const CategoryListScreen = ({  }) => {
    
 };
 
+const handleLgaFilter = (e) => {
+   setLgaFilter(e.target.value);
+ };
 
 // const handleChangeCode = (e) => {
 //     setRevenueLineCode(e.target.value);
@@ -126,9 +129,9 @@ const CategoryListScreen = ({  }) => {
     
    useEffect(() => {
     dispatch(listLocations());
-       dispatch(demandCategoryDetailsAction(lgaKey));
+       dispatch(demandCategoryDetailsAction(lgaFilter));
       
-   }, [lgaKey]);
+   }, [lgaFilter]);
 
 
     
@@ -195,12 +198,47 @@ const CategoryListScreen = ({  }) => {
                            
                     
 
-                       {loadingCategory ? (
-                                 <Loader />
-                              ) : error ? (
-                                 <div>{errorCategory}</div>
-                              ) : (
-<div className='mx-12 mt-4'>
+                      
+                      <div className='mx-12 bg-white pt-8 rounded-lg'>
+   <div className='mx-4 md:mx-48 mb-8 '>
+
+
+<div>
+                 {/* <label for="lga" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Search...</label> */}
+<select onChange={handleLgaFilter} id="lga" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                          <option selected>Filter By LGA</option>
+                                          
+  <option  value="aba-north-lga-abia-state-nigeria">Aba North</option>
+  <option  value="aba-south-lga-abia-state-nigeria">Aba South</option>
+  <option  value="arochukwu-lga-abia-state-nigeria">Arochukwu</option>
+  <option  value="bende-lga-abia-state-nigeria">Bende</option>
+  <option  value="ikwuano-lga-abia-state-nigeria">Ikwuano</option>
+  <option  value="isiala-ngwa-north-lga-abia-state-nigeria">Isiala Ngwa North</option>
+  <option  value="isiala-ngwa-south-lga-abia-state-nigeria">Isiala Ngwa South</option>
+  <option  value="isuikwuato-lga-abia-state-nigeria">Isuikwuato</option>
+  <option  value="obi-ngwa-lga-abia-state-nigeria">Obingwa</option>
+  <option  value="ohafia-lga-abia-state-nigeria">Ohafia</option>
+  <option  value="osisioma-ngwa-lga-abia-state-nigeria">Osisioma Ngwa</option>
+  <option  value="ugwunagbo-lga-abia-state-nigeria">Ugwunagbo</option>
+  <option  value="ukwa-east-lga-abia-state-nigeria">Ukwa East</option>
+  <option  value="ukwa-west-lga-abia-state-nigeria">Ukwa West</option>
+  <option  value="umu-nneochi-lga-abia-state-nigeria">Umu Nneochi</option>
+  <option  value="umuahia-north-lga-abia-state-nigeria">Umuahia North</option>
+  <option  value="umuhaia-south-lga-abia-state-nigeria">Umuahia South</option>
+
+
+                                          {/* { locations?.map((location, index) => (
+
+<option key={location._id} value={location.lgaKey}>{location.lgaName}</option>
+//                                           
+                                          
+                                          ))} */}
+</select>
+                 </div>
+</div>
+
+
+
                       <div class="relative overflow-x-auto shadow-md sm:rounded-lg ">
     <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -293,7 +331,7 @@ const CategoryListScreen = ({  }) => {
                                </table>
                                </div>
                                </div>
-)} 
+
 
                            
                       
