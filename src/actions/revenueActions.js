@@ -23,6 +23,7 @@ import url from '../utils/baseUrl.js'
 
 export const revenueCreateAction =
    (revenueLineName,
+      lgaKey,
     revenueLineCode,
     revenueLineAmount,
     revenueLineFrequency) =>
@@ -41,9 +42,10 @@ export const revenueCreateAction =
           };
           
 
-console.log(revenueLineName,
+console.log(
+   revenueLineName,
+   lgaKey,
     revenueLineCode,
-    
     revenueLineAmount,
     revenueLineFrequency)
 
@@ -52,6 +54,7 @@ console.log(revenueLineName,
             `${url}/revenuelines`,
             {
                 revenueLineName,
+                lgaKey,
                 revenueLineCode,
                 revenueLineAmount,
                 revenueLineFrequency
@@ -77,7 +80,7 @@ console.log(revenueLineName,
 
 
    export const listRevenues =
-   () =>
+   (lga) =>
    async (dispatch, getState) => {
       try {
          dispatch({
@@ -100,7 +103,7 @@ console.log(revenueLineName,
          //   config
          // )
          const { data } = await axios.get(
-            `${url}/revenuelines`,
+            `${url}/revenuelines?lgaKey=${lga}`,
             config
          );
          // const { data } = await axios.get('/api/users')

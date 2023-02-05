@@ -43,7 +43,8 @@ import url from '../utils/baseUrl.js'
          );
          // const { data } = await axios.get('/api/users')
 
-         console.log(data + " Abia Local Govt");
+         // console.log(JSON.stringify(data) + " Abia Local Govt");
+         // console.log(data + " Abia Local Govt");
 
          dispatch({
             type: LOCATION_LIST_SUCCESS,

@@ -24,6 +24,7 @@ import {
              pages: action.payload,
              page: action.payload
           };
+          
        case LOCATION_LIST_FAIL:
           return { loading: false, error: action.payload };
        default:

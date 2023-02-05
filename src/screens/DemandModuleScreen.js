@@ -212,7 +212,7 @@ const DemandModuleScreen = ({ match }) => {
                       </div> */}
 
 
-                           <div class="mx-12  mt-4  ">
+                           <div class="mx-2  mt-4  ">
               <div className="py-2 ">
 
 
@@ -254,6 +254,9 @@ const DemandModuleScreen = ({ match }) => {
                     Email
                 </th>
                 <th scope="col" class="px-6 py-3">
+                    LGA
+                </th>
+                <th scope="col" class="px-6 py-3">
                     ABSSIN
                 </th>
                 <th scope="col" class="px-6 py-3">
@@ -283,7 +286,10 @@ const DemandModuleScreen = ({ match }) => {
                                             {Specificlist?.payerRecord?.email}
                                             </td>
                                             <td class="px-6 py-4">
-                                            {Specificlist?.payerRecord?.abbsin}
+                                            {Specificlist?.lgaRecord?.lgaName}
+                                            </td>
+                                            <td class="px-6 py-4">
+                                            {Specificlist?.lgaRecord?.acronym}-{Specificlist?.payerRecord?.abbsin}
                                             </td>
                                             <td class="px-6 py-4">
                                             {Specificlist?.payerRecord?.phoneNumber}
