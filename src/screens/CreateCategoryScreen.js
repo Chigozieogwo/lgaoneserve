@@ -31,7 +31,7 @@ const CreateCategoryScreen = ({ match }) => {
    const [lgaKey, setLgaKey] = useState('');
    const [revenueLineCodes, setRevenueLineCodes] = useState([]);
    const [showDropdown, setShowDropdown] = useState(false);
-
+   const [showModalCheck, setShowModalCheck] = useState(false);
 
    const [lgaFilter, setLgaFilter] = useState('');
    const location = useLocation();
@@ -58,6 +58,11 @@ const CreateCategoryScreen = ({ match }) => {
   const revenueList = useSelector((state) => state.revenueList);
 
   const { loading:loadingList, error:errorList, revenues, page, pages, count } = revenueList;
+
+
+  const demandCategoryCreate = useSelector((state) => state.demandCategoryCreate);
+
+  const { loading:loadingCategory, error:errorCategory,  } = demandCategoryCreate;
   
 
   
@@ -69,6 +74,24 @@ const CreateCategoryScreen = ({ match }) => {
       lgaKey,
       revenueLineCodes
     ));
+
+   //  setShowModal(false);
+     setTimeout(()=>{
+        setShowModalCheck(true);
+
+        setTimeout(()=>{
+         
+          navigate('/category')
+ 
+      },3000)
+      //   navigate('/category')
+
+     },1000)
+     setTimeout(()=>{
+
+        setShowModalCheck(false);
+      //   navigate('/category')
+     },6000)
     
    //   dispatch(listRevenues());
    //   setRevenueLineCodes(revenues)
@@ -107,6 +130,13 @@ const CreateCategoryScreen = ({ match }) => {
    //  console.log(lgaKey + "locat me locate me")
  };
  
+
+ const handleCloseCheck = () => {
+  
+   setShowModalCheck(false);
+  
+};
+
  const handleChangeRevenueLinesCode = (e) => {
 
    const { value, checked } = e.target;
@@ -169,7 +199,42 @@ const CreateCategoryScreen = ({ match }) => {
                         </div>
                       </div>
                     
-
+                      {showModalCheck ? (
+                              <div
+                               onClick={handleCloseCheck}
+                              tabindex="-1"
+                              class="flex  justify-center  bg-[rgb(0,0,0,0.35)] align-center overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 md:inset-0 h-modal md:h-full"
+                           >
+                              <div class="relative  w-full max-w-md h-full md:h-auto">
+                              <div>
+                              
+                                         </div>
+                                 
+                                 <div class="">
+                                     
+                                    <div class="flex justify-center aligns-center  max-w-sm bg-white mt-20 ml-8 p-4 md:ml-16 rounded-lg border border-gray-200 shadow-md sm:p-6 lg:p-8 dark:bg-gray-800 dark:border-gray-700">
+                                     
+                                       {/* {message && (
+                                          <Message variant="danger">
+                                             {message}
+                                          </Message>
+                                       )} */}
+                                     
+                                     {errorCategory ? ( <div><svg className="text-red-700" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+</svg>
+<h5 className="text-red-700" >{errorCategory}</h5>
+</div>) :   <div><svg className="text-green-700" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+</svg>
+<h5 className="text-green-700" >Category Generated</h5>
+</div>}
+                                    
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                           ) : null}
                       <div class=" max-w-3xl -mt-12 bg-white rounded-lg  mx-auto p-4 ">
 
 
