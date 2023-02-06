@@ -11,7 +11,11 @@ import {
    
 } from '../constants/userConstants.js';
 // import moment from 'moment';
-import url from '../utils/baseUrl.js'
+import url2 from '../utils/baseUrl.js'
+// require('dotenv').config()
+
+
+let url = process.env.REACT_APP_BASE_URL;
 
 export const login = (email, password) => async (dispatch) => {
    try {
@@ -26,15 +30,16 @@ export const login = (email, password) => async (dispatch) => {
          }
       };
 
-
+      // `process.env.REACT_APP_BASE_URL/users/login`,
     //    const url ='https://billable-dev.herokuapp.com'
     //    const BASE_URL = process.env.REACT_APP_BASE_URL;
-
-      const { data } = await axios.post(
-         `${url}/users/login`,
-         { email, password },
-         config
-      );
+// console.log(process.env + 'env')
+// console.log(process.env.REACT_APP_BASE_URL + 'env')
+// console.log(process.env.NODE_ENV + 'node env')
+      const { data } = await axios.post(`${url}/users/login`,
+       { email, password },
+       config);
+     
 
       dispatch({
          type: USER_LOGIN_SUCCESS,

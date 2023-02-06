@@ -17,9 +17,9 @@ import {
    REVENUE_UPDATE_SUCCESS,
    REVENUE_UPDATE_REQUEST
 } from '../constants/revenueConstants';
-import url from '../utils/baseUrl.js'
+import url2 from '../utils/baseUrl.js'
 
-
+let url = process.env.REACT_APP_BASE_URL;
 
 export const revenueCreateAction =
    (revenueLineName,

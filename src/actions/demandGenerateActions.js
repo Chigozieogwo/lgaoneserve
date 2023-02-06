@@ -22,10 +22,10 @@ import {
    DEMAND_GENERATE_BATCH_REQUEST,
    
 } from '../constants/demandGenerateConstants.js';
-import url from '../utils/baseUrl.js'
+import url2 from '../utils/baseUrl.js'
 import pdfUrl from '../utils/pdfUrl.js'
 
-
+let url = process.env.REACT_APP_BASE_URL;
 
 export const demandGenerateCreateAction =
    ( lgaKey,
@@ -90,13 +90,7 @@ export const demandGenerateDownloadAction = (id) => async (dispatch, getState) =
          userLogin: { userInfo }
       } = getState();
 
-      // const config = {
-      //    headers: {
-      //       'Content-Type': 'application/json',
-      //       'Accept': 'application/pdf',
-      //       Authorization: `Bearer ${userInfo.token}`
-      //    }
-      // };
+      
 
       axios.get(`${pdfUrl}/demand-notices/export-pdf?demandNoticeBatchId=${id}`,
         {
@@ -134,6 +128,55 @@ export const demandGenerateDownloadAction = (id) => async (dispatch, getState) =
       });
    }
 };
+
+
+export const demandGenerateDownloadCsvAction = (id) => async (dispatch, getState) => {
+   try {
+      dispatch({ type: DEMAND_GENERATE_DOWNLOAD_REQUEST });
+
+      const {
+         userLogin: { userInfo }
+      } = getState();
+
+      
+
+      axios.get(`${pdfUrl}/demand-notices/export-csv/batch?demandNoticeBatchId=${id}`,
+        {
+            responseType: 'arraybuffer',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/pdf',
+                Authorization: `Bearer ${userInfo.token}`
+            }
+        })
+        .then((response) => {
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', `${id}Demand_Notice_Multiple.csv`); //or any other extension
+            document.body.appendChild(link);
+            link.click();
+        })
+        .catch((error) => console.log(error));
+
+      // const { data } = await axios.get(`${pdfUrl}/demand-notices/export-pdf?demandNoticeBatchId=${id}`, config);
+
+      dispatch({
+         type: DEMAND_GENERATE_DOWNLOAD_SUCCESS,
+         payload: url
+      });
+      // localStorage.setItem('DEPOSIT_Details', JSON.stringify(data));
+   } catch (error) {
+      dispatch({
+         type: DEMAND_GENERATE_DOWNLOAD_FAIL,
+         payload:
+            error.response && error.response.data.message
+               ? error.response.data.message
+               : error.message
+      });
+   }
+};
+
 
 
 export const demandGenerateBatchAction = (id) => async (dispatch, getState) => {

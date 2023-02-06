@@ -22,10 +22,10 @@ import {
    DEMAND_SPECIFIC_BATCH_REQUEST,
    
 } from '../constants/demandSpecificConstants.js';
-import url from '../utils/baseUrl.js'
+import url2 from '../utils/baseUrl.js'
 import pdfUrl from '../utils/pdfUrl.js'
 
-
+let url = process.env.REACT_APP_BASE_URL;
 
 export const demandSpecificCreateAction =
    ( 

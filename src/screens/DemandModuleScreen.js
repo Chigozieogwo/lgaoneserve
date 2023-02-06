@@ -7,7 +7,9 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 import Sidebar from '../components/Sidebar';
+// import Paginate from '../components/Paginate';
 
+import Paginate from '../components/Paginate';
 
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
@@ -23,6 +25,23 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 const DemandModuleScreen = ({ match }) => {
     const [showModalPrint , setShowModalPrint ] = useState(false)
+
+    const [blogPosts, setBlogPosts] = useState([]);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [postsPerPage] = useState(3);
+  
+    // ...
+  
+    const indexOfLastPost = currentPage * postsPerPage;
+    const indexOfFirstPost = indexOfLastPost - postsPerPage;
+    const currentPosts = blogPosts.slice(indexOfFirstPost, indexOfLastPost);
+  
+    const paginate = (pageNumber) => {
+       setCurrentPage(pageNumber);
+    };
+
+
+
    const location = useLocation();
    const navigate = useNavigate();
 

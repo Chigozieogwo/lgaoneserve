@@ -11,7 +11,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
 import { logout, getUserDetails } from '../actions/userActions';
-import {demandGenerateCreateAction ,listDemandGenerateLists , } from '../actions/demandGenerateActions';
+import {demandGenerateCreateAction ,listDemandGenerateLists ,  } from '../actions/demandGenerateActions';
 import {demandSpecificCreateAction } from '../actions/demandSpecificActions';
 import {demandCategoryDetailsAction } from '../actions/demandCategoryActions';
 import {listLocations } from '../actions/locationActions';

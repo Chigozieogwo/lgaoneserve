@@ -8,7 +8,7 @@ import "react-datepicker/dist/react-datepicker.css";
 
 import Sidebar from '../components/Sidebar';
 
-import {demandGenerateCreateAction ,listDemandGenerateLists,demandGenerateDownloadAction ,demandGenerateBatchAction } from '../actions/demandGenerateActions';
+import {demandGenerateCreateAction ,listDemandGenerateLists,demandGenerateDownloadAction ,demandGenerateBatchAction,demandGenerateDownloadCsvAction } from '../actions/demandGenerateActions';
 
 
 import axios from 'axios';
@@ -25,6 +25,7 @@ import { CSVLink,CSVDownload } from "react-csv";
 const BatchPreviewScreen = ({ match }) => {
   
    const [showModalPrint , setShowModalPrint ] = useState(false)
+   const [showModalCsv , setShowModalCsv ] = useState(false)
    const [generationStatus , setGenerationStatus ] = useState('')
    const {id} = useParams()
 
@@ -191,20 +192,23 @@ const handleClose = () => {
      
      
    
-   //  if(demand_batchs?.demandNoticeBatch?.generationStatus === 'successful' ){
-      
-   //     setTimeout(() => {
-   //       window.open(`${demand_batchs?.demandNoticeBatch?.presignedFileUrl}`);
-   //          setShowModalPrint(false);
-                 
-   //       }, 4000);
-   //    // dispatch(demandGenerateDownloadAction(id));
-   // } 
-   // setShowModalPrint(true);
-   // setTimeout(() => {
-   //    setShowModalPrint(false);
-           
-   //   }, 8000);
+   
+};
+  const showHandlerCsv = () => {
+   
+     setShowModalCsv(true);
+     
+     dispatch(demandGenerateDownloadCsvAction(id));
+    
+     setTimeout(() => {
+       
+        setShowModalCsv(false);
+        
+     }, 2000);
+     
+     
+   
+   
 };
 
 function Interval(){
@@ -268,6 +272,54 @@ csvExporter.generateCsv(demand_batchs)
 
                   <div>
                          <div className="bg-[#F4F5FA] overscroll-none  px-5  py-5">
+
+
+
+
+
+
+
+
+
+                         {showModalCsv ? (
+                              <div
+                              onClick={handleClose}
+                              tabindex="-1"
+                              class="flex  justify-center  bg-[rgb(0,0,0,0.35)] align-center overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 md:inset-0 h-modal md:h-full"
+                           >
+                              <div class="relative  w-full max-w-md h-full md:h-auto">
+                              <div>
+                              
+                                         </div>
+                                 
+                                 <div class="">
+                                     
+                                    <div class=" max-w-sm bg-white mt-20 ml-8 p-4 md:ml-16 rounded-lg border border-gray-200 shadow-md sm:p-6 lg:p-8 dark:bg-gray-800 dark:border-gray-700">
+                                      <Loader /> 
+                                       {/* <Message className='-mt-8'>{demand_batchs?.demandNoticeBatch?.generatedStatus === 'not_yet_started' ? (<p> Please Wait</p>) : demand_batchs?.demandNoticeBatch?.generatedStatus === 'in_progress' ? (<p> Generation in Progress</p>):demand_batchs?.demandNoticeBatch?.generatedStatus === 'failed' ? (<p> failed</p>) : null }</Message> */}
+                                       {/* <Message className='-mt-8'>{ demand_batchs?.demandNoticeBatch?.generatedStatus === 'in_progress' ? (<p> Generation in Progress</p>) : null }</Message> */}
+                                   
+                                       <div class="flex p-4 mb-4 text-sm text-green-800 border border-green-300 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400 dark:border-green-800" role="alert">
+  <svg aria-hidden="true" class="flex-shrink-0 inline w-5 h-5 mr-3" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
+  <span class="sr-only"></span>
+  <div>
+    <span class="font-medium"> <span> {demand_batchs?.demandNoticeBatch?.numberOfEntries}</span> Demand Notice Generation Completed!</span> 
+  </div>
+</div>
+                                     
+                                       {/* <h5 className='text-md font-italics text-blue-700 text-center'> Downloading Demand  Notice ...</h5> */}
+                                       </div> 
+                                    
+                                    </div>
+                                 </div>
+                              </div>
+                           ) : null}
+
+
+
+
+
+
                         
                          {showModalPrint ? (
                               <div
@@ -355,14 +407,14 @@ csvExporter.generateCsv(demand_batchs)
                          
                         
 
-                         <div class="grid grid-cols-3 gap-2 ml-12">
+                         <div class="grid grid-cols-4 gap-2 ml-12">
                          <ul>
                          <div className="flex justify-between ">
                                    <h5 className="font-bold text-xl"> Total : <span> {demand_batchs?.demandNoticeBatch?.numberOfEntries}</span> </h5>
                                    {/* <CSVLink data={demand_batchs1} > 
                                    
                                    </CSVLink> */}
-                                   <button  onClick={exportToCsv} className="bg-blue-600 hover:bg-blue-800 mb-2 px-4 py-2 text-white ">Export as Csv</button>
+                                   <button  onClick={showHandlerCsv} className="bg-blue-600 hover:bg-blue-800 mb-2 px-4 py-2 text-white ">Export as Csv</button>
 
 {/* <CSVDownload data={demand_batchs1} target="_blank" ><button  className="bg-blue-600 hover:bg-blue-800 mb-2 px-4 py-2 text-white ">Export as Csv</button>
                                    </CSVDownload> */}
@@ -375,13 +427,13 @@ csvExporter.generateCsv(demand_batchs)
  
 
  <div key={index} class="flex my-1 flex-row items-center bg-white border rounded-lg shadow-md md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
- <div className="bg-blue-700 px-12 py-4 text-white text-2xl font-bold">
+ <div className="bg-blue-700 px-4 py-4 text-white text-2xl font-bold">
     {index + 1}
  </div>
  
  <div class="flex flex-row justify-between  leading-normal">
      <h6 class="pr-0 pl-2 text-2xl font-bold tracking-tight text-blue-900 dark:text-white">No:.</h6>
-     <h5 class="px-4 text-2xl font-bold text-blue-700 dark:text-gray-400">{batch.serialNumber}</h5>
+     <h5 class="px-1 text-2xl font-bold text-blue-700 dark:text-gray-400">{batch.serialNumber}</h5>
  
  </div>
 
@@ -390,10 +442,10 @@ csvExporter.generateCsv(demand_batchs)
  )
                           
                         }</ul>
-                         <div class="col-span-2 -mt-32">
-                              <h5> Preview </h5>
-                              {success ? (<iframe className="mx-auto overflow-hidden" src= {`https://billable-dev.herokuapp.com/demand-notices/template?demandNoticeId=${demand_batchs?.demandNoticesList[0]?._id}`}
- width="100%" height="900"></iframe>):<iframe className="mx-auto overflow-hidden" src= {'https://billable-dev.herokuapp.com/demand-notices/template?demandNoticeId=63c431c3ddbd64368df75fbd'}
+                         <div class="col-span-3 -mt-32">
+                              <h5 className="font-semibold text-xl mb-2 "> Preview </h5>
+                              {success ? (<iframe className="mx-auto overflow-hidden w-[210mm]" src= {`https://api.billable.site/demand-notices/template?demandNoticeBatchId=${demand_batchs?.demandNoticeBatch?._id}`}
+ width="100%" height="900"></iframe>):<iframe className="mx-auto overflow-hidden w-[210mm]" src= {'https://api.billable.site/demand-notices/template?demandNoticeBatchId=63e0cf13052caecf760ae7f1'}
  width="100%" height="900"></iframe>}
                          
                          {/* {demand_batchs === "undefined" ? (<Loader />) : } */}

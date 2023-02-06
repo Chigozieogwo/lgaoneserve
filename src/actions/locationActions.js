@@ -7,8 +7,10 @@ import {
    LOCATION_LIST_FAIL,
    
 } from '../constants/locationConstants';
-import url from '../utils/baseUrl.js'
+import url2 from '../utils/baseUrl.js'
 
+
+let url = process.env.REACT_APP_BASE_URL;
 
 
 
