@@ -220,7 +220,7 @@ console.log(revenueLineCode + 'RevenueLineCode code')
                         <div className="flex justify-between py-4 px-6 text-xl">
                                    <h5> List of Revenue Codes  </h5>
                                    <Link to='/demand_module'>
-                                   <div className='bg-white rounded-full p-1 shadow-lg hover:bg-blue-600 hover:text-white'>
+                                   <div className='bg-white rounded-full p-1 shadow-lg hover:bg-green-600 hover:text-white'>
                                         <svg className='h-6 w-6  ' fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5"></path>
 </svg> 
@@ -345,17 +345,17 @@ console.log(revenueLineCode + 'RevenueLineCode code')
                                                 onChange={(e) =>
                                                    setName(e.target.value)
                                                 }
-                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                                                 placeholder="john Doe"
                                              ></input>
                                           </div> */}
                                           <div>
                      <label  for="text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Revenue Name</label>
-                     <input onChange={handleChangeName} type="text" name="text" id="text" placeholder="Enter Category Name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" ></input>
+                     <input onChange={handleChangeName} type="text" name="text" id="text" placeholder="Enter Category Name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" ></input>
                  </div>
                  <div>
                  <label for="lga" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Local Govt. Area</label>
-<select onChange={handleChangeLga} id="lga" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+<select onChange={handleChangeLga} id="lga" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500">
                                           <option selected>Select LGA</option>
                                           
   {/* <option  value="aba-north-lga-abia-state-nigeria">Aba North</option>
@@ -394,7 +394,7 @@ console.log(revenueLineCode + 'RevenueLineCode code')
                        <span class="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 border border-r-0 border-gray-300 rounded-l-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
                          {lgaCode }
                        </span>
-                       <input onChange={handleChangeCode} type="text"  class="rounded-none rounded-r-lg bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Enter Revenue Code"></input>
+                       <input onChange={handleChangeCode} type="text"  class="rounded-none rounded-r-lg bg-gray-50 border text-gray-900 focus:ring-green-500 focus:border-green-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500" placeholder="Enter Revenue Code"></input>
                      </div>
                 </div>
                 
@@ -403,16 +403,16 @@ console.log(revenueLineCode + 'RevenueLineCode code')
                      <label for="text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Revenue Code</label>
                      
                   <div class="relative">
-                     <div class="absolute inset-y-0 left-0 flex items-center bg-blue-700 text-md px-2 rounded-lg font-bold text-white pl-3 pointer-events-none">
+                     <div class="absolute inset-y-0 left-0 flex items-center bg-green-700 text-md px-2 rounded-lg font-bold text-white pl-3 pointer-events-none">
                        234
                      </div>
-                     <input onChange={handleChangeCode} type="text" name="text" id="text" placeholder="Enter Revenue Code" class=" block w-full p-4 pl-10 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" ></input>
+                     <input onChange={handleChangeCode} type="text" name="text" id="text" placeholder="Enter Revenue Code" class=" block w-full p-4 pl-10 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" ></input>
                  </div>
                  </div> */}
 
                                          <div>
                                          <label for="lga" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Frequency of Payment</label>
-<select onChange={handleChangeFrequency} id="frequency" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+<select onChange={handleChangeFrequency} id="frequency" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500">
 <option selected>Select Payment Frequency</option>
 <option value="yearly">Yearly</option>
 <option value="monthly">Monthly</option>
@@ -423,7 +423,7 @@ console.log(revenueLineCode + 'RevenueLineCode code')
                                                     
                                                     <div>
                      <label for="text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Amount</label>
-                     <input onChange={handleChangeAmount} type="number"  placeholder="Enter Amount" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" ></input>
+                     <input onChange={handleChangeAmount} type="number"  placeholder="Enter Amount" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" ></input>
                  </div>
                 
                                          
@@ -435,7 +435,7 @@ console.log(revenueLineCode + 'RevenueLineCode code')
                                           <button
                                              onClick={submitHandler}
                                              type="submit"
-                                             class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                                             class="w-full text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
                                           >
                                              Create
                                           </button>
@@ -450,7 +450,7 @@ console.log(revenueLineCode + 'RevenueLineCode code')
                                
                         <div className="flex justify-between py-4 px-6 text-xl">
                                   <div></div> 
-                        <button onClick={showHandler} type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300  rounded-md text-sm px-6 py-3 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Create Revenue Code</button>
+                        <button onClick={showHandler} type="button" class="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300  rounded-md text-sm px-6 py-3 mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 focus:outline-none dark:focus:ring-green-800">Create Revenue Code</button>
                         
                                   
                                    
@@ -468,7 +468,7 @@ console.log(revenueLineCode + 'RevenueLineCode code')
       
    <div>
                  {/* <label for="lga" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Search...</label> */}
-<select onChange={handleLgaFilter} id="lga" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+<select onChange={handleLgaFilter} id="lga" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500">
                                           <option selected>Filter By LGA</option>
                                           
   <option  value="aba-north-lga-abia-state-nigeria">Aba North</option>
@@ -499,8 +499,8 @@ console.log(revenueLineCode + 'RevenueLineCode code')
 </select>
                  </div>
    </div>
-                      <div class="relative overflow-x-auto shadow-md sm:rounded-lg ">
-    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                      <div class="relative overflow-x-auto shadow-md sm:rounded-lg mb-32">
+    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400 ">
         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
                 
@@ -509,6 +509,12 @@ console.log(revenueLineCode + 'RevenueLineCode code')
                 </th>
                 <th scope="col" class="px-6 py-3">
                     Revenue Category
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    LGA
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Acronym
                 </th>
                 <th scope="col" class="px-6 py-3">
                     Revenue Code
@@ -536,6 +542,12 @@ console.log(revenueLineCode + 'RevenueLineCode code')
                                             {revenue.revenueLineName}
                                             </td>
                                             <td class="px-6 py-4">
+                                            {revenue?.lga.lgaName}
+                                            </td>
+                                            <td class="px-6 py-4">
+                                            {revenue?.lga.acronym}
+                                            </td>
+                                            <td class="px-6 py-4">
                                             {revenue.revenueLineCode}
                                             </td>
                                             <td class="px-6 py-4">
@@ -546,7 +558,7 @@ console.log(revenueLineCode + 'RevenueLineCode code')
                                             </td>
                                             
                                             <td class="flex items-center px-6 py-4 space-x-3">
-                                                <Link to={`/revenues/${revenue.revenueLineCode}/edit`} class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
+                                                <Link to={`/revenuelines/${revenue.revenueLineCode}/edit`} class="font-medium text-green-600 dark:text-green-500 hover:underline">
                                                 <svg className='h-6 w-6 ' fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
   <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10"></path>
 </svg>
@@ -576,7 +588,7 @@ console.log(revenueLineCode + 'RevenueLineCode code')
                {/*<<<<<<<<<<<<<<<<<<<<<<<<<<<<< the Sidebar >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/}
                <div class="drawer-side ">
                   <label for="my-drawer-3" class="drawer-overlay"></label>
-                  <ul class="menu  overflow-y-auto  w-60 md:w-60 bg-blue-600">
+                  <ul class="menu  overflow-y-auto  w-60 md:w-60 bg-green-700">
                      {/*<<<<<<<<<<<<<<<<<<<<<<<<<<<<< the Sidebar >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/}
                      <Sidebar></Sidebar>
                      {/*<<<<<<<<<<<<<<<<<<<<<<<<<<<<< the Sidebar >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/}

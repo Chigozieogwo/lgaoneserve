@@ -187,13 +187,23 @@ if (success_Specific) {
    
 };
    useEffect(() => {
-      dispatch(listLocations());
-      dispatch(listDemandGenerateLists());
-      dispatch(demandCategoryDetailsAction(lgaKey));
-      // navigate(`/demand-notices/${demand_generate?.demandNoticesList[0].demandNoticeBatchId}`);
-      dispatch({
-         type:DEMAND_GENERATE_CREATE_RESET
-      });
+      if (!userInfo) {
+         navigate('/');
+      } else {
+         // dispatch(getUserDetails('profile'));
+         if (!user || !user.name) {
+            // dispatch({ type: USER_UPDATE_PROFILE_RESET });
+            dispatch(getUserDetails('profile'));
+            dispatch(listLocations());
+            dispatch(listDemandGenerateLists());
+            dispatch(demandCategoryDetailsAction(lgaKey));
+            // navigate(`/demand-notices/${demand_generate?.demandNoticesList[0].demandNoticeBatchId}`);
+            dispatch({
+               type:DEMAND_GENERATE_CREATE_RESET
+            });
+         }
+      }
+      
    }, [navigate, userInfo, user,lgaKey]);
    // useEffect(() => {
      
@@ -225,7 +235,7 @@ if (success_Specific) {
                   <div className="flex justify-between py-4 px-6 text-xl">
                                    <h5> Generate Demand Modules </h5>
                                    <Link to='/demand_module'>
-                                   <div className='bg-white rounded-full p-1 shadow-lg hover:bg-blue-600 hover:text-white'>
+                                   <div className='bg-white rounded-full p-1 shadow-lg hover:bg-green-600 hover:text-white'>
                                         <svg className='h-6 w-6  ' fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
   <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5"></path>
 </svg> 
@@ -239,7 +249,7 @@ if (success_Specific) {
 
                         <div className="flex justify-between py-4 px-6 text-xl">
                                   <div></div> 
-                        <button onClick={showList} type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300  rounded-md text-sm px-6 py-3 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Batch List</button>
+                        <button onClick={showList} type="button" class="text-white bg-green-700 hover:bg-green-600 focus:ring-4 focus:ring-green-300  rounded-md text-sm px-6 py-3 mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 focus:outline-none dark:focus:ring-green-600">Batch List</button>
                         
                                   
                                    
@@ -301,7 +311,7 @@ if (success_Specific) {
                                              
 
 <label for="lga" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Local Govt. Area</label>
-<select onChange={handleChangeLga} id="lga" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+<select onChange={handleChangeLga} id="lga" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500">
                                           <option selected>Select LGA</option>
                                           
   <option  value="aba-north-lga-abia-state-nigeria">Aba North</option>
@@ -331,7 +341,7 @@ if (success_Specific) {
                                           ))} */}
 </select>
 <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Category</label>
-<select onChange={handleChangeDemandNoticeCategoryId} id="countries" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+<select onChange={handleChangeDemandNoticeCategoryId} id="countries" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500">
                                           <option selected>Select Category</option>
 
 
@@ -347,7 +357,7 @@ if (success_Specific) {
 </select>
                     <div className=''>
                         <label for="number" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Quantity</label>
-                        <input onChange={handleChangeNumbers} type="number" name="number" id="password" placeholder="input Quantity" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" ></input>
+                        <input onChange={handleChangeNumbers} type="number" name="number" id="password" placeholder="input Quantity" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" ></input>
                     </div>
                                             
                                              
@@ -358,7 +368,7 @@ if (success_Specific) {
                                             <button
                                                 onClick={submitHandler}
                                                 type="submit"
-                                                class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                                                class="w-full text-white bg-green-700 hover:bg-green-600 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-600"
                                              >
                                                 Generate
                                              </button>
@@ -422,17 +432,17 @@ if (success_Specific) {
     <div class="grid gap-6 mb-6 md:grid-cols-2">
         <div>
         <label for="text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">First Name</label>
-                        <input onChange={(e) => setPayerFirstName(e.target.value)} type="text" name="text" id="text" placeholder="First Name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required></input>
+                        <input onChange={(e) => setPayerFirstName(e.target.value)} type="text" name="text" id="text" placeholder="First Name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required></input>
                     
         </div>
         <div>
         <label for="text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Last Name</label>
-                        <input onChange={(e) => setPayerLastName(e.target.value)} type="text" name="text" id="text" placeholder="Last Name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required ></input>
+                        <input onChange={(e) => setPayerLastName(e.target.value)} type="text" name="text" id="text" placeholder="Last Name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required ></input>
                     
         </div>
         <div>
         <label for="lga" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Local Govt. Area</label>
-        <select onChange={handleChangeLga} id="lga" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+        <select onChange={handleChangeLga} id="lga" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500">
                                           <option selected>Select LGA</option>
                                           
   <option  value="aba-north-lga-abia-state-nigeria">Aba North</option>
@@ -464,17 +474,17 @@ if (success_Specific) {
         </div>
         <div>
             <label for="" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">ABSSIN</label>
-            <input onChange={(e) => setPayerABBSIN(e.target.value)} type="text" id="company" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="24500180045" required></input>
+            <input onChange={(e) => setPayerABBSIN(e.target.value)} type="text" id="company" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500" placeholder="24500180045" required></input>
         </div>  
         <div>
         <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email address</label>
-        <input onChange={(e) => setPayerEmail(e.target.value)} type="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="john.doe@gmail.com" ></input>
+        <input onChange={(e) => setPayerEmail(e.target.value)} type="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500" placeholder="john.doe@gmail.com" ></input>
     
         </div>
         
         <div>
         <label for="" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Category</label>
-        <select onChange={handleChangeDemandNoticeCategoryId} id="countries" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+        <select onChange={handleChangeDemandNoticeCategoryId} id="countries" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500">
                                           <option selected>Select Category</option>
 
 
@@ -492,11 +502,11 @@ if (success_Specific) {
         </div>  
         <div>
             <label for="phone" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Phone number</label>
-            <input onChange={(e) => setPayerPhoneNumber(e.target.value)} type="tel" id="phone" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="07034564908" pattern="[0-9]{11}" required></input>
+            <input onChange={(e) => setPayerPhoneNumber(e.target.value)} type="tel" id="phone" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500" placeholder="07034564908" pattern="[0-9]{11}" required></input>
         </div>
         <div>
         <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Address</label>
-        <input onChange={(e) => setPayerHomeAddress(e.target.value)} type="text" id="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Address" required ></input>
+        <input onChange={(e) => setPayerHomeAddress(e.target.value)} type="text" id="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500" placeholder="Address" required ></input>
     
         </div>
         
@@ -510,7 +520,7 @@ if (success_Specific) {
     <button
                                                 onClick={submitSpecificHandler}
                                                 type="submit"
-                                                class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                                                class="w-full text-white bg-green-700 hover:bg-green-600 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-600"
                                              >
                                                 Generate
                                              </button>
@@ -541,7 +551,7 @@ if (success_Specific) {
                                                    onChange={(e) =>
                                                       setName(e.target.value)
                                                    }
-                                                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                                                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                                                    placeholder="john Doe"
                                                 ></input>
                                              </div> */}
@@ -572,7 +582,7 @@ if (success_Specific) {
                           
                         
                       <button onClick={showHandlerMultiple}>
-                        <div class="bg-white  p-6 shadow-lg text-gray-700  hover:bg-blue-600 hover:text-white ease-out rounded-xl border border-gray-50">
+                        <div class="bg-white  p-6 shadow-lg text-gray-700  hover:bg-green-600 hover:text-white ease-out rounded-xl border border-gray-50">
                               <div >
                                  <div class="flex justify-center aligns-center hover:text-white ">
                                     <svg className='h-16 w-16 text-center  ' fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -590,7 +600,7 @@ if (success_Specific) {
 
                         
                         <button onClick={showHandlerSpecific}>
-                        <div class="bg-white  p-6 shadow-lg text-gray-700 hover:bg-blue-600 hover:text-white ease-out rounded-xl border border-gray-50">
+                        <div class="bg-white  p-6 shadow-lg text-gray-700 hover:bg-green-600 hover:text-white ease-out rounded-xl border border-gray-50">
                               <div >
                                  <div class="flex justify-center aligns-center hover:text-white ">
                                     <svg className='h-16 w-16 text-center  'fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -620,7 +630,7 @@ if (success_Specific) {
                {/*<<<<<<<<<<<<<<<<<<<<<<<<<<<<< the Sidebar >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/}
                <div class="drawer-side ">
                   <label for="my-drawer-3" class="drawer-overlay"></label>
-                  <ul class="menu  overflow-y-auto  w-60 md:w-60 bg-blue-600">
+                  <ul class="menu  overflow-y-auto  w-60 md:w-60 bg-green-700">
                      {/*<<<<<<<<<<<<<<<<<<<<<<<<<<<<< the Sidebar >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/}
                      <Sidebar></Sidebar>
                      {/*<<<<<<<<<<<<<<<<<<<<<<<<<<<<< the Sidebar >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/}

@@ -187,7 +187,7 @@ const CreateCategoryScreen = ({ match }) => {
                         <div className="flex justify-between py-4 px-6 text-xl">
                                    <h5>  </h5>
                                    <Link to='/category'>
-                                   <div className='bg-white rounded-full p-1 shadow-lg hover:bg-blue-600 hover:text-white'>
+                                   <div className='bg-white rounded-full p-1 shadow-lg hover:bg-green-600 hover:text-white'>
                                         <svg className='h-6 w-6  ' fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
   <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5"></path>
 </svg> 
@@ -212,7 +212,7 @@ const CreateCategoryScreen = ({ match }) => {
                                  
                                  <div class="">
                                      
-                                    <div class="flex justify-center aligns-center  max-w-sm bg-white mt-20 ml-8 p-4 md:ml-16 rounded-lg border border-gray-200 shadow-md sm:p-6 lg:p-8 dark:bg-gray-800 dark:border-gray-700">
+                                    <div class="flex justify-center aligns-center  max-w-sm bg-white mt-20 ml-8 p-4 md:ml-16 rounded-lg border border-gray-200 shadow-md sm:p-6 lg:p-8 dark:bg-gray-600 dark:border-gray-700">
                                      
                                        {/* {message && (
                                           <Message variant="danger">
@@ -245,12 +245,12 @@ const CreateCategoryScreen = ({ match }) => {
     <div class="grid gap-6 mb-2 md:grid-cols-2">
         <div>
         <label for="text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Category Name</label>
-                        <input onChange={handleChangeCategoryName} type="text" name="text" id="text" placeholder="Eg: Artisan with shop " class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" ></input>
+                        <input onChange={handleChangeCategoryName} type="text" name="text" id="text" placeholder="Eg: Artisan with shop " class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" ></input>
                     
         </div>
         <div>
                  <label for="lga" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Local Govt. Area</label>
-<select onChange={handleChangeLgaKey} id="lga" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+<select onChange={handleChangeLgaKey} id="lga" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500">
                                           <option selected>Select LGA</option>
                                           
   <option  value="aba-north-lga-abia-state-nigeria">Aba North</option>
@@ -289,7 +289,7 @@ const CreateCategoryScreen = ({ match }) => {
     <div class="mb-6">
         <label for="message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Business </label>
 
-                              <textarea onChange={handleChangeCategoryDescription} id="message" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Eg: Tailoring/Fashion Designing,
+                              <textarea onChange={handleChangeCategoryDescription} id="message" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-green-500 focus:border-green-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500" placeholder="Eg: Tailoring/Fashion Designing,
  Hair Dressing/Plaiting,Barbing Salon,
  Computer Based Business Center License,
  Furniture Makers and Carvers"></textarea>
@@ -306,7 +306,7 @@ const CreateCategoryScreen = ({ match }) => {
    <label for="message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select Revenue Maps</label>
 <div onClick={handleShowDropdown}
                                                
-                                               class="mb-4 cursor-pointer active:border-black bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                                               class="mb-4 cursor-pointer active:border-black bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                                              >
                                                 <div className='flex justify-between'>
 <p className='text-gray-400'> Click Dropdown to Select ... </p>
@@ -325,7 +325,7 @@ const CreateCategoryScreen = ({ match }) => {
                                             type="checkbox"
                                              value={revenue.revenueLineCode}
                                              onClick={ handleChangeRevenueLinesCode}
-                                              class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
+                                              class="w-4 h-4 text-green-600 bg-gray-100 border-gray-300 rounded focus:ring-green-500 dark:focus:ring-green-600 dark:ring-offset-gray-600 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
                                           <label for="default-checkbox" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">{revenue.revenueLineName}</label>
                                       </div>
                                             
@@ -341,7 +341,7 @@ const CreateCategoryScreen = ({ match }) => {
     <button
                                                 onClick={submitHandler}
                                                 type="submit"
-                                                class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                                                class="w-full text-white bg-green-700 hover:bg-green-600 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-600"
                                              >
                                                 Generate
                                              </button>
@@ -367,7 +367,7 @@ const CreateCategoryScreen = ({ match }) => {
                {/*<<<<<<<<<<<<<<<<<<<<<<<<<<<<< the Sidebar >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/}
                <div class="drawer-side ">
                   <label for="my-drawer-3" class="drawer-overlay"></label>
-                  <ul class="menu  overflow-y-auto  w-60 md:w-60 bg-blue-600">
+                  <ul class="menu  overflow-y-auto  w-60 md:w-60 bg-green-700">
                      {/*<<<<<<<<<<<<<<<<<<<<<<<<<<<<< the Sidebar >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/}
                      <Sidebar></Sidebar>
                      {/*<<<<<<<<<<<<<<<<<<<<<<<<<<<<< the Sidebar >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/}

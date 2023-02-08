@@ -37,7 +37,7 @@ export const revenueCreateAction =
          const config = {
             headers: {
                'Content-Type': 'application/json',
-               Authorization: `Bearer ${userInfo.token}`
+               Authorization: `Bearer ${userInfo.accessToken}`
             }
           };
           
@@ -164,7 +164,7 @@ export const revenueDeleteAction = (id) => async (dispatch, getState) => {
    }
 };
 
-export const revenueDetailsAction = (id) => async (dispatch, getState) => {
+export const revenueDetailsAction = (revenue) => async (dispatch, getState) => {
    try {
       dispatch({ type: REVENUE_DETAILS_REQUEST });
 
@@ -175,11 +175,11 @@ export const revenueDetailsAction = (id) => async (dispatch, getState) => {
       const config = {
          headers: {
             'Content-Type': 'application/json',
-            Authorization: `Bearer ${userInfo.token}`
+            Authorization: `Bearer ${userInfo.accessToken}`
          }
       };
 
-      const { data } = await axios.get(`/api/deposits/${id}`, config);
+      const { data } = await axios.get(`${url}/revenuelines/${revenue.revenueLineCode}`, config);
 
       dispatch({
          type: REVENUE_DETAILS_SUCCESS,
@@ -210,12 +210,12 @@ export const updateRevenueAction = (revenue) => async (dispatch, getState) => {
       const config = {
          headers: {
             'Content-Type': 'application/json',
-            Authorization: `Bearer ${userInfo.token}`
+            Authorization: `Bearer ${userInfo.accessToken}`
          }
       };
 
       const { data } = await axios.put(
-         `/api/revenues/${revenue._id}`,  config
+         `${url}/revenuelines/${revenue.revenueLineCode}`,revenue,  config
       );
 
       dispatch({
@@ -224,7 +224,10 @@ export const updateRevenueAction = (revenue) => async (dispatch, getState) => {
       });
       dispatch({ type: REVENUE_DETAILS_SUCCESS, payload: data });
       console.log(
-         JSON.stringify(data.isConfirmed + 'my o my') +
+         data + 'my o my mmmmmmmmmmmmmmmmmmmmmmm'
+      );
+      console.log(
+         JSON.stringify(data + 'my o my') +
             '>>>>>>>>>>>123<<<<<<<<<<<<<<<<<<<<<<<'
       );
       // dispatch({ type: REVENUE_DETAILS_RESET });

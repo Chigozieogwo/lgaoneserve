@@ -307,7 +307,7 @@ csvExporter.generateCsv(demand_batchs)
   </div>
 </div>
                                      
-                                       {/* <h5 className='text-md font-italics text-blue-700 text-center'> Downloading Demand  Notice ...</h5> */}
+                                       {/* <h5 className='text-md font-italics text-green-700 text-center'> Downloading Demand  Notice ...</h5> */}
                                        </div> 
                                     
                                     </div>
@@ -338,7 +338,7 @@ csvExporter.generateCsv(demand_batchs)
                                       <Loader /> 
                                        {/* <Message className='-mt-8'>{demand_batchs?.demandNoticeBatch?.generatedStatus === 'not_yet_started' ? (<p> Please Wait</p>) : demand_batchs?.demandNoticeBatch?.generatedStatus === 'in_progress' ? (<p> Generation in Progress</p>):demand_batchs?.demandNoticeBatch?.generatedStatus === 'failed' ? (<p> failed</p>) : null }</Message> */}
                                        {/* <Message className='-mt-8'>{ demand_batchs?.demandNoticeBatch?.generatedStatus === 'in_progress' ? (<p> Generation in Progress</p>) : null }</Message> */}
-                                       { demand_batchs?.demandNoticeBatch?.generationStatus === 'in_progress' ? (<div class="flex p-4 mb-4 text-sm text-blue-800 border border-blue-300 rounded-lg bg-blue-50 dark:bg-gray-800 dark:text-blue-400 dark:border-blue-800" role="alert">
+                                       { demand_batchs?.demandNoticeBatch?.generationStatus === 'in_progress' ? (<div class="flex p-4 mb-4 text-sm text-green-800 border border-green-300 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400 dark:border-green-800" role="alert">
   <svg aria-hidden="true" class="flex-shrink-0 inline w-5 h-5 mr-3" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
   <span class="sr-only">Info</span>
   <div>
@@ -361,7 +361,7 @@ csvExporter.generateCsv(demand_batchs)
 </div>):null}
                                        
                                        { demand_batchs?.demandNoticeBatch?.generationStatus === 'successful' ? (<a className='flex justify-center' href={`${demand_batchs?.demandNoticeBatch?.presignedFileUrl}`} target="_blank"><span className='text-center bg-green-700 text-white px-4 py-1 rounded-sm'>Click to Download ...</span></a>):null}
-                                       {/* <h5 className='text-md font-italics text-blue-700 text-center'> Downloading Demand  Notice ...</h5> */}
+                                       {/* <h5 className='text-md font-italics text-green-700 text-center'> Downloading Demand  Notice ...</h5> */}
                                        </div> 
                                     
                                     </div>
@@ -373,7 +373,7 @@ csvExporter.generateCsv(demand_batchs)
                                  
                                    <div className="ml-4">
                                    <h5 className="text-3xl font-bold mb-4"> Print </h5>
-                         <button onClick={showHandler} type="button" class=" outline outline-offset-2 hover:text-white outline-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300   rounded-md text-sm px-6 py-4 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+                         <button onClick={showHandler} type="button" class=" outline outline-offset-2 hover:text-white outline-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300   rounded-md text-sm px-6 py-4 mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 focus:outline-none dark:focus:ring-green-800">
                         
                                  
                                  <svg className='h-8 w-8 ' fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -383,7 +383,7 @@ csvExporter.generateCsv(demand_batchs)
                                    </div>
                                    <div>
                                    <Link to='/demand-notices/batches'>
-                                   <div className='bg-white rounded-full p-1 shadow-lg hover:bg-blue-600 hover:text-white'>
+                                   <div className='bg-white rounded-full p-1 shadow-lg hover:bg-green-600 hover:text-white'>
                                    <svg className='h-6 w-6  ' fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
   <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5"></path>
                                  </svg> 
@@ -414,9 +414,9 @@ csvExporter.generateCsv(demand_batchs)
                                    {/* <CSVLink data={demand_batchs1} > 
                                    
                                    </CSVLink> */}
-                                   <button  onClick={showHandlerCsv} className="bg-blue-600 hover:bg-blue-800 mb-2 px-4 py-2 text-white ">Export as Csv</button>
+                                   <button  onClick={showHandlerCsv} className="bg-green-600 hover:bg-green-800 mb-2 px-4 py-2 text-white ">Export as Csv</button>
 
-{/* <CSVDownload data={demand_batchs1} target="_blank" ><button  className="bg-blue-600 hover:bg-blue-800 mb-2 px-4 py-2 text-white ">Export as Csv</button>
+{/* <CSVDownload data={demand_batchs1} target="_blank" ><button  className="bg-green-600 hover:bg-green-800 mb-2 px-4 py-2 text-white ">Export as Csv</button>
                                    </CSVDownload> */}
                                    {/* <csvlink {...csvreport}>
                                       
@@ -427,13 +427,13 @@ csvExporter.generateCsv(demand_batchs)
  
 
  <div key={index} class="flex my-1 flex-row items-center bg-white border rounded-lg shadow-md md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
- <div className="bg-blue-700 px-4 py-4 text-white text-2xl font-bold">
+ <div className="bg-green-700 px-4 py-4 text-white text-2xl font-bold">
     {index + 1}
  </div>
  
  <div class="flex flex-row justify-between  leading-normal">
-     <h6 class="pr-0 pl-2 text-2xl font-bold tracking-tight text-blue-900 dark:text-white">No:.</h6>
-     <h5 class="px-1 text-2xl font-bold text-blue-700 dark:text-gray-400">{batch.serialNumber}</h5>
+     <h6 class="pr-0 pl-2 text-2xl font-bold tracking-tight text-green-900 dark:text-white">No:.</h6>
+     <h5 class="px-1 text-2xl font-bold text-green-700 dark:text-gray-400">{batch.serialNumber}</h5>
  
  </div>
 
@@ -489,7 +489,7 @@ csvExporter.generateCsv(demand_batchs)
                {/*<<<<<<<<<<<<<<<<<<<<<<<<<<<<< the Sidebar >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/}
                <div class="drawer-side ">
                   <label for="my-drawer-3" class="drawer-overlay"></label>
-                  <ul class="menu  overflow-y-auto  w-60 md:w-60 bg-blue-600">
+                  <ul class="menu  overflow-y-auto  w-60 md:w-60 bg-green-700">
                      {/*<<<<<<<<<<<<<<<<<<<<<<<<<<<<< the Sidebar >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/}
                      <Sidebar></Sidebar>
                      {/*<<<<<<<<<<<<<<<<<<<<<<<<<<<<< the Sidebar >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/}

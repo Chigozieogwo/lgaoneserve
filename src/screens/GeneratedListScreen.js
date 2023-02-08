@@ -104,7 +104,7 @@ const sortedArray = _.orderBy(demand_lists, [(obj) => new Date(obj.date)], ['asc
                         <div className="flex justify-between py-4 px-6 text-xl">
                                    <h5> Batch Lists </h5>
                                    <Link to='/demand_selection'>
-                                   <div className='bg-white rounded-full p-1 shadow-lg hover:bg-blue-600 hover:text-white'>
+                                   <div className='bg-white rounded-full p-1 shadow-lg hover:bg-green-600 hover:text-white'>
                                         <svg className='h-6 w-6  ' fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
   <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5"></path>
 </svg> 
@@ -197,7 +197,7 @@ const sortedArray = _.orderBy(demand_lists, [(obj) => new Date(obj.date)], ['asc
                                             
                                             
                                             <td class="flex items-center px-6 py-4 space-x-3">
-                                                <Link to={`/demand-notices/${demand_list.demandNoticeBatch._id}`} class="font-medium text-white dark:text-blue-500 hover:underline">
+                                                <Link to={`/demand-notices/${demand_list.demandNoticeBatch._id}`} class="font-medium text-white dark:text-green-500 hover:underline">
                                                <button className='bg-yellow-400 px-4 py-1.5 hover:bg-yellow-500 '> view </button>
                                                 </Link>
                                                
@@ -233,7 +233,7 @@ const sortedArray = _.orderBy(demand_lists, [(obj) => new Date(obj.date)], ['asc
                {/*<<<<<<<<<<<<<<<<<<<<<<<<<<<<< the Sidebar >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/}
                <div class="drawer-side ">
                   <label for="my-drawer-3" class="drawer-overlay"></label>
-                  <ul class="menu  overflow-y-auto  w-60 md:w-60 bg-blue-600">
+                  <ul class="menu  overflow-y-auto  w-60 md:w-60 bg-green-700">
                      {/*<<<<<<<<<<<<<<<<<<<<<<<<<<<<< the Sidebar >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/}
                      <Sidebar></Sidebar>
                      {/*<<<<<<<<<<<<<<<<<<<<<<<<<<<<< the Sidebar >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/}

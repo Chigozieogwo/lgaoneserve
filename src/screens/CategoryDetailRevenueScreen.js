@@ -101,7 +101,7 @@ function sformatCurrency(totalz) {
                         <div className="flex justify-between py-4 px-6 text-xl">
                                    <div></div>
                                    <Link to='/category'>
-                                   <div className='bg-white rounded-full p-1 shadow-lg hover:bg-blue-600 hover:text-white'>
+                                   <div className='bg-white rounded-full p-1 shadow-lg hover:bg-green-600 hover:text-white'>
                                         <svg className='h-6 w-6  ' fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
   <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5"></path>
 </svg> 
@@ -116,7 +116,7 @@ function sformatCurrency(totalz) {
 
 
                       <div class=" max-w-xl -mt-6 mb-24 md:-mt-12 bg-white rounded-lg mx-12 md:mx-auto  ">
-                      <div className="flex  items-center justify-center rounded-t-lg  bg-blue-700 h-32 ">
+                      <div className="flex  items-center justify-center rounded-t-lg  bg-green-700 h-32 ">
 
 <h5 class="text-3xl  text-center text-white  font-bold  dark:text-white">
                                                {demand_category?.categoryName}
@@ -135,7 +135,7 @@ function sformatCurrency(totalz) {
         
     </div>
     <div class="mb-6">
-        <label for="message" class="block mb-2 mt-4 text-2xl font-medium text-blue-600 dark:text-white">Details</label>
+        <label for="message" class="block mb-2 mt-4 text-2xl font-medium text-green-600 dark:text-white">Details</label>
 
         {loadingCateRevenue ? (
                                  <Loader />
@@ -149,7 +149,7 @@ function sformatCurrency(totalz) {
             <tr>
                 {/* <th scope="col" class="p-4">
                     <div class="flex items-center">
-                        <input id="checkbox-all-search" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                        <input id="checkbox-all-search" type="checkbox" class="w-4 h-4 text-green-600 bg-gray-100 border-gray-300 rounded focus:ring-green-500 dark:focus:ring-green-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                         </input>
                         
                         <label for="checkbox-all-search" class="sr-only">checkbox</label>
@@ -180,7 +180,7 @@ function sformatCurrency(totalz) {
                                             <tr key={revenue._id} class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                                             {/* <td class="w-4 p-4">
                                                 <div class="flex items-center">
-                                                    <input id="checkbox-table-search-1" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                                    <input id="checkbox-table-search-1" type="checkbox" class="w-4 h-4 text-green-600 bg-gray-100 border-gray-300 rounded focus:ring-green-500 dark:focus:ring-green-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                                                     </input>
                                                 
                                                     <label for="checkbox-table-search-1" class="sr-only">checkbox</label>
@@ -215,7 +215,7 @@ function sformatCurrency(totalz) {
 
 <div className="flex justify-between py-4 px-6 mx-4 text-xl">
                                    <div className="text-2xl font-bold text-gray-700">Total</div>
-                                   <div className="text-xl font-bold text-blue-700">{
+                                   <div className="text-xl font-bold text-green-700">{
                                       totals
                                    
                                  }</div>
@@ -252,7 +252,7 @@ function sformatCurrency(totalz) {
                {/*<<<<<<<<<<<<<<<<<<<<<<<<<<<<< the Sidebar >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/}
                <div class="drawer-side ">
                   <label for="my-drawer-3" class="drawer-overlay"></label>
-                  <ul class="menu  overflow-y-auto  w-60 md:w-60 bg-blue-600">
+                  <ul class="menu  overflow-y-auto  w-60 md:w-60 bg-green-700">
                      {/*<<<<<<<<<<<<<<<<<<<<<<<<<<<<< the Sidebar >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/}
                      <Sidebar></Sidebar>
                      {/*<<<<<<<<<<<<<<<<<<<<<<<<<<<<< the Sidebar >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/}

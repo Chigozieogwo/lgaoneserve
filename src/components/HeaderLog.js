@@ -15,7 +15,7 @@ const HeaderLog = ({ showHandler2 }) => {
    };
    return (
       <div>
-         <div class="w-full navbar px-4 bg-[#0A397E]">
+         <div class="w-full navbar px-4 bg-green-700">
             <div class="flex-1 px-2 mx-2">
                {' '}
                <Link to={'/'} class="flex items-center">
@@ -34,7 +34,7 @@ const HeaderLog = ({ showHandler2 }) => {
                   <li>
                      <Link
                         to={'/'}
-                        class="block rounded py-2 mt-1 pr-4 pl-3 text-white  border-gray-100 hover:bg-blue-700 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+                        class="block rounded py-2 mt-1 pr-4 pl-3 text-white  border-gray-100 hover:bg-green-700 md:hover:bg-transparent md:border-0 md:hover:text-green-600 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
                      >
                         Home
                      </Link>
@@ -42,8 +42,8 @@ const HeaderLog = ({ showHandler2 }) => {
                   <li>
                      <Link
                         to={'/aboutus'}
-                        class="block rounded py-2 mt-1 pr-4 pl-3 text-white  border-gray-100 hover:bg-blue-700 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
-                     >
+                        class="block rounded py-2 mt-1 pr-4 pl-3 text-white  border-gray-100 hover:bg-green-700 md:hover:bg-transparent md:border-0 md:hover:text-green-600 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+                        >
                         About Us
                      </Link>
                   </li>
@@ -53,7 +53,7 @@ const HeaderLog = ({ showHandler2 }) => {
                   <li>
                      <Link
                         to={'/contactus'}
-                        class="block rounded py-2 mt-1 pr-4 pl-3 text-white hover:bg-blue-700 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                        class="block rounded py-2 mt-1 pr-4 pl-3 text-white  border-gray-100 hover:bg-green-700 md:hover:bg-transparent md:border-0 md:hover:text-green-600 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
                      >
                         Contact Us
                      </Link>

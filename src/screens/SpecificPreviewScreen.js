@@ -250,7 +250,7 @@ csvExporter.generateCsv(demand_Specificbatchs)
                                      
                                     <div class=" max-w-sm bg-white mt-20 ml-8 p-4 md:ml-16 rounded-lg border border-gray-200 shadow-md sm:p-6 lg:p-8 dark:bg-gray-800 dark:border-gray-700">
                                       <Loader /> 
-                                       <h5 className='text-md font-italics text-blue-700 text-center'> Downloading Demand  Notice ...</h5>
+                                       <h5 className='text-md font-italics text-green-700 text-center'> Downloading Demand  Notice ...</h5>
                                        </div> 
                                     
                                     </div>
@@ -262,7 +262,7 @@ csvExporter.generateCsv(demand_Specificbatchs)
                                  
                                    <div className="ml-4">
                                    <h5 className="text-3xl font-bold mb-4"> Print </h5>
-                                   <button onClick={showHandler} type="button" class=" outline outline-offset-2 hover:text-white outline-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300   rounded-md text-sm px-6 py-4 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+                                   <button onClick={showHandler} type="button" class=" outline outline-offset-2 hover:text-white outline-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300   rounded-md text-sm px-6 py-4 mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 focus:outline-none dark:focus:ring-green-800">
                         
                                  
                         <svg className='h-8 w-8 ' fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -272,7 +272,7 @@ csvExporter.generateCsv(demand_Specificbatchs)
                                    </div>
                                    <div>
                                    <Link to='/demand-notices/batches'>
-                                   <div className='bg-white rounded-full p-1 shadow-lg hover:bg-blue-600 hover:text-white'>
+                                   <div className='bg-white rounded-full p-1 shadow-lg hover:bg-green-600 hover:text-white'>
                                    <svg className='h-6 w-6  ' fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
   <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5"></path>
                                  </svg> 
@@ -305,9 +305,9 @@ csvExporter.generateCsv(demand_Specificbatchs)
                                    
                                    </CSVLink> */}
                                    {/* <div></div>
-                                   <button  onClick={exportToCsv} className="bg-blue-600 hover:bg-blue-800 mb-2 px-4 py-2 text-white ">Export as Csv</button> */}
+                                   <button  onClick={exportToCsv} className="bg-green-600 hover:bg-green-800 mb-2 px-4 py-2 text-white ">Export as Csv</button> */}
 
-{/* <CSVDownload data={demand_batchs1} target="_blank" ><button  className="bg-blue-600 hover:bg-blue-800 mb-2 px-4 py-2 text-white ">Export as Csv</button>
+{/* <CSVDownload data={demand_batchs1} target="_blank" ><button  className="bg-green-600 hover:bg-green-800 mb-2 px-4 py-2 text-white ">Export as Csv</button>
                                    </CSVDownload> */}
                                    {/* <csvlink {...csvreport}>
                                       
@@ -315,13 +315,13 @@ csvExporter.generateCsv(demand_Specificbatchs)
                                    
                         </div>
                         <div  class="flex my-1 flex-row items-center bg-white border rounded-lg shadow-md md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
- <div className="bg-blue-700 px-2 py-4 text-white text-2xl font-bold">
+ <div className="bg-green-700 px-2 py-4 text-white text-2xl font-bold">
     {1}
  </div>
  
  <div class="flex flex-row justify-between  leading-normal">
-     <h6 class="pr-0 pl-2 text-2xl font-bold tracking-tight text-blue-900 dark:text-white">No:.</h6>
-     <h5 class="px-1 text-2xl font-bold text-blue-700 dark:text-gray-400">{success ? demand_Specificbatchs[0]?.demandNotice?.serialNumber : null}</h5>
+     <h6 class="pr-0 pl-2 text-2xl font-bold tracking-tight text-green-900 dark:text-white">No:.</h6>
+     <h5 class="px-1 text-2xl font-bold text-green-700 dark:text-gray-400">{success ? demand_Specificbatchs[0]?.demandNotice?.serialNumber : null}</h5>
  
  </div>
 
@@ -378,7 +378,7 @@ csvExporter.generateCsv(demand_Specificbatchs)
                {/*<<<<<<<<<<<<<<<<<<<<<<<<<<<<< the Sidebar >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/}
                <div class="drawer-side ">
                   <label for="my-drawer-3" class="drawer-overlay"></label>
-                  <ul class="menu  overflow-y-auto  w-60 md:w-60 bg-blue-600">
+                  <ul class="menu  overflow-y-auto  w-60 md:w-60 bg-green-700">
                      {/*<<<<<<<<<<<<<<<<<<<<<<<<<<<<< the Sidebar >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/}
                      <Sidebar></Sidebar>
                      {/*<<<<<<<<<<<<<<<<<<<<<<<<<<<<< the Sidebar >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/}

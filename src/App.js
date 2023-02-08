@@ -7,6 +7,7 @@ import DemandModuleScreen from './screens/DemandModuleScreen.js'
 import DemandSelectionScreen from './screens/DemandSelectionScreen.js'
 import BlankScreen from './screens/BlankScreen.js'
 import RevenueListScreen from './screens/RevenueListScreen.js'
+import RevenueEditScreen from './screens/RevenueEditScreen.js'
 import CategoryListScreen from './screens/CategoryListScreen.js'
 import BatchPreviewScreen from './screens/BatchPreviewScreen.js'
 import SpecificPreviewScreen from './screens/SpecificPreviewScreen.js'
@@ -54,6 +55,11 @@ function App() {
                      exact
                      path="/category/create"
                      element={<CreateCategoryScreen />}
+                  />
+          <Route
+                     exact
+                     path="/revenuelines/:revenueLineCode/edit"
+                     element={<RevenueEditScreen />}
                   />
           <Route
                      exact

@@ -6,7 +6,7 @@ const Header = () => {
    return (
       <div>
          {' '}
-         <nav class="bg-[0A397E] border-gray-200 px-2 sm:px-4 py-2.5 text-white dark:bg-gray-800">
+         <nav class="bg-green-700 border-gray-200 px-2 sm:px-4 py-2.5 text-white dark:bg-gray-800">
             <div class="container flex flex-wrap justify-between items-center mx-auto">
                <Link to={'/'} class="flex items-center">
                   <img

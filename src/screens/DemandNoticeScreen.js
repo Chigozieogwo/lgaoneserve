@@ -32,19 +32,19 @@ const DashboardScreen = ({ match }) => {
   console.log(userInfo + "here is the user")
 
   
-   // useEffect(() => {
+   useEffect(() => {
      
-   //    if (!userInfo) {
-   //       navigate('/');
-   //    } else {
-   //       //  dispatch(getUserDetails('profile'));
-   //       if (!user || !user.firstName) {
-   //          // dispatch({ type: USER_UPDATE_PROFILE_RESET });
-   //          dispatch(getUserDetails('profile'));
+      if (!userInfo) {
+         navigate('/');
+      } else {
+         //  dispatch(getUserDetails('profile'));
+         if (!user || !user.firstName) {
+            // dispatch({ type: USER_UPDATE_PROFILE_RESET });
+            dispatch(getUserDetails());
            
-   //       }
-   //    }
-   // }, [navigate, userInfo, user]);
+         }
+      }
+   }, [navigate, userInfo, user]);
 
    return (
       <>
@@ -76,7 +76,7 @@ const DashboardScreen = ({ match }) => {
                         
                           
                         <Link to='/demand_module'>
-                        <div class="bg-white  p-6 shadow-lg text-gray-700 hover:bg-blue-600 hover:text-white ease-out rounded-xl border border-gray-50">
+                        <div class="bg-white  p-6 shadow-lg text-gray-700 hover:bg-green-600 hover:text-white ease-out rounded-xl border border-gray-50">
                               <div >
                                  <div class="flex justify-center aligns-center hover:text-white ">
                                     <svg className='h-6 w-6 text-center  ' fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -90,7 +90,7 @@ const DashboardScreen = ({ match }) => {
                            </div>
                         </Link> 
                         <Link to='/DemandNotice'>
-                        <div class="bg-white  p-6 shadow-lg text-gray-700 hover:bg-blue-600 hover:text-white ease-out rounded-xl border border-gray-50">
+                        <div class="bg-white  p-6 shadow-lg text-gray-700 hover:bg-green-600 hover:text-white ease-out rounded-xl border border-gray-50">
                               <div >
                                  <div class="flex justify-center aligns-center hover:text-white ">
                                  <svg className=' h-6 w-6 text-center' fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -104,7 +104,7 @@ const DashboardScreen = ({ match }) => {
                            </div>
                         </Link> 
                         <Link to='/DemandNotice'>
-                        <div class="bg-white  p-6 shadow-lg text-gray-700 hover:bg-blue-600 hover:text-white ease-out rounded-xl border border-gray-50">
+                        <div class="bg-white  p-6 shadow-lg text-gray-700 hover:bg-green-600 hover:text-white ease-out rounded-xl border border-gray-50">
                               <div >
                                  <div class="flex justify-center aligns-center hover:text-white ">
                                     <svg className='h-6 w-6 text-center  ' fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -118,7 +118,7 @@ const DashboardScreen = ({ match }) => {
                            </div>
                         </Link> 
                         <Link to='/DemandNotice'>
-                        <div class="bg-white  p-6 shadow-lg text-gray-700 hover:bg-blue-600 hover:text-white ease-out rounded-xl border border-gray-50">
+                        <div class="bg-white  p-6 shadow-lg text-gray-700 hover:bg-green-600 hover:text-white ease-out rounded-xl border border-gray-50">
                               <div >
                                  <div class="flex justify-center aligns-center hover:text-white ">
                                     <svg className='h-6 w-6 text-center  '  fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -132,7 +132,7 @@ const DashboardScreen = ({ match }) => {
                            </div>
                         </Link> 
                         <Link to='/DemandNotice'>
-                        <div class="bg-white  p-6 shadow-lg text-gray-700 hover:bg-blue-600 hover:text-white ease-out rounded-xl border border-gray-50">
+                        <div class="bg-white  p-6 shadow-lg text-gray-700 hover:bg-green-600 hover:text-white ease-out rounded-xl border border-gray-50">
                               <div >
                                  <div class="flex justify-center aligns-center hover:text-white ">
                                     <svg className='h-6 w-6 text-center  'fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -147,7 +147,7 @@ const DashboardScreen = ({ match }) => {
                         </Link> 
                         
                         <Link to='/DemandNotice'>
-                        <div class="bg-white  p-6 shadow-lg text-gray-700 hover:bg-blue-600 hover:text-white ease-out rounded-xl border border-gray-50">
+                        <div class="bg-white  p-6 shadow-lg text-gray-700 hover:bg-green-600 hover:text-white ease-out rounded-xl border border-gray-50">
                               <div >
                                  <div class="flex justify-center aligns-center hover:text-white ">
                                     <svg className='h-6 w-6 text-center  ' fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -161,7 +161,7 @@ const DashboardScreen = ({ match }) => {
                            </div>
                         </Link> 
                         <Link to='/DemandNotice'>
-                        <div class="bg-white  p-6 shadow-lg text-gray-700 hover:bg-blue-600 hover:text-white ease-out rounded-xl border border-gray-50">
+                        <div class="bg-white  p-6 shadow-lg text-gray-700 hover:bg-green-600 hover:text-white ease-out rounded-xl border border-gray-50">
                               <div >
                                  <div class="flex justify-center aligns-center hover:text-white ">
                                     <svg className='h-6 w-6 text-center  ' fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -175,7 +175,7 @@ const DashboardScreen = ({ match }) => {
                            </div>
                         </Link> 
                         <Link to='/DemandNotice'>
-                        <div class="bg-white  p-6 shadow-lg text-gray-700 hover:bg-blue-600 hover:text-white ease-out rounded-xl border border-gray-50">
+                        <div class="bg-white  p-6 shadow-lg text-gray-700 hover:bg-green-600 hover:text-white ease-out rounded-xl border border-gray-50">
                               <div >
                                  <div class="flex justify-center aligns-center hover:text-white ">
                                     <svg className='h-6 w-6 text-center  ' fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -202,7 +202,7 @@ const DashboardScreen = ({ match }) => {
                {/*<<<<<<<<<<<<<<<<<<<<<<<<<<<<< the Sidebar >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/}
                <div class="drawer-side ">
                   <label for="my-drawer-3" class="drawer-overlay"></label>
-                  <ul class="menu  overflow-y-auto  w-60 md:w-60 bg-blue-600">
+                  <ul class="menu  overflow-y-auto  w-60 md:w-60 bg-green-700">
                      {/*<<<<<<<<<<<<<<<<<<<<<<<<<<<<< the Sidebar >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/}
                      <Sidebar></Sidebar>
                      {/*<<<<<<<<<<<<<<<<<<<<<<<<<<<<< the Sidebar >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/}

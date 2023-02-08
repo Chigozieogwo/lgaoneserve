@@ -164,7 +164,7 @@ const handleLgaFilter = (e) => {
                         <div className="flex justify-between py-4 px-6 text-xl">
                                    <h5> List of Category  </h5>
                                    <Link to='/demand_module'>
-                                   <div className='bg-white rounded-full p-1 shadow-lg hover:bg-blue-600 hover:text-white'>
+                                   <div className='bg-white rounded-full p-1 shadow-lg hover:bg-green-600 hover:text-white'>
                                         <svg className='h-6 w-6  ' fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
   <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5"></path>
 </svg> 
@@ -185,7 +185,7 @@ const handleLgaFilter = (e) => {
                                   <div></div> 
                                   <Link to='/category/create'>
 
-                        <button  type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300  rounded-md text-sm px-6 py-3 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Create  Category</button>
+                        <button  type="button" class="text-white bg-green-700 hover:bg-green-600 focus:ring-4 focus:ring-green-300  rounded-md text-sm px-6 py-3 mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 focus:outline-none dark:focus:ring-green-600">Create  Category</button>
                                   </Link>
                         
                                   
@@ -205,7 +205,7 @@ const handleLgaFilter = (e) => {
 
 <div>
                  {/* <label for="lga" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Search...</label> */}
-<select onChange={handleLgaFilter} id="lga" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+<select onChange={handleLgaFilter} id="lga" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500">
                                           <option selected>Filter By LGA</option>
                                           
   <option  value="aba-north-lga-abia-state-nigeria">Aba North</option>
@@ -245,7 +245,7 @@ const handleLgaFilter = (e) => {
             <tr>
                 {/* <th scope="col" class="p-4">
                     <div class="flex items-center">
-                        <input id="checkbox-all-search" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                        <input id="checkbox-all-search" type="checkbox" class="w-4 h-4 text-green-600 bg-gray-100 border-gray-300 rounded focus:ring-green-500 dark:focus:ring-green-600 dark:ring-offset-gray-600 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                         </input>
                         
                         <label for="checkbox-all-search" class="sr-only">checkbox</label>
@@ -275,10 +275,10 @@ const handleLgaFilter = (e) => {
         </thead>
         <tbody>
                                           {demand_category?.demandNoticeCategories?.map((revenue, index) => (
-                                            <tr key={revenue._id} class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                            <tr key={revenue._id} class="bg-white border-b dark:bg-gray-600 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                                             {/* <td class="w-4 p-4">
                                                 <div class="flex items-center">
-                                                    <input id="checkbox-table-search-1" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                                    <input id="checkbox-table-search-1" type="checkbox" class="w-4 h-4 text-green-600 bg-gray-100 border-gray-300 rounded focus:ring-green-500 dark:focus:ring-green-600 dark:ring-offset-gray-600 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                                                     </input>
                                                 
                                                     <label for="checkbox-table-search-1" class="sr-only">checkbox</label>
@@ -307,14 +307,14 @@ const handleLgaFilter = (e) => {
                                             </td> */}
                                             
                                             <td class=" px-6 py-4 ">
-                                                <Link  to={`/demand-notice-categories/${revenue._id}`}  class="font-medium text-white dark:text-blue-500 hover:underline">
+                                                <Link  to={`/demand-notice-categories/${revenue._id}`}  class="font-medium text-white dark:text-green-500 hover:underline">
                                                <button className='bg-yellow-400 px-4 py-1.5 hover:bg-yellow-500 '> view </button>
                                                 </Link>
                                                
                                             </td>
                                             
                                             <td class=" px-6 py-4 ">
-                                                <Link to={`/revenues/${revenue.revenueLineCode}/edit`} class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
+                                                <Link to={`/revenues/${revenue.revenueLineCode}/edit`} class="font-medium text-green-600 dark:text-green-500 hover:underline">
                                                 <svg className='h-6 w-6 ' fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
   <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10"></path>
 </svg>
@@ -344,7 +344,7 @@ const handleLgaFilter = (e) => {
                {/*<<<<<<<<<<<<<<<<<<<<<<<<<<<<< the Sidebar >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/}
                <div class="drawer-side ">
                   <label for="my-drawer-3" class="drawer-overlay"></label>
-                  <ul class="menu  overflow-y-auto  w-60 md:w-60 bg-blue-600">
+                  <ul class="menu  overflow-y-auto  w-60 md:w-60 bg-green-700">
                      {/*<<<<<<<<<<<<<<<<<<<<<<<<<<<<< the Sidebar >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/}
                      <Sidebar></Sidebar>
                      {/*<<<<<<<<<<<<<<<<<<<<<<<<<<<<< the Sidebar >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/}

@@ -110,6 +110,7 @@ import {
     }
  };
  
+ 
  export const revenueUpdateReducer = (state = { revenue: {} }, action) => {
     switch (action.type) {
        case REVENUE_UPDATE_REQUEST:
