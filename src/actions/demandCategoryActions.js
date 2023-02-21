@@ -169,12 +169,12 @@ export const updateDemandCategoryAction = (demand_category) => async (dispatch, 
       const config = {
          headers: {
             'Content-Type': 'application/json',
-            Authorization: `Bearer ${userInfo.token}`
+            Authorization: `Bearer ${userInfo.accessToken}`
          }
       };
 
       const { data } = await axios.put(
-         `/api/revenues/${demand_category._id}`,  config
+         `${url}/demand-notice-categories/${demand_category.id}`,demand_category,  config
       );
 
       dispatch({

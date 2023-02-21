@@ -1,6 +1,7 @@
 /* This example requires Tailwind CSS v2.0+ */
 import React, { useState, useEffect } from 'react';
 import HeaderLog from '../components/HeaderLog';
+import Paginate from '../components/Paginate';
 import { Fragment } from 'react';
 import DatePicker from "react-datepicker";
 import {listLocations } from '../actions/locationActions';
@@ -30,6 +31,30 @@ const GeneratedListScreen = ({ match }) => {
 
    const userLogin = useSelector((state) => state.userLogin);
    const { userInfo } = userLogin;
+
+
+
+   // To hold the actual data
+ const [data, setData] = useState([])
+ //  const [loading, setLoading] = useState(true);
+ 
+    
+    // User is currently on this page
+ const [currentPage, setCurrentPage] = useState(1);
+ // No of Records to be displayed on each page   
+ const [recordsPerPage] = useState(50);
+ 
+ const indexOfLastRecord = currentPage * recordsPerPage;
+ const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
+
+
+   // Records to be displayed on the current page
+   const currentRecords = data?.slice(indexOfFirstRecord, 
+      indexOfLastRecord);
+   
+      const nPages = Math.ceil(data?.length / recordsPerPage)
+   
+
 
    const userDetails = useSelector((state) => state.userDetails);
    const { loading, error, user } = userDetails;
@@ -68,6 +93,11 @@ const sortedArray = _.orderBy(demand_lists, [(obj) => new Date(obj.date)], ['asc
       dispatch(listLocations());
       dispatch(listDemandGenerateLists());
       dispatch(demandCategoryDetailsAction(lgaKey));
+      setTimeout(() => {
+         if(!loadingGenerateList){
+            setData(sortedArray)
+          }
+      },1000)
       // if (!userInfo) {
       //    navigate('/');
       // } else {
@@ -160,7 +190,7 @@ const sortedArray = _.orderBy(demand_lists, [(obj) => new Date(obj.date)], ['asc
             </tr>
         </thead>
         <tbody>
-                                          {sortedArray.reverse().map((demand_list, index) => (
+                                          {currentRecords.map((demand_list, index) => (
                                             <tr key={demand_list.demandNoticeBatch._id} class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                                             
                                             <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
@@ -219,7 +249,15 @@ const sortedArray = _.orderBy(demand_lists, [(obj) => new Date(obj.date)], ['asc
 
 
 
-          
+                      <div className='flex justify-center  p-2 text-white mb-2 '><span class="bg-green-500 text-white text-xs font-medium mr-2 px-2.5 py-2.5 rounded dark:bg-green-500 dark:text-green-300"> Page {currentPage}</span></div>
+                                 <div className='flex justify-center mb-12'>
+                                    
+                                 <Paginate
+    nPages = { nPages }
+    currentPage = { currentPage } 
+    setCurrentPage = { setCurrentPage }
+/>                          
+</div>
 
 
                            

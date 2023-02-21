@@ -95,6 +95,7 @@ import {
              demand_Specificlists: action.payload,
              count: action.payload,
              pages: action.payload,
+             success: true,
              page: action.payload
           };
        case DEMAND_SPECIFIC_LIST_FAIL:

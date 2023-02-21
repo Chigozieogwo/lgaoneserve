@@ -6,8 +6,10 @@ import DemandNoticeScreen from './screens/DemandNoticeScreen.js'
 import DemandModuleScreen from './screens/DemandModuleScreen.js'
 import DemandSelectionScreen from './screens/DemandSelectionScreen.js'
 import BlankScreen from './screens/BlankScreen.js'
+import Blank from './screens/Blank.js'
 import RevenueListScreen from './screens/RevenueListScreen.js'
 import RevenueEditScreen from './screens/RevenueEditScreen.js'
+import CategoryEditScreen from './screens/CategoryEditScreen.js'
 import CategoryListScreen from './screens/CategoryListScreen.js'
 import BatchPreviewScreen from './screens/BatchPreviewScreen.js'
 import SpecificPreviewScreen from './screens/SpecificPreviewScreen.js'
@@ -48,6 +50,11 @@ function App() {
                   />
           <Route
                      exact
+                     path="/blank"
+                     element={<Blank />}
+                  />
+          <Route
+                     exact
                      path="/category"
                      element={<CategoryListScreen />}
                   />
@@ -60,6 +67,11 @@ function App() {
                      exact
                      path="/revenuelines/:revenueLineCode/edit"
                      element={<RevenueEditScreen />}
+                  />
+          <Route
+                     exact
+                     path="/demand-notice-categories/:id/edit"
+                     element={<CategoryEditScreen />}
                   />
           <Route
                      exact

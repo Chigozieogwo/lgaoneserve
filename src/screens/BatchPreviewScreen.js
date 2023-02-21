@@ -1,6 +1,7 @@
 /* This example requires Tailwind CSS v2.0+ */
 import React, { useState, useEffect } from 'react';
 import HeaderLog from '../components/HeaderLog';
+import Paginate from '../components/Paginate';
 import { Fragment } from 'react';
 import DatePicker from "react-datepicker";
 import pdfUrl from '../utils/pdfUrl'
@@ -31,6 +32,30 @@ const BatchPreviewScreen = ({ match }) => {
 
    console.log(id + "params")
    // console.log(match.params + "params match")
+   
+
+
+   
+
+   // To hold the actual data
+ const [data, setData] = useState([])
+ //  const [loading, setLoading] = useState(true);
+ 
+    
+    // User is currently on this page
+ const [currentPage, setCurrentPage] = useState(1);
+ // No of Records to be displayed on each page   
+ const [recordsPerPage] = useState(50);
+ 
+ const indexOfLastRecord = currentPage * recordsPerPage;
+ const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
+
+
+   // Records to be displayed on the current page
+   const currentRecords = data?.slice(indexOfFirstRecord, 
+      indexOfLastRecord);
+   
+      const nPages = Math.ceil(data?.length / recordsPerPage)
    
 
 
@@ -245,7 +270,11 @@ csvExporter.generateCsv(demand_batchs)
    useEffect(() => {
       dispatch(demandGenerateBatchAction(id));
       // setTimeout(() => {
-         
+         setTimeout(() => {
+            if(!loadingBatch){
+               setData(demand_batchs)
+             }
+         },1000)
                  
       //       }, 500);
    }, [id]);
@@ -476,6 +505,15 @@ csvExporter.generateCsv(demand_batchs)
 {/* {demand_batchs === 'undefined' ? null : demand_batchs.lgaRecord.lgaName} */}
 
           
+<div className='flex justify-center  p-2 text-white mb-2 '><span class="bg-green-500 text-white text-xs font-medium mr-2 px-2.5 py-2.5 rounded dark:bg-green-500 dark:text-green-300"> Page {currentPage}</span></div>
+                                 <div className='flex justify-center mb-12'>
+                                    
+                                 <Paginate
+    nPages = { nPages }
+    currentPage = { currentPage } 
+    setCurrentPage = { setCurrentPage }
+/>                          
+</div>
 
 
 

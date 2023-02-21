@@ -68,7 +68,7 @@ const Sidebar = () => {
                   </li>
                   <li>
                      <Link
-                        to="/DemandNotice"
+                        to="/blank"
                         class="flex items-center p-3 text-base font-normal text-gray-900  dark:text-white hover:bg-green-600 dark:hover:bg-green-600"
                      >
                         <svg className='ml-4 h-6 w-6 text-white' fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
