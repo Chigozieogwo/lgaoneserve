@@ -110,9 +110,6 @@ const RevenueEditScreen = ({ match }) => {
          navigate(`/revenuelines/${revenueLineCode2.revenueLineCode}/edit`);
       } else {
          if (!revenue  ) {
-            console.log(revenue + 'now now');
-            console.log(revenue + 'now now');
-            console.log(revenue + 'now now');
             
             dispatch(revenueDetailsAction(revenueLineCode2));
          } else {
