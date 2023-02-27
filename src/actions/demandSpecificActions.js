@@ -120,7 +120,7 @@ export const demandSpecificDownloadAction = (id) => async (dispatch, getState) =
       //    }
       // };
 
-      axios.get(`${pdfUrl}/demand-notices/export-pdf/specificpayerdemandnotice?demandNoticeId=${id}`,
+      axios.get(`${url}/demand-notices/export-pdf/specificpayerdemandnotice?demandNoticeId=${id}`,
         {
             responseType: 'arraybuffer',
             headers: {

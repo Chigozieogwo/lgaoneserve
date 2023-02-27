@@ -2,6 +2,6 @@
 
 import React, { useState, useEffect } from 'react';
 
-let pdfUrl = 'https://api.billable.site'
+let pdfUrl = 'https://app-api.billable.site'
 
 export default pdfUrl

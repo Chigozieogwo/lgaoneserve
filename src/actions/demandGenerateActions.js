@@ -92,7 +92,7 @@ export const demandGenerateDownloadAction = (id) => async (dispatch, getState) =
 
       
 
-      axios.get(`${pdfUrl}/demand-notices/export-pdf?demandNoticeBatchId=${id}`,
+      axios.get(`${url}/demand-notices/export-pdf?demandNoticeBatchId=${id}`,
         {
             responseType: 'arraybuffer',
             headers: {
@@ -140,7 +140,7 @@ export const demandGenerateDownloadCsvAction = (id) => async (dispatch, getState
 
       
 
-      axios.get(`${pdfUrl}/demand-notices/export-csv/batch?demandNoticeBatchId=${id}`,
+      axios.get(`${url}/demand-notices/export-csv/batch?demandNoticeBatchId=${id}`,
         {
             responseType: 'arraybuffer',
             headers: {
