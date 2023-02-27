@@ -241,7 +241,7 @@ const CategoryEditScreen = ({ match }) => {
                     id="lga" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500">
                                           <option selected>Select LGA</option>
                                           
-  <option  value="aba-north-lga-abia-state-nigeria">Aba North</option>
+                                          <option  value="aba-north-lga-abia-state-nigeria">Aba North</option>
   <option  value="aba-south-lga-abia-state-nigeria">Aba South</option>
   <option  value="arochukwu-lga-abia-state-nigeria">Arochukwu</option>
   <option  value="bende-lga-abia-state-nigeria">Bende</option>
@@ -249,7 +249,7 @@ const CategoryEditScreen = ({ match }) => {
   <option  value="isiala-ngwa-north-lga-abia-state-nigeria">Isiala Ngwa North</option>
   <option  value="isiala-ngwa-south-lga-abia-state-nigeria">Isiala Ngwa South</option>
   <option  value="isuikwuato-lga-abia-state-nigeria">Isuikwuato</option>
-  <option  value="obi-ngwa-lga-abia-state-nigeria">Obingwa</option>
+  <option  value="obingwa-lga-abia-state-nigeria">Obingwa</option>
   <option  value="ohafia-lga-abia-state-nigeria">Ohafia</option>
   <option  value="osisioma-ngwa-lga-abia-state-nigeria">Osisioma Ngwa</option>
   <option  value="ugwunagbo-lga-abia-state-nigeria">Ugwunagbo</option>
