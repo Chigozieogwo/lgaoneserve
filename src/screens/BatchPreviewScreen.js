@@ -473,8 +473,8 @@ csvExporter.generateCsv(demand_batchs)
                         }</ul>
                          <div class="col-span-3 -mt-32">
                               <h5 className="font-semibold text-xl mb-2 "> Preview </h5>
-                              {success ? (<iframe className="mx-auto overflow-hidden w-[210mm]" src= {`https://api.billable.site/demand-notices/template?demandNoticeBatchId=${demand_batchs?.demandNoticeBatch?._id}`}
- width="100%" height="900"></iframe>):<iframe className="mx-auto overflow-hidden w-[210mm]" src= {'https://api.billable.site/demand-notices/template?demandNoticeBatchId=63e0cf13052caecf760ae7f1'}
+                              {success ? (<iframe className="mx-auto overflow-hidden w-[210mm]" src= {`https://app-api.billable.site/demand-notices/template?demandNoticeBatchId=${demand_batchs?.demandNoticeBatch?._id}`}
+ width="100%" height="900"></iframe>):<iframe className="mx-auto overflow-hidden w-[210mm]" src= {'https://app-api.billable.site/demand-notices/template?demandNoticeBatchId=63e0cf13052caecf760ae7f1'}
  width="100%" height="900"></iframe>}
                          
                          {/* {demand_batchs === "undefined" ? (<Loader />) : } */}
