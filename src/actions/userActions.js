@@ -15,7 +15,17 @@ import url2 from '../utils/baseUrl.js'
 // require('dotenv').config()
 
 
-let url = process.env.REACT_APP_BASE_URL;
+ let url = process.env.REACT_APP_BASE_URL;
+
+//  let url = "";
+
+// if (process.env.NODE_ENV === 'production'){
+//   url = process.env.REACT_APP_BASE_URL
+//  console.log("production")
+// }else {
+//    url = process.env.REACT_APP_DEV
+//    console.log("development")
+// }
 
 export const login = (email, password) => async (dispatch) => {
    try {

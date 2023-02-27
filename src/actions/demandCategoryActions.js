@@ -25,6 +25,17 @@ import url2 from '../utils/baseUrl.js'
 
 let url = process.env.REACT_APP_BASE_URL;
 
+
+// let url = "";
+
+// if (process.env.NODE_ENV === 'production'){
+//  url = process.env.REACT_APP_PROD
+//  console.log("production")
+// }else {
+//    url = process.env.REACT_APP_DEV
+//    console.log("development")
+// }
+
 export const demandCategoryCreateAction =
    (categoryName,
       categoryDescription,
