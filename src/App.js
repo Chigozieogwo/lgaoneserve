@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route,HashRouter } from 'react-router-dom'
 
 // import Footer from './components/Footer.js'
 
@@ -24,7 +24,8 @@ import LoginScreen from './screens/LoginScreen.js'
 
 function App() {
   return (
-    <>
+     <>
+       
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<LoginScreen />} />
