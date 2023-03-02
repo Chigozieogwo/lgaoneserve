@@ -25,11 +25,18 @@ const DashboardScreen = ({ match }) => {
    const dispatch = useDispatch();
 
    const userLogin = useSelector((state) => state.userLogin);
+
+
    const { userInfo } = userLogin;
 
    const userDetails = useSelector((state) => state.userDetails);
    const { loading, error, user } = userDetails;
-  console.log(userInfo + "here is the user")
+
+
+  console.log(JSON.stringify(userInfo) + " 90 here is the user")
+  console.log(userInfo + " 90 here is the user")
+  console.log(user.firstName + " 55 here is the user")
+  console.log(user.firstName + " 55 here is the user")
 
   
    useEffect(() => {

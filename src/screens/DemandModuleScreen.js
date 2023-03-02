@@ -66,7 +66,12 @@ const currentRecords = data?.slice(indexOfFirstRecord,
 
    const userDetails = useSelector((state) => state.userDetails);
    const { loading, error, user } = userDetails;
-  console.log(userInfo + "here is the user")
+
+
+
+  console.log(userInfo + "1 here is the user")
+  console.log(userInfo + "2 here is the user")
+  console.log(user + "3 here is the user")
 
  
  
@@ -91,30 +96,23 @@ const currentRecords = data?.slice(indexOfFirstRecord,
     
  };
    useEffect(() => {
-      setData(demand_Specificlists)
-      dispatch(listDemandSpecificLists());
-      setTimeout(() => {
-         if(success){
+ 
+     if (!userInfo) {
+         navigate('/');
+      } else {
+         //  dispatch(getUserDetails('profile'));
+         if (!user || !user.firstName) {
+            // dispatch({ type: USER_UPDATE_PROFILE_RESET });
+            dispatch(getUserDetails());
             setData(demand_Specificlists)
-          }
-      },1000)
-      
-
-
-
-      //  setBlogPosts(demand_Specificlists)
-      //  if (loadingSpecificList === false){
-
-      //  }
-    //   if (!userInfo) {
-    //      navigate('/');
-    //   } else {
-    //      //  dispatch(getUserDetails('profile'));
-    //      if (!user || !user.firstName) {
-    //         // dispatch({ type: USER_UPDATE_PROFILE_RESET });
-           
-    //      }
-    //   }
+            dispatch(listDemandSpecificLists());
+            setTimeout(() => {
+               if(success){
+                  setData(demand_Specificlists)
+                }
+            },1000)
+         }
+      }
    }, [navigate, userInfo, user]);
 
    return (
