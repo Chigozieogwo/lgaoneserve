@@ -191,6 +191,7 @@ const RegisterScreen = () => {
                   </div>
         </div>
       </div>
+      
       <div class="mt-20 flex justify-center bg-base-100">
             <h1> Abia State Government &copy; Copyright 2023 </h1>
             

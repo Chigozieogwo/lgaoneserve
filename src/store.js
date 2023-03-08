@@ -47,6 +47,7 @@ import {
 
 const reducer = combineReducers({
   
+   
     userLogin: userLoginReducer, 
     userDetails: userDetailsReducer,
     userTenancyRegister: userTenancyRegisterReducer,
