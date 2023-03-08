@@ -3,6 +3,12 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../actions/userActions';
 import logo from '../images/abialogo.jfif';
+import userm from "../images/userm.png"
+import bell from "../images/bell.png"
+import sort from "../images/sort.png"
+import itf from "../images/itf.jpg"
+import down from "../images/down.png"
+
 
 const HeaderLog = ({ showHandler2 }) => {
    const dispatch = useDispatch();
@@ -15,89 +21,200 @@ const HeaderLog = ({ showHandler2 }) => {
    };
    return (
       <div>
-         <div class="w-full navbar px-4 bg-green-700">
+         <div class="w-full navbar px-4 bg-white ">
             <div class="flex-1 px-2 mx-2">
                {' '}
                <Link to={'/'} class="flex items-center">
-                  <img
-                     src={logo}
-                     class="mr-2 h-6 sm:h-9 rounded-full"
-                     alt="Abia"
-                  ></img>
-                  <span class="self-center text-2xl text-white font-semibold whitespace-nowrap dark:text-white">
-         
-                  </span>
+                  <h3 className="text-xl font-semibold text-gray-700 leading-5 tracking-widest">Dashboard</h3>
+                  
                </Link>
             </div>
-            <div class="flex-none hidden lg:block">
-               <ul class="flex flex-col mt-4 md:flex-row  md:space-x-8 md:mt-0 md:text-sm md:font-medium">
+
+
+
+
+            <div class="flex-none hidden lg:block ">
+               <ul class="flex flex-col  py-2 md:flex-row  md:space-x-5 md:mt-0 md:text-sm md:font-medium">
                   <li>
-                     <Link
-                        to={'/'}
-                        class="block rounded py-2 mt-1 pr-4 pl-3 text-white  border-gray-100 hover:bg-green-700 md:hover:bg-transparent md:border-0 md:hover:text-green-600 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
-                     >
-                        Home
-                     </Link>
+                  <div class="relative">
+                     
+                     <img
+                        class=" w-10 border-2 border-white p-2 rounded-full shadow-md"
+                        src={bell}
+                     ></img>
+                   
+                     <span class="top-2 right-2 absolute  w-3.5 h-3.5 bg-green-400 border-2 border-white dark:border-gray-800 rounded-full"></span>
+                  </div>
                   </li>
-                  <li>
-                     <Link
-                        to={'/aboutus'}
-                        class="block rounded py-2 mt-1 pr-4 pl-3 text-white  border-gray-100 hover:bg-green-700 md:hover:bg-transparent md:border-0 md:hover:text-green-600 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
-                        >
-                        About Us
-                     </Link>
+                  <li className="border border-2 border-r-gray-200">
+                     
+                  </li>
+                  <li className="relative">
+                  <div className=" w-48  rounded-md group ">
+                     <div className="absolute w-48 bg-white top-0 right-0 border border-2 border-gray-300 px-3 py-1 rounded-md group-hover:cursor-pointer ">
+                     <div className="flex flex-row items-center justify-between space-x-2">
+                           <div className=' group'>
+                              <h5 className="group-hover:text-green-600 text-blue-900 font-medium text-xs">Industrial Training Fund</h5>
+                              <p className="text-xs font-normal text-gray-400">Collector</p>
+                           </div>
+                           <div className=''>
+                              <img className='w-4  '
+                        src={sort}
+                        alt="sort"
+                     />
+                     </div>
+                           </div>
+                           <div className="hidden group-hover:block ">
+                              <div className="px-2 mt-4">
+                                 <div className='border border-2 border-b-gray-300'></div>
+                                 <p className='flex justify-center  py-2 font-normal text-md text-gray-400 '>Switch Account</p>
+                                 <input className="w-[150px] py-1.5 px-3 rounded-sm border border-2 border-gray-300 text-gray-700 focus:outline-none  placeholder:text-gray-300 placeholder:text-left text-left  placeholder:font-normal" placeholder='Quick Search'></input>
+                                
+                            
+                                 <div className="pb-6">
+
+                                 <div className="space-y-1 mt-2">
+                                 <h4 className=" text-blue-900 font-medium text-xs">Industrial Training Fund</h4>
+                              <p className="text-xs font-normal text-gray-400">Payer</p>
+                              <div className='border border-1 border-b-gray-200 mt-1'></div>
+                                 </div>
+                                 <div className="space-y-1 mt-2">
+                                 <h4 className=" text-blue-900 font-medium text-xs">{userInfo.firstName} {userInfo.lastName}</h4>
+                              <p className="text-xs font-normal text-gray-400">Payer</p>
+                              <div className='border border-1 border-b-gray-200 mt-1'></div>
+                                 </div>
+                                 <div className="space-y-1 mt-2">
+                                 <h4 className=" text-blue-900 font-medium text-xs">{userInfo.firstName} {userInfo.lastName}</h4>
+                              <p className="text-xs font-normal text-gray-400">{userInfo.role}</p>
+                              <div className='border border-1 border-b-gray-200 mt-1'></div>
+                                 </div>
+                                 </div>
+                              </div>
+                           </div>
+                           
+                     </div>
+                  </div>
+                  </li>
+
+                  
+                  <li className="border border-2 border-l-gray-200">
+                     
                   </li>
                  
 
                  
-                  <li>
-                     <Link
-                        to={'/contactus'}
-                        class="block rounded py-2 mt-1 pr-4 pl-3 text-white  border-gray-100 hover:bg-green-700 md:hover:bg-transparent md:border-0 md:hover:text-green-600 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
-                     >
-                        Contact Us
-                     </Link>
-                  </li>
+                  
                </ul>
             </div>
             
-            <div class="dropdown px-2 dropdown-end">
-               <label tabindex="0" class="btn btn-ghost btn-circle avatar">
-                  <div class="w-10 rounded-full">
-                     <img
-                        src="data:image/png;base64,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"
-                        alt={userInfo.firstName}
-                     />
-                  </div>
+            {/* <div class="dropdown px-2 dropdown-end mr-0 md:mr-16"> */}
+            <div class="dropdown px-2 dropdown-end mr-0 md:mr-16 flex flex-row space-x-0 hover:cursor-pointer ">
+                 
+
+                 <label tabindex="0" class="hover:cursor-pointer  avatar w-8 ">
+                    <div class="">
+                       <img className='hover:border rounded-full border-1'
+                          src={userm}
+                          alt={userInfo.firstName}
+                       />
+                       
+                       
+                       
+                       </div>
+  
                </label>
+                 <label tabindex="0" class="hover:cursor-pointer  ">
+                 <svg className="w-4" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"></path>
+  </svg>
+               </label>
+              
                <ul
                   tabindex="0"
-                  class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
+                  class="menu menu-compact dropdown-content mt-[31.5rem] p-2 shadow bg-base-100 border border-0.5 border-gray-300 shadow-md rounded-md w-72"
                >
                   
-                  {/* <Link to="/profile">
-                     {' '}
-                     <li>
-                        <Link onClick={showHandler2}>Settings</Link>
-                     </li>
-                  </Link> */}
+                  <div className="relative">
+                        <div className="absolute top-3 right-3 rounded-full p-0.5 bg-red-600 ">
+                                 <svg className="text-white w-3" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                 <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
+                                 </svg>
+                        </div>
+                  </div>
+                  <div className="flex justify-center items-center mt-10 mb-6">
+                        <div className="space-y-1">
+                              <img className="w-16 mx-auto" src={itf}></img>
+                              <p className="text-sm font-normal text-gray-400">info@itf.gov.ng</p>
+                        </div>
+                  </div>
+                        <div className="border border-1 border-b-gray-300 mx-4"></div>
+                        <div className="group mx-4">
+                        <div className="flex flex-row space-x-4 mt-2 group-hover:bg-green-50 px-2 py-0.5 group-hover:cursor-pointer">
+                        <div className="flex justify-center items-center ">
+                        <div class="flex justify-center items-center p-1.5 w-8 h-8 rounded-md group-hover:text-white bg-green-50 group-hover:bg-green-500">
+                                    <svg className='h-4 w-4 text-center  ' fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.324.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 011.37.49l1.296 2.247a1.125 1.125 0 01-.26 1.431l-1.003.827c-.293.24-.438.613-.431.992a6.759 6.759 0 010 .255c-.007.378.138.75.43.99l1.005.828c.424.35.534.954.26 1.43l-1.298 2.247a1.125 1.125 0 01-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.57 6.57 0 01-.22.128c-.331.183-.581.495-.644.869l-.213 1.28c-.09.543-.56.941-1.11.941h-2.594c-.55 0-1.02-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 01-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 01-1.369-.49l-1.297-2.247a1.125 1.125 0 01.26-1.431l1.004-.827c.292-.24.437-.613.43-.992a6.932 6.932 0 010-.255c.007-.378-.138-.75-.43-.99l-1.004-.828a1.125 1.125 0 01-.26-1.43l1.297-2.247a1.125 1.125 0 011.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.087.22-.128.332-.183.582-.495.644-.869l.214-1.281z"></path>
+  <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+</svg>
+                                 </div>
+                                 </div>
+                           <div className="flex flex-col py-2"> 
+                              <h5 className="text-gray-700 font-medium text-xs"> Account Settings</h5>
+                              <p className="text-gray-400 font-medium text-xs">Account Preference and more</p>
+                           
+                           </div>
+                           
 
-                  {/* <Link to="/">
-                     <li >
-                        <a className="bg-yellow-700 rounded-md">Login</a>
-                     </li>
-                  </Link> */}
-                  <Link to="/login">
+                           </div>
+
+                        </div>
+
+
+                        
+                        <div className="group mx-4">
+                        <div className="flex flex-row space-x-4 mt-2 group-hover:bg-green-50 px-2 py-0.5 group-hover:cursor-pointer">
+                        <div className="flex justify-center items-center ">
+                        <div class="flex justify-center items-center p-1.5 w-8 h-8 rounded-md group-hover:text-white bg-green-50 group-hover:bg-green-500">
+                                    <svg className='h-4 w-4 text-center  ' fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m5.231 13.481L15 17.25m-4.5-15H5.625c-.621 0-1.125.504-1.125 1.125v16.5c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9zm3.75 11.625a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z"></path>
+</svg>
+                                 </div>
+                                 </div>
+                           <div className="flex flex-col py-2"> 
+                              <h5 className="text-gray-700 font-medium text-xs"> Help</h5>
+                              <p className="text-gray-400 font-medium text-xs">Help and support service</p>
+                           
+                           </div>
+                           
+
+                           </div>
+
+                        </div>
+                        <div className="space-y-6 mt-4">
+
+                           <div className="border border-1 border-b-gray-300 mx-4 "></div>
+                           <div className="mx-4 "><h5 className="text-green-400 font-medium text-xs"> Become a partner</h5></div>
+
+                           <div className="border border-1 border-b-gray-300 mx-4 "></div>
+                        </div>
+                        <div className="flex justify-center items-center my-3">
+                           <button onClick={logoutHandler} className="px-6 py-1.5 rounded-sm border border-green-400 text-green font-medium text-sm hover:text-white hover:bg-green-400">Log Out</button>
+
+                        </div>
+
+                  {/* <Link to="/login">
                      <li onClick={logoutHandler}>
                         <p>Logout</p>
                      </li>
-                  </Link>
+                  </Link> */}
                </ul>
             </div>
+
+
             <div class="flex-none lg:hidden">
                <label
                   for="my-drawer-3"
-                  class="btn btn-square text-white btn-ghost"
+                  class="btn btn-square text-black btn-ghost"
                >
                   <svg
                      xmlns="http://www.w3.org/2000/svg"

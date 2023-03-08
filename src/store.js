@@ -4,7 +4,11 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 
 import {
    userLoginReducer,
-   userDetailsReducer
+   userDetailsReducer,
+   userTenancyRegisterReducer,
+ 
+   userTenancyProfileReducer,
+  userUpdateTenancyProfileReducer,
 } from './reducers/userReducers';
 import {
    
@@ -43,8 +47,12 @@ import {
 
 const reducer = combineReducers({
   
-   userLogin: userLoginReducer, 
+    userLogin: userLoginReducer, 
     userDetails: userDetailsReducer,
+    userTenancyRegister: userTenancyRegisterReducer,
+    userTenancyProfile : userTenancyProfileReducer,
+    userUpdateTenancyProfile : userUpdateTenancyProfileReducer,
+    
 
    demandCategoryCreate : demandCategoryCreateReducer,
    demandCategoryUpdate : demandCategoryUpdateReducer,

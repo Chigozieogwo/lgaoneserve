@@ -20,6 +20,7 @@ import CategoryDetailRevenueScreen from './screens/CategoryDetailRevenueScreen.j
 // import CompanyListScreen from './screens/CompanyListScreen.js'
 // import CompanyProfileScreen from './screens/CompanyProfileScreen.js'
 import LoginScreen from './screens/LoginScreen.js'
+import RegisterScreen from './screens/RegisterScreen.js'
 // import HomeScreen from './screens/HomeScreen.js'
 
 function App() {
@@ -29,6 +30,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<LoginScreen />} />
+          <Route exact path="/register" element={<RegisterScreen />} />
           <Route
                      exact
                      path="/dashboard/profile"

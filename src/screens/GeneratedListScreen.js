@@ -112,8 +112,8 @@ const sortedArray = _.orderBy(demand_lists, [(obj) => new Date(obj.date)], ['asc
 
    return (
       <>
-         <div>
-            <div class="drawer drawer-mobile bg-[#F4F5FA]">
+      <div className="mx-0 md:mx-16 overflow-hidden">
+            <div class="drawer drawer-mobile bg-gray-50  ">
                <input
                   id="my-drawer-3"
                   type="checkbox"
@@ -271,7 +271,7 @@ const sortedArray = _.orderBy(demand_lists, [(obj) => new Date(obj.date)], ['asc
                {/*<<<<<<<<<<<<<<<<<<<<<<<<<<<<< the Sidebar >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/}
                <div class="drawer-side ">
                   <label for="my-drawer-3" class="drawer-overlay"></label>
-                  <ul class="menu  overflow-y-auto  w-60 md:w-60 bg-green-700">
+                  <ul class="menu  overflow-y-auto w-[100px] md:w-[100px] bg-white">
                      {/*<<<<<<<<<<<<<<<<<<<<<<<<<<<<< the Sidebar >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/}
                      <Sidebar></Sidebar>
                      {/*<<<<<<<<<<<<<<<<<<<<<<<<<<<<< the Sidebar >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/}

@@ -1,7 +1,7 @@
 /* This example requires Tailwind CSS v2.0+ */
 import React, { useState, useEffect } from 'react';
 
-import Sidebar from '../components/Sidebar';
+import Sidebar from '../components/Sidebar1';
 import img from "../images/image.jpg";
 import img1 from "../images/headphone.png";
 

@@ -110,7 +110,12 @@ const LoginScreen = () => {
               </div>
             </div>
           </div>
-          
+          <div class="text-center pt-12 pb-12 text-sm">
+                     <p>
+                        Don't have an account?{' '}
+                        <Link className="underline underline-green-300 text-green-700 " to={'/register'}>click to register</Link>
+                     </p>
+                  </div>
         </div>
       </div>
       <div class="mt-20 flex justify-center bg-base-100">

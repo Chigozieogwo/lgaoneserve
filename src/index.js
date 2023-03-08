@@ -11,7 +11,7 @@ import reportWebVitals from './reportWebVitals';
 ReactDOM.render(
    <Provider store={store}>
       
-      <App />
+      <App className=" [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none']"/>
    </Provider>,
    document.getElementById('root')
 );
