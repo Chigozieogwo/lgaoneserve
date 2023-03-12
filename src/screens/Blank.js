@@ -1,87 +1,97 @@
 /* This example requires Tailwind CSS v2.0+ */
 import React, { useState, useEffect } from 'react';
+import HeaderLog from '../components/HeaderLog';
+import { Fragment } from 'react';
 
-import Sidebar from '../components/Sidebar1';
-import img from "../images/image.jpg";
-import img1 from "../images/headphone.png";
+import Sidebar from '../components/Sidebar';
 
+
+import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
+import Message from '../components/Message';
+import Loader from '../components/Loader';
+import { logout, getUserDetails } from '../actions/userActions';
+
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+
+// import { ReactComponent as DateIcon } from '../images/date.svg';
 
 
 const Blank = ({ match }) => {
    
- 
+   const location = useLocation();
+   const navigate = useNavigate();
+
+   const dispatch = useDispatch();
+
+   const userLogin = useSelector((state) => state.userLogin);
+
+
+   const { userInfo } = userLogin;
+
+   const userDetails = useSelector((state) => state.userDetails);
+   const { loading, error, user } = userDetails;
+
+
+  console.log(JSON.stringify(userInfo) + " 90 here is the user")
+  console.log(userInfo + " 90 here is the user")
+  console.log(user.firstName + " 55 here is the user")
+  console.log(user.firstName + " 55 here is the user")
+
+  
+   useEffect(() => {
+     
+      if (!userInfo) {
+         navigate('/');
+      } else {
+         //  dispatch(getUserDetails('profile'));
+         if (!user || !user.firstName) {
+            // dispatch({ type: USER_UPDATE_PROFILE_RESET });
+            dispatch(getUserDetails());
+           
+         }
+      }
+   }, [navigate, userInfo, user]);
 
    return (
       <>
+         <div className="mx-0 md:mx-16 overflow-hidden">
+            <div class="drawer drawer-mobile bg-gray-50  ">
+               <input
+                  id="my-drawer-3"
+                  type="checkbox"
+                  class="drawer-toggle"
+               ></input>
+               <div class="drawer-content -ml-2 flex flex-col">
+                  {/*<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Header when logged in >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/}
+                  {/*<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Header when logged in >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/}
+                  <HeaderLog />
+                  {/*<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Header when logged in >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/}
+                  {/*<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Header when logged in >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/}
 
-      <div class="flex items-center justify-center min-h-screen bg-slate-100">
-        <div class="flex flex-col p-6 m-3 shadow-2xl rounded-2xl space-y-10 md:flex-row md:space-x-10 md:m-0 bg-white">
-                <div> <img src={img1} class="mx-auto hover:scale-105 duration-500 w-60"></img>
-                </div>
-                <div class="flex flex-col mb-4 space-y-3 text-center md:text-left" >
-                    <div >
-                        <div class=" inline-block font-serif font-medium px-3 py-1 rounded-full text-sm text-white bg-black">
-                             Free Shipping
-                        </div>
-                    </div>
-                    <div class="max-w-sm text-2xl font-medium">Razer Kraken kitty Edt Gaming Headset Quartz</div>
-                    <div class="flex flex-col space-y-3 text-center md:text-left mb-4">
-                        <p class="line-through">$799</p>
-                        <p class="text-5xl font-bold">$545</p>
-                        <p class="text-sm text-gray-400 font-light">This offer is valid until April 3rd or as long as stock lasts</p>
+                  {/*<<<<<<<<<<<<<<<<<<<<<<<<<<<<< the content >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/}
+                  {/*<<<<<<<<<<<<<<<<<<<<<<<<<<<<< the content >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/}
 
-                    </div>
-                    <div class="group">
-                        <button class=" w-full bg-blue-700 text-white border-b-8 rounded-lg border-b-blue-800 group-hover:border-t-8 group-hover:border-b-0 trasition-all duration-150 group-hover:border-t-blue-500">
-                            <div class="px-8 py-4 bg-blue-500 rounded-lg group-hover:bg-blue-800 duration-150"> Add to Cart </div>
+                       <div>
+                           Hello 
+                 </div>
 
-                        </button>
+                  {/*<<<<<<<<<<<<<<<<<<<<<<<<<<<<< the content >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/}
+                  {/*<<<<<<<<<<<<<<<<<<<<<<<<<<<<< the content >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/}
+               </div>
+               {/*<<<<<<<<<<<<<<<<<<<<<<<<<<<<< the Sidebar >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/}
+               <div class="drawer-side ">
+                  <label for="my-drawer-3" class="drawer-overlay"></label>
+                  <ul class="menu  overflow-y-auto w-[100px] md:w-[100px] bg-white">
+                     {/*<<<<<<<<<<<<<<<<<<<<<<<<<<<<< the Sidebar >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/}
+                     <Sidebar></Sidebar>
+                     {/*<<<<<<<<<<<<<<<<<<<<<<<<<<<<< the Sidebar >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/}
+                  </ul>
+               </div>
 
-                    </div>
-                    <div class="flex items-center space-x-3 group">
-                        <div class="w-3 h-3 bg-green-500 group-hover:animate-ping rounded-full"></div>
-                        <div class="text-sm font-medium text-gray-700">50+ pcs. in stock</div>
-
-                    </div>
-                    <div class="flex flex-col space-y-3 md:space-y-0 md:space-x-3 md:flex-row">
-
-                    </div>
-                </div>
-        </div>
-      </div>
-
-
-
-
-
-
-
-
-
-
-
-         {/* <div>
-         <div class="flex items-center justify-center p-2 bg-zinc-700 min-h-screen">
-            <div class="bg-zinc-800 rounded-xl p-2">
-<div class="flex flex-col md:flex-row ">
-<img src={img} alt="image" class="object-fit hover:rounded-xl duration-200 transform rounded-xl h-80 md:h-64 hover:scale-105 md:rounded-l-xl md:rounded-r-none" ></img>
-
-<div class="p-6 md:p-12">
-<h2 class="font-medium font-serif text-white text-center my-4 md:text-left text-xl leading-5 tracking-wide">Get diet and Fitness tips in your inbox</h2>
-<p class="text-xs text-white text-center md:text-left max-w-xs">Eat better and exercise better. Sign up for the Diet&Fitness
-              newsletter.</p>
-
-              <div class="mt-5 flex flex-col space-y-4 md:space-x-3 md:space-y-0 md:flex-row">
-                    <input class="p-2 px-4 text-white hover:text-white bg-zinc-800 border border-zinc-600 text-center placeholder:text-xs rounded-sm md:text-left placeholder:md:text-left focus:outline-none" Placeholder="Enter your Email Address"></input>
-<button class=" px-5 py-3 text-xs text-zinc-800 rounded-md hover:text-white bg-lime-500 hover:bg-lime-700 hover:scale-105 duration-500">Subscribe</button>
-</div>
-</div>
-
-
-            </div>
+               {/*<<<<<<<<<<<<<<<<<<<<<<<<<<<<< the Sidebar >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/}
             </div>
          </div>
-         </div> */}
       </>
    );
 };

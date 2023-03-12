@@ -23,7 +23,7 @@ const LoginScreen = () => {
 
   const redirect = location.search
      ? location.search.split('=')[1]
-     : '/dashboard/profile';
+     : '/tenancy_profile';
 
   useEffect(() => {
      if (userInfo) {

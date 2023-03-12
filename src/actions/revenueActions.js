@@ -34,10 +34,16 @@ export const revenueCreateAction =
             userLogin: { userInfo }
          } = getState();
 
+
+
+         const { userTenancyProfile: { userInfoTenancy }} = getState();
+         const { tenantDashboardDetails : { tenant }} = getState();
+      
          const config = {
             headers: {
                'Content-Type': 'application/json',
-               Authorization: `Bearer ${userInfo.accessToken}`
+               'Authorization': `Bearer ${userInfo.accessToken}`,
+               'tenantId': `${tenant?.singleTenant?._id}`
             }
           };
           
@@ -90,23 +96,23 @@ console.log(
          const {
             userLogin: { userInfo }
          } = getState();
-
+         const { userTenancyProfile: { userInfoTenancy }} = getState();
+         const { tenantDashboardDetails : { tenant }} = getState();
+      
          const config = {
             headers: {
                'Content-Type': 'application/json',
-               Authorization: `Bearer ${userInfo.token}`
+               'Authorization': `Bearer ${userInfo.accessToken}`,
+               'tenantId': `${tenant?.singleTenant?._id}`
             }
-         };
-
-         // const { data } = await axios.get(
-         //   `/api/users?pageNumber=${pageNumber}`,
-         //   config
-         // )
+          };
+          
+         
          const { data } = await axios.get(
             `${url}/revenuelines?lgaKey=${lga}`,
             config
          );
-         // const { data } = await axios.get('/api/users')
+     
 
          console.log(data);
 
@@ -139,13 +145,17 @@ export const revenueDeleteAction = (id) => async (dispatch, getState) => {
          userLogin: { userInfo }
       } = getState();
 
+      const { userTenancyProfile: { userInfoTenancy }} = getState();
+      const { tenantDashboardDetails : { tenant }} = getState();
+   
       const config = {
          headers: {
             'Content-Type': 'application/json',
-            Authorization: `Bearer ${userInfo.token}`
+            'Authorization': `Bearer ${userInfo.accessToken}`,
+            'tenantId': `${tenant?.singleTenant?._id}`
          }
-      };
-
+       };
+       
       await axios.delete(`/api/deposits/${id}`, config);
 
       dispatch({
@@ -172,13 +182,17 @@ export const revenueDetailsAction = (revenue) => async (dispatch, getState) => {
          userLogin: { userInfo }
       } = getState();
 
+      const { userTenancyProfile: { userInfoTenancy }} = getState();
+      const { tenantDashboardDetails : { tenant }} = getState();
+   
       const config = {
          headers: {
             'Content-Type': 'application/json',
-            Authorization: `Bearer ${userInfo.accessToken}`
+            'Authorization': `Bearer ${userInfo.accessToken}`,
+            'tenantId': `${tenant?.singleTenant?._id}`
          }
-      };
-
+       };
+       
       const { data } = await axios.get(`${url}/revenuelines/${revenue.revenueLineCode}`, config);
 
       dispatch({
@@ -207,13 +221,17 @@ export const updateRevenueAction = (revenue) => async (dispatch, getState) => {
          userLogin: { userInfo }
       } = getState();
 
-      const config = {
-         headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${userInfo.accessToken}`
-         }
-      };
-
+      const { userTenancyProfile: { userInfoTenancy }} = getState();
+         const { tenantDashboardDetails : { tenant }} = getState();
+      
+         const config = {
+            headers: {
+               'Content-Type': 'application/json',
+               'Authorization': `Bearer ${userInfo.accessToken}`,
+               'tenantId': `${tenant?.singleTenant?._id}`
+            }
+          };
+          
       const { data } = await axios.put(
          `${url}/revenuelines/${revenue.revenueLineCode}`,revenue,  config
       );

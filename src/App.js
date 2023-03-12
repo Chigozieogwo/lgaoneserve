@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route,HashRouter } from 'react-router-dom'
 
 // import Footer from './components/Footer.js'
 
-import DemandNoticeScreen from './screens/DemandNoticeScreen.js'
+import DashboardScreen from './screens/DashboardScreen.js'
 import DemandModuleScreen from './screens/DemandModuleScreen.js'
 import DemandSelectionScreen from './screens/DemandSelectionScreen.js'
 import BlankScreen from './screens/BlankScreen.js'
@@ -15,12 +15,15 @@ import BatchPreviewScreen from './screens/BatchPreviewScreen.js'
 import SpecificPreviewScreen from './screens/SpecificPreviewScreen.js'
 import GeneratedListScreen from './screens/GeneratedListScreen.js'
 import CreateCategoryScreen from './screens/CreateCategoryScreen.js'
+import StateCreateScreen from './screens/StateCreateScreen.js'
+import LgaCreateScreen from './screens/LgaCreateScreen.js'
 import CategoryDetailRevenueScreen from './screens/CategoryDetailRevenueScreen.js'
 // import ReportScreen from './screens/ReportScreen.js'
 // import CompanyListScreen from './screens/CompanyListScreen.js'
 // import CompanyProfileScreen from './screens/CompanyProfileScreen.js'
 import LoginScreen from './screens/LoginScreen.js'
 import RegisterScreen from './screens/RegisterScreen.js'
+import TenancyProfileScreen from './screens/TenancyProfileScreen.js'
 // import HomeScreen from './screens/HomeScreen.js'
 
 function App() {
@@ -31,10 +34,12 @@ function App() {
         <Routes>
           <Route path="/" element={<LoginScreen />} />
           <Route exact path="/register" element={<RegisterScreen />} />
+          <Route exact path="/tenancy_profile" element={<TenancyProfileScreen />} />
+          {/* <Route exact path="/:id/:name/dashboard/profile" element={<DashboardScreen />} /> */}
           <Route
                      exact
                      path="/dashboard/profile"
-                     element={<DemandNoticeScreen />}
+                     element={<DashboardScreen />}
                   />
           <Route
                      exact
@@ -75,6 +80,17 @@ function App() {
                      exact
                      path="/demand-notice-categories/:id/edit"
                      element={<CategoryEditScreen />}
+              />
+              
+              <Route
+                     exact
+                     path="/locations/states"
+                     element={<StateCreateScreen />}
+                  />
+              <Route
+                     exact
+                     path="/locations/states/:name"
+                     element={<LgaCreateScreen />}
                   />
           <Route
                      exact

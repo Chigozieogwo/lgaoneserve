@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-// import { Link } from 'react-router-dom';
+import React from 'react';
+import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../actions/userActions';
 import logo from '../images/abialogo.jfif';
@@ -8,80 +8,24 @@ import bell from "../images/bell.png"
 import sort from "../images/sort.png"
 import itf from "../images/itf.jpg"
 import down from "../images/down.png"
-import {  getUserDetails,getUserTenancyDetails,getTenantDashboardDetails } from '../actions/userActions';
 
-import { Link, useLocation, useNavigate ,useParams} from 'react-router-dom';
 
-const HeaderLog = ({ showHandler2 }) => {
-  
-   
-   const location = useLocation();
-   const navigate = useNavigate();
-
-   const {id} = useParams()
-   console.log(id + "params")
-   
-
+const HeaderTenancy = ({ showHandler2 }) => {
    const dispatch = useDispatch();
 
    const userLogin = useSelector((state) => state.userLogin);
    const { userInfo } = userLogin;
 
-
-   const userTenancyProfile = useSelector((state) => state.userTenancyProfile);
-   const { userInfoTenancy  } = userTenancyProfile;
-
-
-
-   const tenantDashboardDetails = useSelector((state) => state.tenantDashboardDetails);
-   const { tenant  } = tenantDashboardDetails;
-
-  
-
-   const userDetails = useSelector((state) => state.userDetails);
-   const { loading, error, user } = userDetails;
-
-
-  console.log(JSON.stringify(tenant) + " <<<<<<<<<<<<<<<<<<<<<< Tenant Header >>>>>>>>>>>>>>>>>>>>> 90 here is the user")
-  console.log(tenant + " <<<<<<<<<<<<< Tenant Header >>>>>>>>>>>>>>> here is the user")
-  console.log(JSON.stringify(tenant) + " 90 here is the user")
-  
-
    const logoutHandler = () => {
       dispatch(logout());
    };
-
-   // useEffect(() => {
-     
-   //    if (!userInfo || userInfoTenancy || tenant) {
-         
-   //       dispatch(getUserDetails());
-   //             dispatch(getUserTenancyDetails());
-   //             dispatch(getTenantDashboardDetails(id));
-         
-   //    }
-   //    // if (!userInfo) {
-   //    //    navigate('/');
-   //    // } else {
-   //    //    //  dispatch(getUserDetails('profile'));
-   //    //    if (!user || !user.firstName) {
-   //    //       // dispatch({ type: USER_UPDATE_PROFILE_RESET });
-   //    //       dispatch(getUserDetails());
-   //    //       dispatch(getUserTenancyDetails());
-           
-   //    //    }
-   //    // }
-   // }, [navigate, userInfo, user]);
-
-
-
    return (
       <div>
          <div class="w-full navbar px-4 bg-white ">
             <div class="flex-1 px-2 mx-2">
                {' '}
                <Link to={'/'} class="flex items-center">
-                  <h3 className="text-xl font-semibold text-gray-700 leading-5 tracking-widest">Dashboard</h3>
+                  <h3 className="text-xl font-semibold text-gray-700 leading-5 tracking-widest"> </h3>
                   
                </Link>
             </div>
@@ -98,11 +42,9 @@ const HeaderLog = ({ showHandler2 }) => {
                         class=" w-10 border-2 border-white p-2 rounded-full shadow-md"
                         src={bell}
                      ></img>
-                   {!tenant ? (<span class="top-2 right-2 absolute  w-3.5 h-3.5 bg-gray-400 border-2 border-white dark:border-gray-800 rounded-full"></span>
-                 ) : (<span class="top-2 right-2 absolute  w-3.5 h-3.5 bg-green-400 border-2 border-white dark:border-green-800 rounded-full"></span>
-                 )}
-                     
-                     </div>
+                   
+                     <span class="top-2 right-2 absolute  w-3.5 h-3.5 bg-green-400 border-2 border-white dark:border-gray-800 rounded-full"></span>
+                  </div>
                   </li>
                   <li className="border border-2 border-r-gray-200">
                      
@@ -111,15 +53,9 @@ const HeaderLog = ({ showHandler2 }) => {
                   <div className=" w-48  rounded-md group ">
                      <div className="absolute w-48 bg-white top-0 right-0 border border-2 border-gray-300 px-3 py-1 rounded-md group-hover:cursor-pointer ">
                      <div className="flex flex-row items-center justify-between space-x-2">
-                              <div className=' group'>
-                                 {tenant ? (<div>
-                                    <h5 className="group-hover:text-green-600 text-blue-900 font-medium text-xs">{ tenant?.singleTenant?.name}</h5>
-                                 <p className="text-xs font-normal text-gray-400">{ userInfo?.role }</p>
-                                 </div>) : (<div>
-                                    <h5 className="group-hover:text-green-600 text-blue-900 font-medium text-xs">Select Tenancy</h5>
-                                 <p className="text-xs font-normal text-gray-400">click below</p>
-                                 </div>)}
-                                 
+                           <div className=' group'>
+                              <h5 className="group-hover:text-green-600 text-blue-900 font-medium text-xs">Industrial Training Fund</h5>
+                              <p className="text-xs font-normal text-gray-400">Collector</p>
                            </div>
                            <div className=''>
                               <img className='w-4  '
@@ -136,21 +72,17 @@ const HeaderLog = ({ showHandler2 }) => {
                                 
                             
                                  <div className="pb-6">
-                                 {userInfoTenancy?.myTenants.map((tenant) => (
-        <Link  onClick={() =>  dispatch(getTenantDashboardDetails(tenant._id))}   to={!tenant._id ? null : '/dashboard/profile'}  className="space-y-3 mt-3">
-        <div key={tenant._id}  className="space-y-3 mt-3">
-                                       <h4 className=" text-blue-900 font-medium text-xs">{ tenant.name}</h4>
-     {/* <p className="text-xs font-normal text-gray-400">Payer</p> */}
-     <div className='border border-1 border-b-gray-200 mt-2 mb-2'></div>
-        </div>
-        </Link>
-      ))}
-                                 
-                                 {/* <div className="space-y-1 mt-2">
+
+                                 <div className="space-y-1 mt-2">
+                                 <h4 className=" text-blue-900 font-medium text-xs">Industrial Training Fund</h4>
+                              <p className="text-xs font-normal text-gray-400">Payer</p>
+                              <div className='border border-1 border-b-gray-200 mt-1'></div>
+                                 </div>
+                                 <div className="space-y-1 mt-2">
                                  <h4 className=" text-blue-900 font-medium text-xs">{userInfo.firstName} {userInfo.lastName}</h4>
                               <p className="text-xs font-normal text-gray-400">Payer</p>
                               <div className='border border-1 border-b-gray-200 mt-1'></div>
-                                 </div> */}
+                                 </div>
                                  <div className="space-y-1 mt-2">
                                  <h4 className=" text-blue-900 font-medium text-xs">{userInfo.firstName} {userInfo.lastName}</h4>
                               <p className="text-xs font-normal text-gray-400">{userInfo.role}</p>
@@ -304,4 +236,4 @@ const HeaderLog = ({ showHandler2 }) => {
    );
 };
 
-export default HeaderLog;
+export default HeaderTenancy;

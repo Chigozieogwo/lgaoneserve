@@ -10,51 +10,49 @@ import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
-import { logout, getUserDetails,getUserTenancyDetails } from '../actions/userActions';
+import { logout, getUserDetails,getUserTenancyDetails,getTenantDashboardDetails } from '../actions/userActions';
 
-import { Link, useLocation, useNavigate } from 'react-router-dom';
 
-// import { ReactComponent as DateIcon } from '../images/date.svg';
+import { Link, useLocation, useNavigate,useParams } from 'react-router-dom';
+
 
 
 const DashboardScreen = ({ match }) => {
-   
-   const location = useLocation();
-   const navigate = useNavigate();
-
+      const location = useLocation();
+      const navigate = useNavigate();
+      
+      
+      const {id} = useParams()
+      console.log(id + "params")
+      
    const dispatch = useDispatch();
 
    const userLogin = useSelector((state) => state.userLogin);
+  
+   const tenantDashboardDetails = useSelector((state) => state.tenantDashboardDetails);
+
+   const { tenant  } = tenantDashboardDetails;
 
       
-   const userTenancyProfile = useSelector((state) => state.userTenancyProfile);
-
-
    const { userInfo } = userLogin;
 
       
-   const { userInfoTenancy  } = userTenancyProfile;
 
    const userDetails = useSelector((state) => state.userDetails);
    const { loading, error, user } = userDetails;
 
 //    const profileTenant = userInfoTenancy?.myTenants.filter((userProfileId) => userProfileId.ownerUserId === userInfo._id)
 //   console.log(JSON.stringify(userInfo) + " 90 here is the user")
+      
 //   console.log(userInfo + " 90 here is the user")
+
 //   console.log(myTenants + " 212 here is the user")
-//   console.log(myTenants + " 212 here is the user")
-  console.log(userInfoTenancy + " 212 here is the user")
-  console.log(userInfoTenancy?.myTenants[0]?._id + " 100555 here is the user")
-//   console.log(profileTenant[0]?._id + " 1001 here is the user")
-//   console.log(profileTenant + " 1001 here is the user")
-//   console.log(profileTenant + " 1001 here is the user")
-//   console.log(profileTenant[0]?._id + " 1001 here is the user")
-//   console.log(profileTenant + " 1001 here is the user")
-//   console.log(profileTenant + " 1001 here is the user")
+//   console.log(userInfoTenancy + " 212 here is the user")
+  console.log(tenant?.singleTenant?.name + " 100555 here is the user")
+  console.log(tenant?.singleTenant?.name + " 100555 here is the user")
+
   console.log(user.firstName + " 55 here is the user")
 
-
-   
   useEffect(() => {
    
    if (!userInfo) {
@@ -64,12 +62,12 @@ const DashboardScreen = ({ match }) => {
       if (!user || !user.firstName) {
       
          dispatch(getUserDetails());
-         dispatch(getUserTenancyDetails());
+         dispatch(getTenantDashboardDetails(tenant.singleTenant?._id));
         
 
       }
    }
-}, [navigate, userInfo, user]);
+}, [navigate, userInfo, user,tenant]);
 
    
    // useEffect(() => {
@@ -110,7 +108,7 @@ const DashboardScreen = ({ match }) => {
 
                      <div className=" overscroll-none  px-5  py-5 mx-3 my-2">
                         <div className="space-y-1">
-                           <h2 className=" text-3xl font-semibold text-gray-700"> Hi {user.firstName}<span className='text-xs text-gray-700 font-normal'>   __ {userInfoTenancy?.myTenants[0]?.name} Institution</span></h2> 
+                           <h2 className=" text-3xl font-semibold text-gray-700"> Hi {user.firstName}<span className='text-xs text-gray-700 font-normal'>   __ {tenant?.singleTenant?.name} Institution</span></h2> 
                            <p className=" text-xs font-normal text-gray-400"> It's a good day to track your revenue and tax resources</p> 
                            
                         </div>

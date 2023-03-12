@@ -274,6 +274,13 @@ const handleLgaFilter = (e) => {
             </tr>
         </thead>
         <tbody>
+
+
+                                   
+
+
+
+                                 
                                           {demand_category?.demandNoticeCategories?.map((category, index) => (
                                             <tr key={category._id} class="bg-white border-b dark:bg-gray-600 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                                             {/* <td class="w-4 p-4">

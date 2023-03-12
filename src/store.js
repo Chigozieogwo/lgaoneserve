@@ -6,7 +6,7 @@ import {
    userLoginReducer,
    userDetailsReducer,
    userTenancyRegisterReducer,
- 
+   tenantDashboardDetailsReducer,
    userTenancyProfileReducer,
   userUpdateTenancyProfileReducer,
 } from './reducers/userReducers';
@@ -41,7 +41,19 @@ import {
 } from './reducers/demandSpecificReducer';
 import {
    
-   locationListReducer
+   locationListReducer,
+
+   stateCreateReducer,
+   stateListReducer,
+  
+   stateUpdateReducer,
+   stateDetailsReducer,
+
+   lgaCreateReducer,
+   lgaListReducer,
+   
+   lgaUpdateReducer,
+   lgaDetailsReducer
 } from './reducers/locationReducer';
 
 
@@ -52,6 +64,7 @@ const reducer = combineReducers({
     userDetails: userDetailsReducer,
     userTenancyRegister: userTenancyRegisterReducer,
     userTenancyProfile : userTenancyProfileReducer,
+    tenantDashboardDetails : tenantDashboardDetailsReducer,
     userUpdateTenancyProfile : userUpdateTenancyProfileReducer,
     
 
@@ -72,7 +85,18 @@ const reducer = combineReducers({
    demandSpecificBatch : demandSpecificBatchReducer,
    demandSpecificList : demandSpecificListReducer,
 
-   locationList : locationListReducer,
+   locationList: locationListReducer,
+   
+   stateCreate : stateCreateReducer,
+   stateList : stateListReducer,
+   stateUpdate : stateUpdateReducer,
+   stateDetails: stateDetailsReducer,
+   
+   
+   lgaCreate : lgaCreateReducer,
+   lgaList : lgaListReducer,
+   lgaUpdate : lgaUpdateReducer,
+   lgaDetails : lgaDetailsReducer,
 
 
    revenueCreate : revenueCreateReducer,
@@ -85,9 +109,17 @@ const reducer = combineReducers({
 const userInfoFromStorage = localStorage.getItem('userInfo')
    ? JSON.parse(localStorage.getItem('userInfo'))
    : null;
+const userInfoTenancyFromStorage = localStorage.getItem('userInfoTenancy')
+   ? JSON.parse(localStorage.getItem('userInfoTenancy'))
+   : null;
+const tenantFromStorage = localStorage.getItem('tenant')
+   ? JSON.parse(localStorage.getItem('tenant'))
+   : null;
 
 const initialState = {
-   userLogin: { userInfo: userInfoFromStorage }
+   userLogin: { userInfo: userInfoFromStorage },
+   userTenancyProfile: { userInfoTenancy: userInfoTenancyFromStorage },
+   tenantDashboardDetails: { tenant: tenantFromStorage },
 };
 
 const middleware = [thunk];

@@ -19,6 +19,10 @@ import {
     USER_TENANCY_PROFILE_DETAILS_REQUEST,
     USER_TENANCY_PROFILE_DETAILS_SUCCESS,
     USER_TENANCY_PROFILE_DETAILS_RESET,
+    TENANT_DASHBOARD_DETAILS_FAIL,
+    TENANT_DASHBOARD_DETAILS_REQUEST,
+    TENANT_DASHBOARD_DETAILS_SUCCESS,
+    TENANT_DASHBOARD_DETAILS_RESET,
 
     
     
@@ -55,6 +59,23 @@ export const userDetailsReducer = (state = { user: {} }, action) => {
           return { loading: false, error: action.payload };
        case USER_DETAILS_RESET:
           return { user: {} };
+       default:
+          return state;
+    }
+ };
+export const tenantDashboardDetailsReducer = (state = { tenant: {} }, action) => {
+    switch (action.type) {
+       case TENANT_DASHBOARD_DETAILS_REQUEST:
+          return { ...state, loading: true };
+       case TENANT_DASHBOARD_DETAILS_SUCCESS:
+          if (action.payload === undefined) {
+             action.payload = {};
+          }
+          return { loading: false, tenant: action.payload };
+       case TENANT_DASHBOARD_DETAILS_FAIL:
+          return { loading: false, error: action.payload };
+       case USER_DETAILS_RESET:
+          return { tenant: {} };
        default:
           return state;
     }

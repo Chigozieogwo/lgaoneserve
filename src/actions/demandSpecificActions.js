@@ -46,10 +46,14 @@ export const demandSpecificCreateAction =
             userLogin: { userInfo }
          } = getState();
 
+         const { userTenancyProfile: { userInfoTenancy }} = getState();
+         const { tenantDashboardDetails : { tenant }} = getState();
+      
          const config = {
             headers: {
                'Content-Type': 'application/json',
-               Authorization: `Bearer ${userInfo.accessToken}`
+               'Authorization': `Bearer ${userInfo.accessToken}`,
+               'tenantId': `${tenant?.singleTenant?._id}`
             }
           };
           
@@ -112,6 +116,10 @@ export const demandSpecificDownloadAction = (id) => async (dispatch, getState) =
          userLogin: { userInfo }
       } = getState();
 
+
+      const { userTenancyProfile: { userInfoTenancy }} = getState();
+         const { tenantDashboardDetails : { tenant }} = getState();
+      
       // const config = {
       //    headers: {
       //       'Content-Type': 'application/json',
@@ -125,7 +133,8 @@ export const demandSpecificDownloadAction = (id) => async (dispatch, getState) =
             responseType: 'arraybuffer',
             headers: {
                 'Content-Type': 'application/json',
-                'Accept': 'application/pdf',
+               'Accept': 'application/pdf',
+               'tenantId': `${tenant?.singleTenant?._id}`,
                 Authorization: `Bearer ${userInfo.token}`
             }
         })
@@ -165,12 +174,17 @@ export const demandSpecificBatchAction = (id) => async (dispatch, getState) => {
          userLogin: { userInfo }
       } = getState();
 
-      const config = {
-         headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${userInfo.accessToken}`
-         }
-      };
+      const { userTenancyProfile: { userInfoTenancy }} = getState();
+         const { tenantDashboardDetails : { tenant }} = getState();
+      
+         const config = {
+            headers: {
+               'Content-Type': 'application/json',
+               'Authorization': `Bearer ${userInfo.accessToken}`,
+               'tenantId': `${tenant?.singleTenant?._id}`
+            }
+          };
+          
 
       const { data } = await axios.get(`${url}/demand-notices/specific?demandNoticeId=${id}`, config);
 console.log(data + 'data batch')
@@ -202,12 +216,16 @@ async (dispatch, getState) => {
          userLogin: { userInfo }
       } = getState();
 
+      const { userTenancyProfile: { userInfoTenancy }} = getState();
+      const { tenantDashboardDetails : { tenant }} = getState();
+   
       const config = {
          headers: {
             'Content-Type': 'application/json',
-            Authorization: `Bearer ${userInfo.accessToken}`
+            'Authorization': `Bearer ${userInfo.accessToken}`,
+            'tenantId': `${tenant?.singleTenant?._id}`
          }
-      };
+       };
 
       // const { data } = await axios.get(
       //   `/api/users?pageNumber=${pageNumber}`,

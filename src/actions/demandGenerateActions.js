@@ -39,13 +39,16 @@ export const demandGenerateCreateAction =
             userLogin: { userInfo }
          } = getState();
 
+         const { userTenancyProfile: { userInfoTenancy }} = getState();
+         const { tenantDashboardDetails : { tenant }} = getState();
+      
          const config = {
             headers: {
                'Content-Type': 'application/json',
-               Authorization: `Bearer ${userInfo.accessToken}`
+               'Authorization': `Bearer ${userInfo.accessToken}`,
+               'tenantId': `${tenant?.singleTenant?._id}`
             }
           };
-          
 
 console.log(lgaKey,
    demandNoticeCategoryId,
@@ -90,6 +93,8 @@ export const demandGenerateDownloadAction = (id) => async (dispatch, getState) =
          userLogin: { userInfo }
       } = getState();
 
+      const { userTenancyProfile: { userInfoTenancy }} = getState();
+         const { tenantDashboardDetails : { tenant }} = getState();
       
 
       axios.get(`${pdfUrl}/demand-notices/export-pdf?demandNoticeBatchId=${id}`,
@@ -97,7 +102,8 @@ export const demandGenerateDownloadAction = (id) => async (dispatch, getState) =
             responseType: 'arraybuffer',
             headers: {
                 'Content-Type': 'application/json',
-                'Accept': 'application/pdf',
+               'Accept': 'application/pdf',
+               'tenantId': `${tenant?.singleTenant?._id}`,
                 Authorization: `Bearer ${userInfo.token}`
             }
         })
@@ -138,14 +144,24 @@ export const demandGenerateDownloadCsvAction = (id) => async (dispatch, getState
          userLogin: { userInfo }
       } = getState();
 
-      
+      const { userTenancyProfile: { userInfoTenancy }} = getState();
+      const { tenantDashboardDetails : { tenant }} = getState();
+   
+      // const config = {
+      //    headers: {
+      //       'Content-Type': 'application/json',
+      //       'Authorization': `Bearer ${userInfo.accessToken}`,
+      //       'tenantId': `${tenant?.singleTenant?._id}`
+      //    }
+      //  };
 
       axios.get(`${pdfUrl}/demand-notices/export-csv/batch?demandNoticeBatchId=${id}`,
         {
             responseType: 'arraybuffer',
             headers: {
                 'Content-Type': 'application/json',
-                'Accept': 'application/pdf',
+               'Accept': 'application/pdf',
+               'tenantId': `${tenant?.singleTenant?._id}`,
                 Authorization: `Bearer ${userInfo.token}`
             }
         })
@@ -187,13 +203,16 @@ export const demandGenerateBatchAction = (id) => async (dispatch, getState) => {
          userLogin: { userInfo }
       } = getState();
 
+      const { userTenancyProfile: { userInfoTenancy }} = getState();
+      const { tenantDashboardDetails : { tenant }} = getState();
+   
       const config = {
          headers: {
             'Content-Type': 'application/json',
-            Authorization: `Bearer ${userInfo.accessToken}`
+            'Authorization': `Bearer ${userInfo.accessToken}`,
+            'tenantId': `${tenant?.singleTenant?._id}`
          }
-      };
-
+       };
       const { data } = await axios.get(`${url}/demand-notices?demandNoticeBatchId=${id}`, config);
 console.log(data + 'data batch')
       dispatch({
@@ -223,14 +242,16 @@ async (dispatch, getState) => {
       const {
          userLogin: { userInfo }
       } = getState();
-
+      const { userTenancyProfile: { userInfoTenancy }} = getState();
+      const { tenantDashboardDetails : { tenant }} = getState();
+   
       const config = {
          headers: {
             'Content-Type': 'application/json',
-            Authorization: `Bearer ${userInfo.accessToken}`
+            'Authorization': `Bearer ${userInfo.accessToken}`,
+            'tenantId': `${tenant?.singleTenant?._id}`
          }
-      };
-
+       };
       // const { data } = await axios.get(
       //   `/api/users?pageNumber=${pageNumber}`,
       //   config

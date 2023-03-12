@@ -47,14 +47,19 @@ export const demandCategoryCreateAction =
          const {
             userLogin: { userInfo }
          } = getState();
+   
 
+
+         const { userTenancyProfile: { userInfoTenancy }} = getState();
+         const { tenantDashboardDetails : { tenant }} = getState();
+      
          const config = {
             headers: {
                'Content-Type': 'application/json',
-               Authorization: `Bearer ${userInfo.accessToken}`
+               'Authorization': `Bearer ${userInfo.accessToken}`,
+               'tenantId': `${tenant?.singleTenant?._id}`
             }
           };
-          
 
 console.log(categoryName,
    categoryDescription,
@@ -100,12 +105,16 @@ export const demandCategoryDetailsAction = ( lga='' ) => async (dispatch, getSta
          userLogin: { userInfo }
       } = getState();
 
+      const { userTenancyProfile: { userInfoTenancy }} = getState();
+      const { tenantDashboardDetails : { tenant }} = getState();
+   
       const config = {
          headers: {
             'Content-Type': 'application/json',
-            Authorization: `Bearer ${userInfo.accessToken}`
+            'Authorization': `Bearer ${userInfo.accessToken}`,
+            'tenantId': `${tenant?.singleTenant?._id}`
          }
-      };
+       };
 
       console.log(lga + " the keyword main")
       console.log(lga + " the keyword main")
@@ -138,13 +147,16 @@ export const demandCategoryDetailsRevenueAction = ( id ) => async (dispatch, get
          userLogin: { userInfo }
       } = getState();
 
+      const { userTenancyProfile: { userInfoTenancy }} = getState();
+      const { tenantDashboardDetails : { tenant }} = getState();
+   
       const config = {
          headers: {
             'Content-Type': 'application/json',
-            Authorization: `Bearer ${userInfo.accessToken}`
+            'Authorization': `Bearer ${userInfo.accessToken}`,
+            'tenantId': `${tenant?.singleTenant?._id}`
          }
-      };
-
+       };
       
 
       const { data } = await axios.get(`${url}/demand-notice-categories/${id}`, config);
@@ -177,12 +189,16 @@ export const updateDemandCategoryAction = (demand_category) => async (dispatch, 
          userLogin: { userInfo }
       } = getState();
 
+      const { userTenancyProfile: { userInfoTenancy }} = getState();
+      const { tenantDashboardDetails : { tenant }} = getState();
+   
       const config = {
          headers: {
             'Content-Type': 'application/json',
-            Authorization: `Bearer ${userInfo.accessToken}`
+            'Authorization': `Bearer ${userInfo.accessToken}`,
+            'tenantId': `${tenant?.singleTenant?._id}`
          }
-      };
+       };
 
       const { data } = await axios.put(
          `${url}/demand-notice-categories/${demand_category.id}`,demand_category,  config

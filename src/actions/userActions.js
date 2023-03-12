@@ -19,7 +19,11 @@ import {
     USER_TENANCY_PROFILE_DETAILS_FAIL,
     USER_TENANCY_PROFILE_DETAILS_REQUEST,
     USER_TENANCY_PROFILE_DETAILS_SUCCESS,
-    USER_TENANCY_PROFILE_DETAILS_RESET,
+   USER_TENANCY_PROFILE_DETAILS_RESET,
+   TENANT_DASHBOARD_DETAILS_FAIL,
+   TENANT_DASHBOARD_DETAILS_REQUEST,
+   TENANT_DASHBOARD_DETAILS_SUCCESS,
+   TENANT_DASHBOARD_DETAILS_RESET,
    
 } from '../constants/userConstants.js';
 // import moment from 'moment';
@@ -52,12 +56,7 @@ export const login = (email, password) => async (dispatch) => {
          }
       };
 
-      // `process.env.REACT_APP_BASE_URL/users/login`,
-    //    const url ='https://billable-dev.herokuapp.com'
-    //    const BASE_URL = process.env.REACT_APP_BASE_URL;
-// console.log(process.env + 'env')
-// console.log(process.env.REACT_APP_BASE_URL + 'env')
-// console.log(process.env.NODE_ENV + 'node env')
+    
       const { data } = await axios.post(`${url}/users/login`,
        { email, password },
        config);
@@ -126,11 +125,10 @@ export const getUserDetails = () => async (dispatch, getState) => {
        });
     }
  };
-
-export const getUserTenancyDetails = () => async (dispatch, getState) => {
+export const getTenantDashboardDetails = (id) => async (dispatch, getState) => {
     try {
        dispatch({
-          type: USER_TENANCY_PROFILE_DETAILS_REQUEST
+          type: TENANT_DASHBOARD_DETAILS_REQUEST
        });
  
        const { userLogin: { userInfo }} = getState();
@@ -138,6 +136,57 @@ export const getUserTenancyDetails = () => async (dispatch, getState) => {
 
         console.log(userInfo.firstName + " Action userinfo")
         console.log(userInfo.lastName + " Action userinfo")
+       
+
+       const config = {
+          headers: {
+             Authorization: `Bearer ${userInfo.accessToken}`
+          }
+       };
+        // const url = 'https://billable-dev.herokuapp.com'
+        
+       const { data } = await axios.get(`${url}/tenants/t/${id}`, config);
+    //    const { data } = await axios.get(`/users/dashboard/${id}`, config);
+    //    console.log(JSON.stringify(data) + '2++++++2');
+    //    console.log(JSON.stringify(data) + '++++++')
+    //    console.log(JSON.stringify(data) + '++++++')
+       dispatch({
+          type: TENANT_DASHBOARD_DETAILS_SUCCESS,
+          payload: data
+       });
+
+       localStorage.setItem('tenant', JSON.stringify(data));
+    } catch (error) {
+       const message =
+          error.response && error.response.data.message
+             ? error.response.data.message
+             : error.message;
+       if (message === 'Not authorized, token failed') {
+          dispatch(logout());
+       }
+       dispatch({
+          type: TENANT_DASHBOARD_DETAILS_FAIL,
+          payload: message
+       });
+    }
+ };
+
+export const getUserTenancyDetails = () => async (dispatch, getState) => {
+    try {
+       dispatch({
+          type: USER_TENANCY_PROFILE_DETAILS_REQUEST
+       });
+ 
+       const { userLogin: { userInfo } } = getState();
+
+       const { userTenancyProfile: { userInfoTenancy }} = getState();
+
+      //  console.log(userInfoTenancy + "tenant Action userinfo")
+      //  console.log(userInfoTenancy?.myTenants[0]?.name + "tenant Action userinfo")
+      //  console.log(userInfoTenancy?.myTenants[0]?.name + "tenant Action userinfo")
+
+      //   console.log(userInfo.firstName + " Action userinfo")
+      //   console.log(userInfo.lastName + " Action userinfo")
        
 
        const config = {
@@ -163,6 +212,10 @@ export const getUserTenancyDetails = () => async (dispatch, getState) => {
           type: USER_TENANCY_PROFILE_DETAILS_SUCCESS,
           payload: data
        });
+
+       localStorage.setItem('userInfoTenancy', JSON.stringify(data));
+
+
     } catch (error) {
        const message =
           error.response && error.response.data.message
@@ -291,6 +344,8 @@ export const getUserTenancyDetails = () => async (dispatch, getState) => {
 
  export const logout = () => (dispatch) => {
     localStorage.removeItem('userInfo');
+    localStorage.removeItem('userInfoTenancy');
+    localStorage.removeItem('tenant');
  
     dispatch({ type: USER_LOGOUT });
     dispatch({ type: USER_DETAILS_RESET });

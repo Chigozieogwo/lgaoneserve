@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import HeaderLog from '../components/HeaderLog';
 import { Fragment } from 'react';
-import {listLocations } from '../actions/locationActions';
+import {listLocations,listStates } from '../actions/locationActions';
 
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -26,6 +26,9 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 const RevenueListScreen = ({ match }) => {
    const [revenueLineName, setRevenueLineName] = useState('');
+   const [stateKey, setStateKey] = useState('');
+   const [selectedState, setSelectedState] = useState('');
+   const [selectedLga, setSelectedLga] = useState('');
    const [lgaKey, setLgaKey] = useState('');
    const [revenueLineCode, setRevenueLineCode] = useState('');
    const [revenueLineAmount, setRevenueLineAmount] = useState(0);
@@ -48,13 +51,22 @@ const RevenueListScreen = ({ match }) => {
 
    const userDetails = useSelector((state) => state.userDetails);
    const { loading, error, user } = userDetails;
-//   console.log(userInfo + "here is the user")
+  console.log(selectedState + " selectedState here is the user")
+  console.log(selectedState + " selectedState here is the user")
+  console.log(selectedState + " selectedState here is the user")
 
 
   const locationList = useSelector((state) => state.locationList);
    const {loading : loadingLocation, error : errorLocation,   locations } = locationList;
    
+   const stateList = useSelector((state) => state.stateList);
    
+ 
+
+   const { loading:loadingstateList, error:errorstateList, stateNames,  } = stateList;
+   console.log(stateNames);
+
+
    // console.log(locations + " 333  All LGA of Abia LGA is the user")
  
 
@@ -63,11 +75,20 @@ const RevenueListScreen = ({ match }) => {
   const { loading:loadingList, error:errorList, revenues, page, pages, count } = revenueList;
   console.log(revenues);
 
+  const handleChangeState = (e) => {
+   e.preventDefault()
+   // dispatch(listLocations());
+     setStateKey(e.target.value);
+     
+   
+  
+ 
+};
   const handleChangeLga = (e) => {
    e.preventDefault()
    // dispatch(listLocations());
-   setLgaKey(e.target.value);
-   const lgafiltered = locations?.filter((location) => location.lgaKey === e.target.value)
+   setSelectedLga(e.target.value);
+   const lgafiltered = locations?.filter((lga) => lga.lgaKey === e.target.value)
    
   setLgaCode(lgafiltered[0].revenueCodePrefix)
   setLgaName2(lgafiltered[0].lgaName)
@@ -145,7 +166,7 @@ console.log(revenueLineCode + 'RevenueLineCode code')
     dispatch(
        revenueCreateAction(
         revenueLineName,
-        lgaKey,
+        selectedLga,
          revenueLineCode,
         Number(revenueLineAmount),
         revenueLineFrequency
@@ -191,10 +212,12 @@ console.log(revenueLineCode + 'RevenueLineCode code')
 
     
    useEffect(() => {
+      dispatch(listStates())
+      dispatch(listLocations(selectedState))
     if(lgaFilter) {
        dispatch(listRevenues(lgaFilter));}
     // deactivate()
- }, [dispatch,lgaFilter]);
+ }, [dispatch,lgaFilter,selectedState,selectedLga]);
     
    return (
       <>
@@ -354,32 +377,41 @@ console.log(revenueLineCode + 'RevenueLineCode code')
                      <input onChange={handleChangeName} type="text" name="text" id="text" placeholder="Enter Category Name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" ></input>
                  </div>
                  <div>
-                 <label for="lga" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Local Govt. Area</label>
-<select onChange={handleChangeLga} id="lga" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500">
-                                          <option selected>Select LGA</option>
+                 <label for="lga" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">State</label>
+
+                                             <select value={selectedState} onChange={event => setSelectedState(event.target.value)}  id="lga" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500">
+                                          <option selected>Select State</option>
+                    
+                                          { stateNames?.map((state, index) => (
+
+<option key={state.value} value={state.stateKey}>{state.stateName}</option>
+//                                           
                                           
-  {/* <option  value="aba-north-lga-abia-state-nigeria">Aba North</option>
-  <option  value="aba-south-lga-abia-state-nigeria">Aba South</option>
-  <option  value="arochukwu-lga-abia-state-nigeria">Arochukwu</option>
-  <option  value="bende-lga-abia-state-nigeria">Bende</option>
-  <option  value="ikwuano-lga-abia-state-nigeria">Ikwuano</option>
-  <option  value="isiala-ngwa-north-lga-abia-state-nigeria">Isiala Ngwa North</option>
-  <option  value="isiala-ngwa-south-lga-abia-state-nigeria">Isiala Ngwa South</option>
-  <option  value="isuikwuato-lga-abia-state-nigeria">Isuikwuato</option>
-  <option  value="obi-ngwa-lga-abia-state-nigeria">Obingwa</option>
-  <option  value="ohafia-lga-abia-state-nigeria">Ohafia</option>
-  <option  value="osisioma-ngwa-lga-abia-state-nigeria">Osisioma Ngwa</option>
-  <option  value="ugwunagbo-lga-abia-state-nigeria">Ugwunagbo</option>
-  <option  value="ukwa-east-lga-abia-state-nigeria">Ukwa East</option>
-  <option  value="ukwa-west-lga-abia-state-nigeria">Ukwa West</option>
-  <option  value="umu-nneochi-lga-abia-state-nigeria">Umu Nneochi</option>
-  <option  value="umuahia-north-lga-abia-state-nigeria">Umuahia North</option>
-  <option  value="umuhaia-south-lga-abia-state-nigeria">Umuahia South</option> */}
+                                          ))}
+</select>
+                                             
+                 </div>
+                 <div>
+                 <label for="lga" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Local Govt. Area</label>
+{/* <select onChange={handleChangeState} id="lga" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500">
+                                          <option selected>Select LGA</option>
+  
 
 
                                           { locations?.map((location, index) => (
 
 <option key={location._id} value={location.lgaKey}>{location.lgaName}</option>
+//                                           
+                                          
+                                          ))}
+</select> */}
+
+<select value={selectedLga} onChange={handleChangeLga}  id="lga" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500">
+                                          <option selected>Select LGA</option>
+                    
+                                          { locations?.map((lga, index) => (
+
+<option key={lga.value} value={lga.lgaKey}>{lga.lgaName}</option>
 //                                           
                                           
                                           ))}
@@ -449,10 +481,13 @@ console.log(revenueLineCode + 'RevenueLineCode code')
 
                                
                         <div className="flex justify-between py-4 px-6 text-xl">
-                                  <div></div> 
+                           <Link to='/locations/states'>
+                              
+                        <button  type="button" class="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300  rounded-md text-sm px-6 py-3 mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 focus:outline-none dark:focus:ring-green-800">Create New State</button>
+                           </Link>
                         <button onClick={showHandler} type="button" class="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300  rounded-md text-sm px-6 py-3 mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 focus:outline-none dark:focus:ring-green-800">Create Revenue Code</button>
                         
-                                  
+                                    
                                    
                         </div>
                       </div>
@@ -539,26 +574,26 @@ console.log(revenueLineCode + 'RevenueLineCode code')
                                             {index + 1}
                                             </th>
                                             <td class="px-6 py-4">
-                                            {revenue.revenueLineName}
+                                            {revenue?.revenueLineName}
                                             </td>
                                             <td class="px-6 py-4">
-                                            {revenue?.lga.lgaName}
+                                            {revenue?.lga?.lgaName}
                                             </td>
                                             <td class="px-6 py-4">
-                                            {revenue?.lga.acronym}
+                                            {revenue?.lga?.acronym}
                                             </td>
                                             <td class="px-6 py-4">
-                                            {revenue.revenueLineCode}
+                                            {revenue?.revenueLineCode}
                                             </td>
                                             <td class="px-6 py-4">
-                                            {revenue.revenueLineAmount}
+                                            {revenue?.revenueLineAmount}
                                             </td>
                                             <td class="px-6 py-4">
-                                            {revenue.revenueLineFrequency}
+                                            {revenue?.revenueLineFrequency}
                                             </td>
                                             
                                             <td class="flex items-center px-6 py-4 space-x-3">
-                                                <Link to={`/revenuelines/${revenue.revenueLineCode}/edit`} class="font-medium text-green-600 dark:text-green-500 hover:underline">
+                                                <Link to={`/revenuelines/${revenue?.revenueLineCode}/edit`} class="font-medium text-green-600 dark:text-green-500 hover:underline">
                                                 <svg className='h-6 w-6 ' fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
   <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10"></path>
 </svg>
