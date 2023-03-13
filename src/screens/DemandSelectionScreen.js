@@ -14,7 +14,7 @@ import { logout, getUserDetails } from '../actions/userActions';
 import {demandGenerateCreateAction ,listDemandGenerateLists ,  } from '../actions/demandGenerateActions';
 import {demandSpecificCreateAction } from '../actions/demandSpecificActions';
 import {demandCategoryDetailsAction } from '../actions/demandCategoryActions';
-import {listLocations } from '../actions/locationActions';
+import {listLocations,listStates } from '../actions/locationActions';
 
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { DEMAND_GENERATE_CREATE_RESET } from '../constants/demandGenerateConstants';
@@ -23,8 +23,8 @@ import { DEMAND_GENERATE_CREATE_RESET } from '../constants/demandGenerateConstan
 
 
 const DemandSelectionScreen = ({ match }) => {
-
-   const [lgaKey, setLgaKey] = useState('ikwuano-lga-abia-state-nigeria');
+   const [selectedState, setSelectedState] = useState('');
+   const [lgaKey, setLgaKey] = useState('');
    const [demandNoticeCategoryId, setDemandNoticeCategoryId] = useState('');
    const [numberOfEntriesToGenerate, setNumberOfEntriesToGenerate] = useState(0);
 
@@ -59,6 +59,12 @@ const DemandSelectionScreen = ({ match }) => {
    
    console.log(locations + " All LGA of Abia LGA is the user")
 
+   const stateList = useSelector((state) => state.stateList);
+   
+ 
+
+  const { loading:loadingstateList, error:errorstateList, stateNames,  } = stateList;
+  console.log(stateNames);
 
    const demandGenerateList = useSelector((state) => state.demandGenerateList);
    const {loading : loadingGenerateList, error : errorGenerateLIst,   demand_lists } = demandGenerateList;
@@ -187,24 +193,37 @@ if (success_Specific) {
    
 };
    useEffect(() => {
-      if (!userInfo) {
-         navigate('/');
-      } else {
-         // dispatch(getUserDetails('profile'));
-         if (!user || !user.name) {
-            // dispatch({ type: USER_UPDATE_PROFILE_RESET });
+
+      dispatch(listStates())
+      dispatch(listLocations(selectedState))
             dispatch(getUserDetails('profile'));
-            dispatch(listLocations());
+            // dispatch(listLocations());
             dispatch(listDemandGenerateLists());
             dispatch(demandCategoryDetailsAction(lgaKey));
-            // navigate(`/demand-notices/${demand_generate?.demandNoticesList[0].demandNoticeBatchId}`);
             dispatch({
                type:DEMAND_GENERATE_CREATE_RESET
             });
-         }
-      }
       
-   }, [navigate, userInfo, user,lgaKey]);
+      // if (!userInfo) {
+      //    navigate('/');
+      // } else {
+      //    // dispatch(getUserDetails('profile'));
+      //    if (!user || !user.name) {
+      //       // dispatch({ type: USER_UPDATE_PROFILE_RESET });
+      //       dispatch(listStates())
+      // dispatch(listLocations(selectedState))
+      //       dispatch(getUserDetails('profile'));
+      //       // dispatch(listLocations());
+      //       dispatch(listDemandGenerateLists());
+      //       dispatch(demandCategoryDetailsAction(lgaKey));
+      //       // navigate(`/demand-notices/${demand_generate?.demandNoticesList[0].demandNoticeBatchId}`);
+      //       dispatch({
+      //          type:DEMAND_GENERATE_CREATE_RESET
+      //       });
+      //    }
+      // }
+      
+   }, [dispatch,lgaKey,selectedState]);
    // useEffect(() => {
      
    //    navigate(`/demand-notices/${demand_generate?.demandNoticesList[0].demandNoticeBatchId}`);
@@ -310,43 +329,43 @@ if (success_Specific) {
                                              </h5>   
                                              
 
-<label for="lga" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Local Govt. Area</label>
-<select onChange={handleChangeLga} id="lga" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500">
-                                          <option selected>Select LGA</option>
-                                          
-  <option  value="aba-north-lga-abia-state-nigeria">Aba North</option>
-  <option  value="aba-south-lga-abia-state-nigeria">Aba South</option>
-  <option  value="arochukwu-lga-abia-state-nigeria">Arochukwu</option>
-  <option  value="bende-lga-abia-state-nigeria">Bende</option>
-  <option  value="ikwuano-lga-abia-state-nigeria">Ikwuano</option>
-  <option  value="isiala-ngwa-north-lga-abia-state-nigeria">Isiala Ngwa North</option>
-  <option  value="isiala-ngwa-south-lga-abia-state-nigeria">Isiala Ngwa South</option>
-  <option  value="isuikwuato-lga-abia-state-nigeria">Isuikwuato</option>
-  <option  value="obi-ngwa-lga-abia-state-nigeria">Obingwa</option>
-  <option  value="ohafia-lga-abia-state-nigeria">Ohafia</option>
-  <option  value="osisioma-ngwa-lga-abia-state-nigeria">Osisioma Ngwa</option>
-  <option  value="ugwunagbo-lga-abia-state-nigeria">Ugwunagbo</option>
-  <option  value="ukwa-east-lga-abia-state-nigeria">Ukwa East</option>
-  <option  value="ukwa-west-lga-abia-state-nigeria">Ukwa West</option>
-  <option  value="umu-nneochi-lga-abia-state-nigeria">Umu Nneochi</option>
-  <option  value="umuahia-north-lga-abia-state-nigeria">Umuahia North</option>
-  <option  value="umuahia-south-lga-abia-state-nigeria">Umuahia South</option>
+<label for="lga" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">State</label>
 
+<select value={selectedState} onChange={event => setSelectedState(event.target.value)}  id="lga" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500">
+                                          <option selected>Select State</option>
+                    
+                                          { stateNames?.map((state, index) => (
 
-                                          {/* {locations === 'undefined' ? null : locations.map((location, index) => (
-
-<option key={location._id} value={location.lgaKey}>{location.lgaName}</option>
+<option key={state.value} value={state.stateKey}>{state.stateName}</option>
 //                                           
                                           
-                                          ))} */}
+                                          ))}
 </select>
-<label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Category</label>
+
+
+
+
+                                       <label for="lga" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Local Govt. Area</label>
+
+<select value={lgaKey} onChange={handleChangeLga}  id="lga" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500">
+                                          <option selected>Select LGA</option>
+                    
+                                          { locations?.map((lga, index) => (
+
+<option key={lga.value} value={lga.lgaKey}>{lga.lgaName}</option>
+//                                           
+                                          
+                                          ))}
+</select>
+
+                                       
+<label for="category" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Category</label>
 <select onChange={handleChangeDemandNoticeCategoryId} id="countries" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500">
                                           <option selected>Select Category</option>
 
 
                                           
-                                          {demand_category === 'undefined' ? null : demand_category?.demandNoticeCategories.map((demand_notice_category, index) => (
+                                          {demand_category === 'undefined' ? null : demand_category?.data?.demandNoticeCategories.map((demand_notice_category, index) => (
 
 <option key={demand_notice_category._id} value={demand_notice_category._id}>{demand_notice_category.categoryName}</option>
 //                                           

@@ -106,12 +106,20 @@ console.log(
                'tenantId': `${tenant?.singleTenant?._id}`
             }
           };
-          
+         let data;
+         if (lga) {
+             data  = await axios.get(
+               `${url}/revenuelines?lgaKey=${lga}`,
+               config
+            )  
+         } else {
+             data  = await axios.get(
+               `${url}/revenuelines`,
+               config
+            )
+         }
          
-         const { data } = await axios.get(
-            `${url}/revenuelines?lgaKey=${lga}`,
-            config
-         );
+         ;
      
 
          console.log(data);

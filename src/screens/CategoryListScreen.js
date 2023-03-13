@@ -19,7 +19,7 @@ import Loader from '../components/Loader';
 import { logout, getUserDetails } from '../actions/userActions';
 import { revenueCreateAction } from '../actions/revenueActions';
 import {demandCategoryDetailsAction } from '../actions/demandCategoryActions';
-import {listLocations } from '../actions/locationActions';
+import {listLocations ,listStates} from '../actions/locationActions';
 
 import _ from "lodash";
 import { Link, useLocation, useNavigate } from 'react-router-dom';
@@ -30,9 +30,10 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 const CategoryListScreen = ({  }) => {
 
     //  const [locations, setLocations] = useState([]);
-   const [lgaKey, setLgaKey] = useState('aba-north-lga-abia-state-nigeria');
+   const [lgaKey, setLgaKey] = useState('');
    const [lgaFilter, setLgaFilter] = useState('');
-   
+   const [selectedState, setSelectedState] = useState('');
+   const [selectedLga, setSelectedLga] = useState('');
    
     const [showModal, setShowModal] = useState(false);
    const location = useLocation();
@@ -71,7 +72,12 @@ const CategoryListScreen = ({  }) => {
     // const amount = () => {
     //     demand_categoryRevenue.filter((a) => a._id === demand_category.demandNoticeCategories._id )
     // }
+    const stateList = useSelector((state) => state.stateList);
+   
+ 
 
+    const { loading:loadingstateList, error:errorstateList, stateNames,  } = stateList;
+    console.log(stateNames);
 
   const showHandler = (e) => {
     e.preventDefault();
@@ -128,10 +134,22 @@ const handleLgaFilter = (e) => {
 
     
    useEffect(() => {
-    dispatch(listLocations());
-       dispatch(demandCategoryDetailsAction(lgaFilter));
+      // dispatch(listLocations());
+      dispatch(listStates())
+      dispatch(listLocations(selectedState))
       
-   }, [lgaFilter]);
+      if (lgaFilter === "" ) {
+         // dispatch(listRevenues())
+         dispatch(demandCategoryDetailsAction(lgaFilter));
+         
+      }
+    if(lgaFilter) {
+      //  dispatch(listRevenues(lgaFilter));
+
+       dispatch(demandCategoryDetailsAction(lgaFilter));
+    }
+      
+   }, [dispatch,selectedState,lgaFilter]);
 
 
     
@@ -202,39 +220,40 @@ const handleLgaFilter = (e) => {
                       <div className='mx-12 bg-white pt-8 rounded-lg'>
    <div className='mx-4 md:mx-48 mb-8 '>
 
+                           <div class="grid gap-6 mb-2 md:grid-cols-2">
+                           <div >
+                 {/* <label for="lga" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">State</label> */}
 
-<div>
-                 {/* <label for="lga" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Search...</label> */}
-<select onChange={handleLgaFilter} id="lga" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500">
-                                          <option selected>Filter By LGA</option>
-                                          
-                                          <option  value="aba-north-lga-abia-state-nigeria">Aba North</option>
-  <option  value="aba-south-lga-abia-state-nigeria">Aba South</option>
-  <option  value="arochukwu-lga-abia-state-nigeria">Arochukwu</option>
-  <option  value="bende-lga-abia-state-nigeria">Bende</option>
-  <option  value="ikwuano-lga-abia-state-nigeria">Ikwuano</option>
-  <option  value="isiala-ngwa-north-lga-abia-state-nigeria">Isiala Ngwa North</option>
-  <option  value="isiala-ngwa-south-lga-abia-state-nigeria">Isiala Ngwa South</option>
-  <option  value="isuikwuato-lga-abia-state-nigeria">Isuikwuato</option>
-  <option  value="obingwa-lga-abia-state-nigeria">Obingwa</option>
-  <option  value="ohafia-lga-abia-state-nigeria">Ohafia</option>
-  <option  value="osisioma-ngwa-lga-abia-state-nigeria">Osisioma Ngwa</option>
-  <option  value="ugwunagbo-lga-abia-state-nigeria">Ugwunagbo</option>
-  <option  value="ukwa-east-lga-abia-state-nigeria">Ukwa East</option>
-  <option  value="ukwa-west-lga-abia-state-nigeria">Ukwa West</option>
-  <option  value="umu-nneochi-lga-abia-state-nigeria">Umu Nneochi</option>
-  <option  value="umuahia-north-lga-abia-state-nigeria">Umuahia North</option>
-  <option  value="umuhaia-south-lga-abia-state-nigeria">Umuahia South</option>
+                                             <select value={selectedState} onChange={event => setSelectedState(event.target.value)}  id="lga" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500">
+                                          <option selected>Select State</option>
+                    
+                                          { stateNames?.map((state, index) => (
 
-
-                                          {/* { locations?.map((location, index) => (
-
-<option key={location._id} value={location.lgaKey}>{location.lgaName}</option>
+<option key={state.value} value={state.stateKey}>{state.stateName}</option>
 //                                           
                                           
-                                          ))} */}
+                                          ))}
+</select>
+                                             
+                 </div>
+
+
+                              <div>
+                 {/* <label for="lga" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Search...</label> */}
+                 <select value={lgaFilter} onChange={handleLgaFilter}  id="lga" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500">
+                                          <option value="">Filter by LGA</option>
+                    
+                                          { locations?.map((lga, index) => (
+
+<option key={lga.value} value={lga.lgaKey}>{lga.lgaName}</option>
+//                                           
+                                          
+                                          ))}
 </select>
                  </div>
+                           </div>
+
+
 </div>
 
 
@@ -281,7 +300,7 @@ const handleLgaFilter = (e) => {
 
 
                                  
-                                          {demand_category?.demandNoticeCategories?.map((category, index) => (
+                                          {demand_category?.data?.demandNoticeCategories?.map((category, index) => (
                                             <tr key={category._id} class="bg-white border-b dark:bg-gray-600 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                                             {/* <td class="w-4 p-4">
                                                 <div class="flex items-center">

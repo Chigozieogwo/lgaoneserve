@@ -52,7 +52,7 @@ const BatchPreviewScreen = ({ match }) => {
 
 
    // Records to be displayed on the current page
-   const currentRecords = data?.slice(indexOfFirstRecord, 
+   const currentRecords = data.slice(indexOfFirstRecord, 
       indexOfLastRecord);
    
       const nPages = Math.ceil(data?.length / recordsPerPage)
@@ -97,6 +97,13 @@ const csvExporter = new ExportToCsv(options);
    const { loading, error, user } = userDetails;
 //   console.log(userInfo + "here is the user")
 
+
+const tenantDashboardDetails = useSelector((state) => state.tenantDashboardDetails);
+
+const { tenant  } = tenantDashboardDetails;
+
+   console.log(tenant?.singleTenant?._id + "tenant id ++++++++")
+   console.log(tenant + "tenant id ++++++++")
    
    const demandGenerateDownload = useSelector((state) => state.demandGenerateDownload);
    const { loading : loadingDownload, error : errorDownload, successDownload } = demandGenerateDownload;
@@ -456,13 +463,13 @@ csvExporter.generateCsv(demand_batchs)
  
 
  <div key={index} class="flex my-1 flex-row items-center bg-white border rounded-lg shadow-md md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
- <div className="bg-green-700 px-4 py-4 text-white text-2xl font-bold">
+ <div className="bg-green-700 px-4 py-4 text-white text-lg font-bold">
     {index + 1}
  </div>
  
  <div class="flex flex-row justify-between  leading-normal">
-     <h6 class="pr-0 pl-2 text-2xl font-bold tracking-tight text-green-900 dark:text-white">No:.</h6>
-     <h5 class="px-1 text-2xl font-bold text-green-700 dark:text-gray-400">{batch.serialNumber}</h5>
+     <h6 class="pr-0 pl-2 text-lg font-bold tracking-tight text-green-900 dark:text-white">No:.</h6>
+     <h5 class="px-1 text-lg font-bold text-green-700 dark:text-gray-400">{batch.serialNumber}</h5>
  
  </div>
 
@@ -473,9 +480,11 @@ csvExporter.generateCsv(demand_batchs)
                         }</ul>
                          <div class="col-span-3 -mt-32">
                               <h5 className="font-semibold text-xl mb-2 "> Preview </h5>
-                              {success ? (<iframe className="mx-auto overflow-hidden w-[210mm]" src= {`https://app-api.billable.site/demand-notices/template?demandNoticeBatchId=${demand_batchs?.demandNoticeBatch?._id}`}
- width="100%" height="900"></iframe>):<iframe className="mx-auto overflow-hidden w-[210mm]" src= {'https://app-api.billable.site/demand-notices/template?demandNoticeBatchId=63e0cf13052caecf760ae7f1'}
+                              {success ? (<iframe className="mx-auto overflow-hidden w-[210mm] h-[280mm]" src= {`https://api.billable.site/demand-notices/template?demandNoticeBatchId=${demand_batchs?.demandNoticeBatch?._id}&tenantId=${tenant?.singleTenant?._id}`}
+ width="100%" height="900"></iframe>):<iframe className="mx-auto overflow-hidden w-[210mm]" src= {'https://api.billable.site/demand-notices/template?demandNoticeBatchId=640edfe7cda61fb66a4bb6d8&tenantId={tenantId}'}
  width="100%" height="900"></iframe>}
+                              {/* <iframe className="mx-auto overflow-hidden w-[210mm]" src= {'https://api.billable.site/demand-notices/template?demandNoticeBatchId=640edfe7cda61fb66a4bb6d8'}
+ width="100%" height="900"></iframe> */}
                          
                          {/* {demand_batchs === "undefined" ? (<Loader />) : } */}
                          

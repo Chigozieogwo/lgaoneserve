@@ -17,7 +17,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
 import { logout, getUserDetails } from '../actions/userActions';
-import {listLocations } from '../actions/locationActions';
+import {listLocations,listStates } from '../actions/locationActions';
 import {demandCategoryCreateAction } from '../actions/demandCategoryActions';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 
@@ -32,6 +32,8 @@ const CreateCategoryScreen = ({ match }) => {
    const [revenueLineCodes, setRevenueLineCodes] = useState([]);
    const [showDropdown, setShowDropdown] = useState(false);
    const [showModalCheck, setShowModalCheck] = useState(false);
+   const [selectedState, setSelectedState] = useState('');
+   const [selectedLga, setSelectedLga] = useState('');
 
    const [lgaFilter, setLgaFilter] = useState('');
    const location = useLocation();
@@ -51,7 +53,13 @@ const CreateCategoryScreen = ({ match }) => {
   const locationList = useSelector((state) => state.locationList);
   const {loading : loadingLocation, error : errorLocation,   locations } = locationList;
   
-  
+  const stateList = useSelector((state) => state.stateList);
+   
+ 
+
+  const { loading:loadingstateList, error:errorstateList, stateNames,  } = stateList;
+  console.log(stateNames);
+
 //   console.log(locations + " All LGA of Abia LGA is the user")
 
 
@@ -93,11 +101,7 @@ const CreateCategoryScreen = ({ match }) => {
       //   navigate('/category')
      },6000)
     
-   //   dispatch(listRevenues());
-   //   setRevenueLineCodes(revenues)
-    //  setShowModal(true);
-    //  setShowModal(false);
-    //  window.location.reload(false);
+  
     
  };
 
@@ -123,7 +127,7 @@ const CreateCategoryScreen = ({ match }) => {
  const handleChangeCategoryDescription = (e) => {
     setCategoryDescription(e.target.value);
  };
- const handleChangeLgaKey = (e) => {
+ const handleChangeLga = (e) => {
     
        setLgaKey(e.target.value);
       //  dispatch(listRevenues(lgaKey));
@@ -157,11 +161,13 @@ const CreateCategoryScreen = ({ match }) => {
 };
 
    useEffect(() => {
-       dispatch(listLocations());
+      dispatch(listStates())
+      dispatch(listLocations(selectedState))
+      //  dispatch(listLocations());
       //  dispatch(listRevenues(lgaKey));
        dispatch(listRevenues(lgaKey));
       
-   }, [lgaKey]);
+   }, [dispatch,lgaKey,selectedState]);
 
    return (
       <>
@@ -248,44 +254,48 @@ const CreateCategoryScreen = ({ match }) => {
                         <input onChange={handleChangeCategoryName} type="text" name="text" id="text" placeholder="Eg: Artisan with shop " class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" ></input>
                     
         </div>
-        <div>
-                 <label for="lga" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Local Govt. Area</label>
-<select onChange={handleChangeLgaKey} id="lga" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500">
-                                          <option selected>Select LGA</option>
-                                          
-  <option  value="aba-north-lga-abia-state-nigeria">Aba North</option>
-  <option  value="aba-south-lga-abia-state-nigeria">Aba South</option>
-  <option  value="arochukwu-lga-abia-state-nigeria">Arochukwu</option>
-  <option  value="bende-lga-abia-state-nigeria">Bende</option>
-  <option  value="ikwuano-lga-abia-state-nigeria">Ikwuano</option>
-  <option  value="isiala-ngwa-north-lga-abia-state-nigeria">Isiala Ngwa North</option>
-  <option  value="isiala-ngwa-south-lga-abia-state-nigeria">Isiala Ngwa South</option>
-  <option  value="isuikwuato-lga-abia-state-nigeria">Isuikwuato</option>
-  <option  value="obi-ngwa-lga-abia-state-nigeria">Obingwa</option>
-  <option  value="ohafia-lga-abia-state-nigeria">Ohafia</option>
-  <option  value="osisioma-ngwa-lga-abia-state-nigeria">Osisioma Ngwa</option>
-  <option  value="ugwunagbo-lga-abia-state-nigeria">Ugwunagbo</option>
-  <option  value="ukwa-east-lga-abia-state-nigeria">Ukwa East</option>
-  <option  value="ukwa-west-lga-abia-state-nigeria">Ukwa West</option>
-  <option  value="umu-nneochi-lga-abia-state-nigeria">Umu Nneochi</option>
-  <option  value="umuahia-north-lga-abia-state-nigeria">Umuahia North</option>
-  <option  value="umuhaia-south-lga-abia-state-nigeria">Umuahia South</option>
+        
+        <div >
+                 <label for="lga" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">State</label>
 
+                                             <select value={selectedState} onChange={event => setSelectedState(event.target.value)}  id="lga" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500">
+                                          <option selected>Select State</option>
+                    
+                                          { stateNames?.map((state, index) => (
 
-                                          {/* { locations?.map((location, index) => (
-
-<option key={location._id} value={location.lgaKey}>{location.lgaName}</option>
+<option key={state.value} value={state.stateKey}>{state.stateName}</option>
 //                                           
                                           
-                                          ))} */}
+                                          ))}
 </select>
+                                             
                  </div>
         
         
         
         
         
-    </div>
+                           </div>
+                           
+
+                           
+                 <div class="mb-6">
+                 <label for="lga" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Local Govt. Area</label>
+
+
+<select value={lgaKey} onChange={handleChangeLga}  id="lga" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500">
+                                          <option selected>Select LGA</option>
+                    
+                                          { locations?.map((lga, index) => (
+
+<option key={lga.value} value={lga.lgaKey}>{lga.lgaName}</option>
+//                                           
+                                          
+                                          ))}
+</select>
+                 </div>
+                           
+
     <div class="mb-6">
         <label for="message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Business </label>
 
@@ -318,7 +328,7 @@ const CreateCategoryScreen = ({ match }) => {
 {showDropdown ? (<div class="grid gap-2 mx-4 mt-4 grid-cols-2 md:grid-cols-3 mb-4">
       
 
-      {revenues?.map((revenue, index) => (
+      {revenues?.data?.map((revenue, index) => (
                                          
                                           <div key={revenue._id} class="flex items-center ">
                                           <input

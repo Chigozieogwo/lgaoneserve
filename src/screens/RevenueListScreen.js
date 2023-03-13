@@ -52,7 +52,7 @@ const RevenueListScreen = ({ match }) => {
    const userDetails = useSelector((state) => state.userDetails);
    const { loading, error, user } = userDetails;
   console.log(selectedState + " selectedState here is the user")
-  console.log(selectedState + " selectedState here is the user")
+  console.log(lgaFilter + " filter selectedState here is the user")
   console.log(selectedState + " selectedState here is the user")
 
 
@@ -214,6 +214,11 @@ console.log(revenueLineCode + 'RevenueLineCode code')
    useEffect(() => {
       dispatch(listStates())
       dispatch(listLocations(selectedState))
+      // dispatch(listRevenues())
+      if (lgaFilter === "" ) {
+         dispatch(listRevenues())
+         
+      }
     if(lgaFilter) {
        dispatch(listRevenues(lgaFilter));}
     // deactivate()
@@ -393,18 +398,7 @@ console.log(revenueLineCode + 'RevenueLineCode code')
                  </div>
                  <div>
                  <label for="lga" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Local Govt. Area</label>
-{/* <select onChange={handleChangeState} id="lga" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500">
-                                          <option selected>Select LGA</option>
-  
 
-
-                                          { locations?.map((location, index) => (
-
-<option key={location._id} value={location.lgaKey}>{location.lgaName}</option>
-//                                           
-                                          
-                                          ))}
-</select> */}
 
 <select value={selectedLga} onChange={handleChangeLga}  id="lga" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500">
                                           <option selected>Select LGA</option>
@@ -431,16 +425,7 @@ console.log(revenueLineCode + 'RevenueLineCode code')
                 </div>
                 
 
-                 {/* <div>
-                     <label for="text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Revenue Code</label>
-                     
-                  <div class="relative">
-                     <div class="absolute inset-y-0 left-0 flex items-center bg-green-700 text-md px-2 rounded-lg font-bold text-white pl-3 pointer-events-none">
-                       234
-                     </div>
-                     <input onChange={handleChangeCode} type="text" name="text" id="text" placeholder="Enter Revenue Code" class=" block w-full p-4 pl-10 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" ></input>
-                 </div>
-                 </div> */}
+                 
 
                                          <div>
                                          <label for="lga" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Frequency of Payment</label>
@@ -503,34 +488,15 @@ console.log(revenueLineCode + 'RevenueLineCode code')
       
    <div>
                  {/* <label for="lga" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Search...</label> */}
-<select onChange={handleLgaFilter} id="lga" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500">
-                                          <option selected>Filter By LGA</option>
-                                          
-  <option  value="aba-north-lga-abia-state-nigeria">Aba North</option>
-  <option  value="aba-south-lga-abia-state-nigeria">Aba South</option>
-  <option  value="arochukwu-lga-abia-state-nigeria">Arochukwu</option>
-  <option  value="bende-lga-abia-state-nigeria">Bende</option>
-  <option  value="ikwuano-lga-abia-state-nigeria">Ikwuano</option>
-  <option  value="isiala-ngwa-north-lga-abia-state-nigeria">Isiala Ngwa North</option>
-  <option  value="isiala-ngwa-south-lga-abia-state-nigeria">Isiala Ngwa South</option>
-  <option  value="isuikwuato-lga-abia-state-nigeria">Isuikwuato</option>
-  <option  value="obingwa-lga-abia-state-nigeria">Obingwa</option>
-  <option  value="ohafia-lga-abia-state-nigeria">Ohafia</option>
-  <option  value="osisioma-ngwa-lga-abia-state-nigeria">Osisioma Ngwa</option>
-  <option  value="ugwunagbo-lga-abia-state-nigeria">Ugwunagbo</option>
-  <option  value="ukwa-east-lga-abia-state-nigeria">Ukwa East</option>
-  <option  value="ukwa-west-lga-abia-state-nigeria">Ukwa West</option>
-  <option  value="umu-nneochi-lga-abia-state-nigeria">Umu Nneochi</option>
-  <option  value="umuahia-north-lga-abia-state-nigeria">Umuahia North</option>
-  <option  value="umuhaia-south-lga-abia-state-nigeria">Umuahia South</option>
+                 <select value={lgaFilter} onChange={handleLgaFilter}  id="lga" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500">
+                                          <option value="">Select LGA</option>
+                    
+                                          { locations?.map((lga, index) => (
 
-
-                                          {/* { locations?.map((location, index) => (
-
-<option key={location._id} value={location.lgaKey}>{location.lgaName}</option>
+<option key={lga.value} value={lga.lgaKey}>{lga.lgaName}</option>
 //                                           
                                           
-                                          ))} */}
+                                          ))}
 </select>
                  </div>
    </div>
@@ -567,7 +533,7 @@ console.log(revenueLineCode + 'RevenueLineCode code')
             </tr>
         </thead>
         <tbody>
-                                          {revenues?.map((revenue, index) => (
+                                          {revenues?.data?.map((revenue, index) => (
                                             <tr key={revenue._id} class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                                             
                                             <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
