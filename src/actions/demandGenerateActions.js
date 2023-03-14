@@ -23,7 +23,7 @@ import {
    
 } from '../constants/demandGenerateConstants.js';
 import url2 from '../utils/baseUrl.js'
-import pdfUrl from '../utils/pdfUrl.js'
+// import pdfUrl from '../utils/pdfUrl.js'
 
 let url = process.env.REACT_APP_BASE_URL;
 
@@ -97,7 +97,7 @@ export const demandGenerateDownloadAction = (id) => async (dispatch, getState) =
          const { tenantDashboardDetails : { tenant }} = getState();
       
 
-      axios.get(`${pdfUrl}/demand-notices/export-pdf?demandNoticeBatchId=${id}`,
+      axios.get(`${url}/demand-notices/export-pdf?demandNoticeBatchId=${id}`,
         {
             responseType: 'arraybuffer',
             headers: {
@@ -156,7 +156,7 @@ export const demandGenerateDownloadCsvAction = (id) => async (dispatch, getState
       //    }
       //  };
 
-      axios.get(`${pdfUrl}/demand-notices/export-csv/batch?demandNoticeBatchId=${id}`,
+      axios.get(`${url}/demand-notices/export-csv/batch?demandNoticeBatchId=${id}`,
         {
             responseType: 'arraybuffer',
             headers: {

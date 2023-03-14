@@ -23,7 +23,7 @@ import {
    
 } from '../constants/demandSpecificConstants.js';
 import url2 from '../utils/baseUrl.js'
-import pdfUrl from '../utils/pdfUrl.js'
+// import pdfUrl from '../utils/pdfUrl.js'
 
 let url = process.env.REACT_APP_BASE_URL;
 
@@ -128,7 +128,7 @@ export const demandSpecificDownloadAction = (id) => async (dispatch, getState) =
       //    }
       // };
 
-      axios.get(`${pdfUrl}/demand-notices/export-pdf/specificpayerdemandnotice?demandNoticeId=${id}`,
+      axios.get(`${url}/demand-notices/export-pdf/specificpayerdemandnotice?demandNoticeId=${id}`,
         {
             responseType: 'arraybuffer',
             headers: {

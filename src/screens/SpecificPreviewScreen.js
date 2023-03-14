@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import HeaderLog from '../components/HeaderLog';
 import { Fragment } from 'react';
 import DatePicker from "react-datepicker";
-import pdfUrl from '../utils/pdfUrl'
+// import pdfUrl from '../utils/pdfUrl'
 import "react-datepicker/dist/react-datepicker.css";
 
 import Sidebar from '../components/Sidebar';
@@ -332,7 +332,7 @@ csvExporter.generateCsv(demand_Specificbatchs)
  </ul>
                          <div class="col-span-3 -mt-32">
                          <h5 className="font-semibold text-xl mb-2 "> Preview </h5>
-                              {success ? (<iframe className="mx-auto overflow-hidden w-[210mm]" src= {`https://${url}/demand-notices/template/specificpayer?demandNoticeId=${demand_Specificbatchs[0]?.demandNotice?._id}`}
+                              {success ? (<iframe className="mx-auto overflow-hidden w-[210mm]" src= {`${url}/demand-notices/template/specificpayer?demandNoticeId=${demand_Specificbatchs[0]?.demandNotice?._id}`}
  width="100%" height="900"></iframe>):<iframe className="mx-auto overflow-hidden w-[210mm]" src= {'https://app-api.billable.site/demand-notices/template/specificpayer?demandNoticeId=63d9146c152aae36cc34ba0c'}
  width="100%" height="900"></iframe>}
                               
