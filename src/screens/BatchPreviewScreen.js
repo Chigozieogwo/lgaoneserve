@@ -459,7 +459,7 @@ csvExporter.generateCsv(demand_batchs)
                                    </csvlink> */}
                                    
                         </div>
- {  demand_batchs?.demandNoticesList?.slice(0,15)?.map((batch,index) => 
+ {  demand_batchs?.demandNoticesList?.slice(0,14)?.map((batch,index) => 
  
 
  <div key={index} class="flex my-1 flex-row items-center bg-white border rounded-lg shadow-md md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
