@@ -15,36 +15,26 @@ const Paginate = ({ nPages, currentPage, setCurrentPage })  => {
    
    return (
     
-<nav aria-label="Page navigation example">
+<nav aria-label="Page navigation example ">
   <ul class="inline-flex -space-x-px">
     <li>
-      <a  onClick={prevPage} class="px-3 py-2 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-l-lg focus:bg-green-600 hover:bg-green-600 hover:text-white dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Previous</a>
+      <a  onClick={prevPage} class="px-3 cursor-pointer py-2 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-l-lg focus:bg-green-600 hover:bg-green-600 hover:text-white dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Previous</a>
     </li>
 
 
-
-
-   
-
-
-
-    
-
-       {pageNumbers.map(pgNumber => (
-                   <li  key={pgNumber}  className= {` ${currentPage === pgNumber ? 'focus' : ''}    ${currentPage === pgNumber ? 'focus:bg-green-600' : ''}`} >
-                   <a  onClick={() => setCurrentPage(pgNumber)}  class="px-3 py-2 leading-tight cursor-pointer text-gray-500 bg-white active:bg-green-600 border border-gray-300 hover:bg-green-600 hover:text-white             focus:outline-none focus:ring focus:ring-violet-300                 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"> {pgNumber}</a>
+{pageNumbers.slice(currentPage -1 ,currentPage +2).map(pgNumber => (
+                   <li  key={pgNumber }  >
+                   <a  onClick={() => setCurrentPage(pgNumber)} className={`${
+                    currentPage === pgNumber
+                      ? "bg-green-500 text-white border border-1 border-green-500 cursor-pointer "
+                      : "bg-white text-gray-500 border border-1 border-gray-300 cursor-pointer  focus:bg-green-500 hover:bg-green-500 hover:text-white dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                  } py-2 px-4 rounded mx-0.5`}  > {pgNumber}</a>
                  </li>
                 ))}
-
-
-
-
-
-   
-    
+ 
     
     <li>
-      <a  onClick={nextPage} class="px-3  py-2 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg focus:bg-green-600 hover:bg-green-600 hover:text-white dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Next</a>
+      <a  onClick={nextPage} class="px-3  py-2 cursor-pointer leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg focus:bg-green-600 hover:bg-green-600 hover:text-white dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Next</a>
     </li>
   </ul>
 </nav>

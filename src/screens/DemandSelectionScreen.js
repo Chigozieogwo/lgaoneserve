@@ -18,6 +18,7 @@ import {listLocations,listStates } from '../actions/locationActions';
 
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { DEMAND_GENERATE_CREATE_RESET } from '../constants/demandGenerateConstants';
+import { DEMAND_SPECIFIC_CREATE_RESET } from '../constants/demandSpecificConstants';
 
 // import { ReactComponent as DateIcon } from '../images/date.svg';
 
@@ -150,7 +151,20 @@ const submitSpecificHandler = (e) => {
        )
        
     );
+    dispatch({
+      type:DEMAND_SPECIFIC_CREATE_RESET
+   });
+
     
+//      setTimeout(() => {
+
+     
+  
+//    //  navigate(`/demand-notices/${demand_generate?.demandNoticesList[0].demandNoticeBatchId}`);
+//   }, 1000);
+
+
+   
 
     if (!errorSpecificCreate) {
        
@@ -165,11 +179,51 @@ const submitSpecificHandler = (e) => {
 if (success) {
    navigate(`/demand-notices/${demand_generate?.demandNoticesList[0].demandNoticeBatchId}`);
   
-}
-if (success_Specific) {
+   }
+if (demand_specific?.successful) {
+ 
    navigate(`/demand-notices/specific/${demand_specific?.demandNoticeGenerated?.demandNotice._id}`);
+   dispatch({
+      type:DEMAND_SPECIFIC_CREATE_RESET
+   });
+} else {
+   // setShowModalSpecific(true);
+   console.log(' +++++++++++++++++++++++++++++++ message here +++++++++++++++++++++++++++++')
+   // dispatch({
+   //          type:DEMAND_GENERATE_CREATE_RESET
+   //       });
+   }
+
+// if (demand_specific?.successful) {
+//    navigate(`/demand-notices/specific/${demand_specific?.demandNoticeGenerated?.demandNotice._id}`);
   
-}
+//  } else {
+//    console.log(demand_specific?.message + " Message ")
+//    dispatch({
+//       type:DEMAND_GENERATE_CREATE_RESET
+//    });
+// }
+   
+   // if (demand_specific?.successful === false) {
+   //    // navigate(`/demand-notices/specific/${demand_specific?.demandNoticeGenerated?.demandNotice._id}`);
+   //    setShowModalSpecific(true);
+     
+   // } 
+
+// setTimeout(() => {
+  
+//    //  navigate(`/demand-notices/${demand_generate?.demandNoticesList[0].demandNoticeBatchId}`);
+//  }, 1000);
+   
+ 
+//    if (success_Specific && demand_specific?.demandNoticeGenerated?.demandNotice._id) {
+//       navigate(`/demand-notices/specific/${demand_specific?.demandNoticeGenerated?.demandNotice._id}`);
+//       setTimeout(() => {
+  
+//             //  navigate(`/demand-notices/${demand_generate?.demandNoticesList[0].demandNoticeBatchId}`);
+//           }, 1000);
+  
+// }
   const showHandlerSpecific = (e) => {
     e.preventDefault();
     
@@ -203,6 +257,7 @@ if (success_Specific) {
             dispatch({
                type:DEMAND_GENERATE_CREATE_RESET
             });
+           
       
       // if (!userInfo) {
       //    navigate('/');
@@ -459,56 +514,54 @@ if (success_Specific) {
                         <input onChange={(e) => setPayerLastName(e.target.value)} type="text" name="text" id="text" placeholder="Last Name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required ></input>
                     
         </div>
-        <div>
-        <label for="lga" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Local Govt. Area</label>
-        <select onChange={handleChangeLga} id="lga" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500">
-                                          <option selected>Select LGA</option>
-                                          
-  <option  value="aba-north-lga-abia-state-nigeria">Aba North</option>
-  <option  value="aba-south-lga-abia-state-nigeria">Aba South</option>
-  <option  value="arochukwu-lga-abia-state-nigeria">Arochukwu</option>
-  <option  value="bende-lga-abia-state-nigeria">Bende</option>
-  <option  value="ikwuano-lga-abia-state-nigeria">Ikwuano</option>
-  <option  value="isiala-ngwa-north-lga-abia-state-nigeria">Isiala Ngwa North</option>
-  <option  value="isiala-ngwa-south-lga-abia-state-nigeria">Isiala Ngwa South</option>
-  <option  value="isuikwuato-lga-abia-state-nigeria">Isuikwuato</option>
-  <option  value="obi-ngwa-lga-abia-state-nigeria">Obingwa</option>
-  <option  value="ohafia-lga-abia-state-nigeria">Ohafia</option>
-  <option  value="osisioma-ngwa-lga-abia-state-nigeria">Osisioma Ngwa</option>
-  <option  value="ugwunagbo-lga-abia-state-nigeria">Ugwunagbo</option>
-  <option  value="ukwa-east-lga-abia-state-nigeria">Ukwa East</option>
-  <option  value="ukwa-west-lga-abia-state-nigeria">Ukwa West</option>
-  <option  value="umu-nneochi-lga-abia-state-nigeria">Umu Nneochi</option>
-  <option  value="umuahia-north-lga-abia-state-nigeria">Umuahia North</option>
-  <option  value="umuahia-south-lga-abia-state-nigeria">Umuahia South</option>
+        
+                                          <div>
+                                          <label for="lga" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">State</label>
 
+<select value={selectedState} onChange={event => setSelectedState(event.target.value)}  id="lga" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500">
+                                          <option selected>Select State</option>
+                    
+                                          { stateNames?.map((state, index) => (
 
-                                          {/* {locations === 'undefined' ? null : locations.map((location, index) => (
-
-<option key={location._id} value={location.lgaKey}>{location.lgaName}</option>
+<option key={state.value} value={state.stateKey}>{state.stateName}</option>
 //                                           
                                           
-                                          ))} */}
+                                          ))}
+</select>
+</div>
+
+
+
+
+
+
+        <div>
+        <label for="lga" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Local Govt. Area</label>
+        <select value={lgaKey} onChange={handleChangeLga}  id="lga" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500">
+                                          <option selected>Select LGA</option>
+                    
+                                          { locations?.map((lga, index) => (
+
+<option key={lga.value} value={lga.lgaKey}>{lga.lgaName}</option>
+//                                           
+                                          
+                                          ))}
 </select>
         </div>
+                                          
+        
         <div>
             <label for="" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">ABSSIN</label>
             <input onChange={(e) => setPayerABBSIN(e.target.value)} type="text" id="company" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500" placeholder="24500180045" required></input>
         </div>  
         <div>
-        <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email address</label>
-        <input onChange={(e) => setPayerEmail(e.target.value)} type="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500" placeholder="john.doe@gmail.com" ></input>
-    
-        </div>
-        
-        <div>
-        <label for="" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Category</label>
-        <select onChange={handleChangeDemandNoticeCategoryId} id="countries" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500">
+        <label for="category" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Category</label>
+<select onChange={handleChangeDemandNoticeCategoryId} id="countries" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500">
                                           <option selected>Select Category</option>
 
 
                                           
-                                          {demand_category === 'undefined' ? null : demand_category?.demandNoticeCategories.map((demand_notice_category, index) => (
+                                          {demand_category === 'undefined' ? null : demand_category?.data?.demandNoticeCategories.map((demand_notice_category, index) => (
 
 <option key={demand_notice_category._id} value={demand_notice_category._id}>{demand_notice_category.categoryName}</option>
 //                                           
@@ -522,27 +575,35 @@ if (success_Specific) {
         <div>
             <label for="phone" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Phone number</label>
             <input onChange={(e) => setPayerPhoneNumber(e.target.value)} type="tel" id="phone" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500" placeholder="07034564908" pattern="[0-9]{11}" required></input>
-        </div>
-        <div>
+                                          </div>
+                                          
+         <div>
+        <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email address</label>
+        <input onChange={(e) => setPayerEmail(e.target.value)} type="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500" placeholder="john.doe@gmail.com" ></input>
+    
+        </div>                                   
+        
+        
+        
+    </div><div>
         <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Address</label>
         <input onChange={(e) => setPayerHomeAddress(e.target.value)} type="text" id="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500" placeholder="Address" required ></input>
     
         </div>
-        
-        
-    </div>
      
     
     
-  
-    
-    <button
+                                       <div className='flex justify-center items-center mt-8'>
+                                       <button
                                                 onClick={submitSpecificHandler}
                                                 type="submit"
-                                                class="w-full text-white bg-green-700 hover:bg-green-600 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-600"
+                                                class="w-1/3 text-white bg-green-700 hover:bg-green-600 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-600"
                                              >
                                                 Generate
-                                             </button>
+                                             </button>      
+  </div>
+    
+    
     
 </form>
 

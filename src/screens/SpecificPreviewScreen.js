@@ -55,21 +55,7 @@ const SpecificPreviewScreen = ({ match }) => {
    
   const demandSpecificCreate = useSelector((state) => state.demandSpecificCreate);
   const {loading : loadingSpecificCreate, error : errorSpecificCreate,success : success_Specific,   demand_specific } = demandSpecificCreate;
-  // console.log(demand_lists + " Location of Abia LGA is the user")
-//   console.log(demand_batchs.demandNoticeList + " Serial Number Batch here is the user")
-//   console.log(lgaRecord + "Batch here is the user")
-//   console.log(revenueLinesEntities + "Batch here is the user")
-// const url = `https://billable-dev.herokuapp.com/demand-notices/template?demandNoticeId=${demand_batchs?.demandNoticesList[0]?._id}`
-
-
-
-// console.log(flatten(demand_batchs))
-// const csvreport = {
-//    data: demand_batchs,
-//    headers: headers,
-//    filename: 'Clue_Mediator_Report.csv'
-//  };
-
+ 
  
 const options = { 
    fieldSeparator: ',',
@@ -101,6 +87,12 @@ const csvExporter = new ExportToCsv(options);
 
 
 
+  const tenantDashboardDetails = useSelector((state) => state.tenantDashboardDetails);
+
+  const { tenant  } = tenantDashboardDetails;
+  
+     console.log(tenant?.singleTenant?._id + "tenant id ++++++++")
+     console.log(tenant + "tenant id ++++++++")
 
   const downloadFile = ({ data, fileName, fileType }) => {
    const blob = new Blob([data], { type: fileType })
@@ -299,19 +291,7 @@ csvExporter.generateCsv(demand_Specificbatchs)
                          <div class="grid grid-cols-4 gap-2 ml-12">
                          <ul>
                          <div className="flex justify-between ">
-                                   {/* <h5 className="font-bold text-xl"> Total : <span> {demand_Specificbatchs?.demandNoticesList?.length}</span> </h5> */}
-                                   {/* <CSVLink data={demand_batchs1} >
-                                    
-                                   
-                                   </CSVLink> */}
-                                   {/* <div></div>
-                                   <button  onClick={exportToCsv} className="bg-green-600 hover:bg-green-800 mb-2 px-4 py-2 text-white ">Export as Csv</button> */}
-
-{/* <CSVDownload data={demand_batchs1} target="_blank" ><button  className="bg-green-600 hover:bg-green-800 mb-2 px-4 py-2 text-white ">Export as Csv</button>
-                                   </CSVDownload> */}
-                                   {/* <csvlink {...csvreport}>
-                                      
-                                   </csvlink> */}
+                                  
                                    
                         </div>
                         <div  class="flex my-1 flex-row items-center bg-white border rounded-lg shadow-md md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
@@ -320,8 +300,8 @@ csvExporter.generateCsv(demand_Specificbatchs)
  </div>
  
  <div class="flex flex-row justify-between  leading-normal">
-     <h6 class="pr-0 pl-2 text-2xl font-bold tracking-tight text-green-900 dark:text-white">No:.</h6>
-     <h5 class="px-1 text-2xl font-bold text-green-700 dark:text-gray-400">{success ? demand_Specificbatchs[0]?.demandNotice?.serialNumber : null}</h5>
+     <h6 class="pr-0 pl-2 text-lg font-bold tracking-tight text-green-900 dark:text-white">No:.</h6>
+     <h5 class="px-1 text-lg font-bold text-green-700 dark:text-gray-400">{success ? demand_Specificbatchs[0]?.demandNotice?.serialNumber : null}</h5>
  
  </div>
 
@@ -332,14 +312,9 @@ csvExporter.generateCsv(demand_Specificbatchs)
  </ul>
                          <div class="col-span-3 -mt-32">
                          <h5 className="font-semibold text-xl mb-2 "> Preview </h5>
-                              {success ? (<iframe className="mx-auto overflow-hidden w-[210mm]" src= {`${url}/demand-notices/template/specificpayer?demandNoticeId=${demand_Specificbatchs[0]?.demandNotice?._id}`}
- width="100%" height="900"></iframe>):<iframe className="mx-auto overflow-hidden w-[210mm]" src= {'https://app-api.billable.site/demand-notices/template/specificpayer?demandNoticeId=63d9146c152aae36cc34ba0c'}
- width="100%" height="900"></iframe>}
-                              
-                         {/* {success ? (demandSpecificBatch?.demand_Specificbatchs) : null} */}
-                         {/* {demand_batchs === "undefined" ? (<Loader />) : } */}
-                         
-                    
+                            
+                       {success ? (<iframe className="mx-auto pt-4 overflow-hidden w-[210mm] bg-white" src= {`${url}/demand-notices/template/specificpayer?demandNoticeId=${demand_Specificbatchs[0]?.demandNotice?._id}&tenantId=${tenant?.singleTenant?._id}`}
+ width="100%" height="900"></iframe>):<div className='flex justify-center items-center w-[210mm] h-screen bg-white'><Loader /></div>}
                          </div>
                          </div>
                       
@@ -353,18 +328,12 @@ csvExporter.generateCsv(demand_Specificbatchs)
    
    
 </div>  
-                   {/* <div dangerouslySetInnerHTML={{ __html: "<iframe src='https://www.youtube.com/embed/cWDJoK8zw58' />"}} ></div> */}
-
-                      
+                  
                       
                       </div>
                      
 
 
-          
-{/* {demand_batchs === 'undefined' ? null : demand_batchs.lgaRecord.lgaName} */}
-
-          
 
 
 

@@ -82,8 +82,8 @@ const Sidebar = () => {
          {' '}
          <aside class="w-[6.25rem]  md:w-[6.25rem] bg-white no-scrollbar scrollbar-hide overflow-hidden scrollbar-hide " aria-label="Sidebar">
           <div className="flex flex-col overflow-hidden scrollbar-hide space-y-6 justify-center items-center mx-auto p-2 pt-4 no-scrollbar overflow-y-auto scrollbar-hide">
-          <img class="w-38 " src="https://abiairs.com/app/abiairs_logo_main.png" height="" width=""></img>
-
+              <img className="w-16 mx-auto" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSuQLP2LzNtqG9ZQsOXFMWcYWzpfjDehtMFBGucWjeoiYkRZGwyTcQZnipV0V7ZsodocTs&usqp=CAU" height="" width=""></img>
+                   
          
                <Link to="/dashboard/profile" className="flex flex-col space-y-0 items-center justify-center group">
                   

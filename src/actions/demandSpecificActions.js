@@ -132,17 +132,16 @@ export const demandSpecificDownloadAction = (id) => async (dispatch, getState) =
         {
             responseType: 'arraybuffer',
             headers: {
-                'Content-Type': 'application/json',
-               'Accept': 'application/pdf',
-               'tenantId': `${tenant?.singleTenant?._id}`,
-                Authorization: `Bearer ${userInfo.token}`
+               'Content-Type': 'application/json',
+               'Authorization': `Bearer ${userInfo.accessToken}`,
+               'tenantId': `${tenant?.singleTenant?._id}`
             }
         })
         .then((response) => {
             const url = window.URL.createObjectURL(new Blob([response.data]));
             const link = document.createElement('a');
             link.href = url;
-            link.setAttribute('download', `Demand_Notice.pdf`); //or any other extension
+            link.setAttribute('download', `Specific_Demand_Notice.pdf`); //or any other extension
             document.body.appendChild(link);
             link.click();
         })

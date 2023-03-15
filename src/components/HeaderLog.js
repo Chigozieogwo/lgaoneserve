@@ -210,9 +210,12 @@ const HeaderLog = ({ showHandler2 }) => {
                         </div>
                   </div>
                   <div className="flex justify-center items-center mt-10 mb-6">
-                        <div className="space-y-1">
-                              <img className="w-16 mx-auto" src={itf}></img>
-                              <p className="text-sm font-normal text-gray-400">info@itf.gov.ng</p>
+                        <div className="space-y-0.5">
+                        {/* <img className="w-16 mx-auto" src={itf}></img> */}
+                        <img className="w-16 mx-auto" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSuQLP2LzNtqG9ZQsOXFMWcYWzpfjDehtMFBGucWjeoiYkRZGwyTcQZnipV0V7ZsodocTs&usqp=CAU" height="" width=""></img>
+                   
+                        {/* <img class="w-20 mx-auto " src="https://abiairs.com/app/abiairs_logo_main.png" height="" width=""></img> */}
+                              <p className="text-xs font-normal text-gray-400">lgas@abiastate.gov.ng</p>
                         </div>
                   </div>
                         <div className="border border-1 border-b-gray-300 mx-4"></div>

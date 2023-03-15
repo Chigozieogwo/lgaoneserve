@@ -42,7 +42,7 @@ const GeneratedListScreen = ({ match }) => {
     // User is currently on this page
  const [currentPage, setCurrentPage] = useState(1);
  // No of Records to be displayed on each page   
- const [recordsPerPage] = useState(50);
+ const [recordsPerPage] = useState(5);
  
  const indexOfLastRecord = currentPage * recordsPerPage;
  const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
@@ -52,8 +52,22 @@ const GeneratedListScreen = ({ match }) => {
    const currentRecords = data?.slice(indexOfFirstRecord, 
       indexOfLastRecord);
    
-      const nPages = Math.ceil(data?.length / recordsPerPage)
-   
+   const nPages = Math.ceil(data?.length / recordsPerPage)
+   // const nPages = Math.ceil(data?.length / recordsPerPage)
+//   const nPages = Array.from({ length: Math.ceil(data.length / recordsPerPage) })
+
+   const [data1, setData1] = useState([]);
+   const [currentPage1, setCurrentPage1] = useState(1);
+   const [itemsPerPage, setItemsPerPage] = useState(5);
+
+   const indexOfLastItem = currentPage1 * itemsPerPage;
+   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+   const currentRecords2 = data.slice(indexOfFirstItem, indexOfLastItem);
+
+
+
+
+      const paginate = (pageNumber) => setCurrentPage1(pageNumber);
 
 
    const userDetails = useSelector((state) => state.userDetails);
@@ -95,6 +109,7 @@ const sortedArray = _.orderBy(demand_lists, [(obj) => new Date(obj.date)], ['asc
       dispatch(demandCategoryDetailsAction(lgaKey));
       setTimeout(() => {
          if(!loadingGenerateList){
+            setData1(sortedArray)
             setData(sortedArray)
           }
       },1000)
@@ -249,15 +264,34 @@ const sortedArray = _.orderBy(demand_lists, [(obj) => new Date(obj.date)], ['asc
 
 
 
-                      <div className='flex justify-center  p-2 text-white mb-2 '><span class="bg-green-500 text-white text-xs font-medium mr-2 px-2.5 py-2.5 rounded dark:bg-green-500 dark:text-green-300"> Page {currentPage}</span></div>
-                                 <div className='flex justify-center mb-12'>
+                       {/* <div className='flex justify-center  p-2 text-white mb-2 '><span class="bg-green-500 text-white text-xs font-medium mr-2 px-2.5 py-2.5 rounded dark:bg-green-500 dark:text-green-300"> Page {currentPage}</span></div> */}
+                                 <div className='flex justify-center mb-12 mt-8'>
                                     
                                  <Paginate
     nPages = { nPages }
     currentPage = { currentPage } 
     setCurrentPage = { setCurrentPage }
 />                          
-</div>
+                     </div> 
+                     
+                     {/* <div className="flex justify-center mb-20">
+        {data1.length > 0 &&
+          Array.from({ length: Math.ceil(data1.length / itemsPerPage) }).map(
+            (item, index) => (
+              <button
+                key={index}
+                onClick={() => paginate(index + 1)}
+                className={`${
+                  currentPage === index + 1
+                    ? "bg-blue-500 text-white border border-2"
+                    : "bg-gray-200 text-gray-800 border border-2"
+                } py-2 px-4 rounded`}
+              >
+                {index + 1}
+              </button>
+            )
+          )}
+      </div> */}
 
 
                            
