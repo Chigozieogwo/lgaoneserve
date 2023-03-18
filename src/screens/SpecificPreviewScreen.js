@@ -11,7 +11,7 @@ import Sidebar from '../components/Sidebar';
 import {demandGenerateCreateAction ,listDemandGenerateLists,demandGenerateDownloadAction ,demandGenerateBatchAction } from '../actions/demandGenerateActions';
 
 
-import {demandSpecificBatchAction , demandSpecificDownloadAction} from '../actions/demandSpecificActions';
+import {demandSpecificBatchAction ,listDemandSpecificLists, demandSpecificDownloadAction} from '../actions/demandSpecificActions';
 
 
 import axios from 'axios';
@@ -263,7 +263,7 @@ csvExporter.generateCsv(demand_Specificbatchs)
                      </button>
                                    </div>
                                    <div>
-                                   <Link to='/demand-notices/batches'>
+                                   <Link onClick={()=> dispatch(listDemandSpecificLists())} to='/demand_module'>
                                    <div className='bg-white rounded-full p-1 shadow-lg hover:bg-green-600 hover:text-white'>
                                    <svg className='h-6 w-6  ' fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
   <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5"></path>

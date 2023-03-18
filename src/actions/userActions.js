@@ -24,6 +24,12 @@ import {
    TENANT_DASHBOARD_DETAILS_REQUEST,
    TENANT_DASHBOARD_DETAILS_SUCCESS,
    TENANT_DASHBOARD_DETAILS_RESET,
+   USER_TENANT_CREATE_REQUEST,
+   USER_TENANT_CREATE_SUCCESS,
+   USER_TENANT_CREATE_FAIL,
+   USER_TENANT_LIST_REQUEST,
+   USER_TENANT_LIST_SUCCESS,
+   USER_TENANT_LIST_FAIL,
    
 } from '../constants/userConstants.js';
 // import moment from 'moment';
@@ -336,7 +342,54 @@ export const getUserTenancyDetails = () => async (dispatch, getState) => {
 
 
 
+ export const userTenantCreateAction =
+ (firstName,lastName,email,password) =>
+ async (dispatch, getState) => {
+    try {
+       dispatch({ type: USER_TENANT_CREATE_REQUEST });
+       const {
+          userLogin: { userInfo }
+       } = getState();
 
+
+
+       const { userTenancyProfile: { userInfoTenancy }} = getState();
+       const { tenantDashboardDetails : { tenant }} = getState();
+    
+       const config = {
+          headers: {
+             'Content-Type': 'application/json',
+             'Authorization': `Bearer ${userInfo.accessToken}`,
+             'tenantId': `${tenant?.singleTenant?._id}`
+          }
+        };
+        
+
+console.log(firstName,lastName,email,password)
+
+        
+       const { data } = await axios.post(
+          `${url}/users/admin`,
+          {
+            firstName,lastName,email,password
+          },
+          config
+       );
+
+       dispatch({
+          type: USER_TENANT_CREATE_SUCCESS,
+          payload: data
+       });
+    } catch (error) {
+       dispatch({
+          type: USER_TENANT_CREATE_FAIL,
+          payload:
+             error.response && error.response.data.message
+                ? error.response.data.message
+                : error.message
+       });
+    }
+ };
 
 
 
@@ -346,6 +399,8 @@ export const getUserTenancyDetails = () => async (dispatch, getState) => {
     localStorage.removeItem('userInfo');
     localStorage.removeItem('userInfoTenancy');
     localStorage.removeItem('tenant');
+    localStorage.removeItem('demand_Specificlists');
+    localStorage.removeItem('demand_lists');
  
     dispatch({ type: USER_LOGOUT });
     dispatch({ type: USER_DETAILS_RESET });

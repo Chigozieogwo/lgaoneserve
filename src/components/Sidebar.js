@@ -171,7 +171,7 @@ const Sidebar = () => {
           </Link>
                
                
-               <Link className="flex flex-col space-y-0 items-center justify-center group">
+               <Link to="/users/admin" className="flex flex-col space-y-0 items-center justify-center group">
                   
                <div className="">
           <img class="w-8 opacity-70 group-hover:opacity-50 group-hover:cursor-pointer " src={userGroup} height="" width=""></img>

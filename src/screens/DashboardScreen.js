@@ -11,7 +11,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
 import { logout, getUserDetails,getUserTenancyDetails,getTenantDashboardDetails } from '../actions/userActions';
-
+import { listDemandSpecificLists,demandSpecificDownloadAction } from '../actions/demandSpecificActions';
 
 import { Link, useLocation, useNavigate,useParams } from 'react-router-dom';
 
@@ -33,10 +33,13 @@ const DashboardScreen = ({ match }) => {
 
    const { tenant  } = tenantDashboardDetails;
 
+   
+const demandSpecificList = useSelector((state) => state.demandSpecificList);
+const { loading:loadingSpecificList, error:errorSpecificList,demand_Specificlists } = demandSpecificList;
+// const {  demandNoticeList ,lgaRecord ,revenueLinesEntities} = demand_batchs
+console.log(demand_Specificlists + "Specific Screen here is the user")
       
    const { userInfo } = userLogin;
-
-      
 
    const userDetails = useSelector((state) => state.userDetails);
    const { loading, error, user } = userDetails;
@@ -54,7 +57,7 @@ const DashboardScreen = ({ match }) => {
   console.log(user.firstName + " 55 here is the user")
 
   useEffect(() => {
-   
+   dispatch(listDemandSpecificLists());
    if (!userInfo) {
       navigate('/');
    } else {

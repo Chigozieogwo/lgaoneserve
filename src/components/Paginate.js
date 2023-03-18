@@ -1,8 +1,18 @@
 import React from 'react';
 const Paginate = ({ nPages, currentPage, setCurrentPage })  => {
 
+  let pageNumbers;
+   const numberPages = parseInt(nPages);
 
-   const pageNumbers = [...Array(nPages + 1).keys()].slice(1)
+if (numberPages >= 0) {
+   pageNumbers = [...Array(numberPages + 1)?.keys()]?.slice(1);
+}
+else {
+  // Handle the case where nPages is negative
+  console.log(numberPages)
+}
+
+  //  const pageNumbers = [...Array(nPages + 1)?.keys()]?.slice(1)
 
    const nextPage = () => {
       if(currentPage !== nPages) 
@@ -22,7 +32,7 @@ const Paginate = ({ nPages, currentPage, setCurrentPage })  => {
     </li>
 
 
-{pageNumbers.slice(currentPage -1 ,currentPage +2).map(pgNumber => (
+{pageNumbers?.slice(currentPage -1 ,currentPage +2).map(pgNumber => (
                    <li  key={pgNumber }  >
                    <a  onClick={() => setCurrentPage(pgNumber)} className={`${
                     currentPage === pgNumber

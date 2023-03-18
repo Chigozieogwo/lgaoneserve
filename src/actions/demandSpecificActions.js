@@ -242,6 +242,8 @@ async (dispatch, getState) => {
          type: DEMAND_SPECIFIC_LIST_SUCCESS,
          payload: data
       });
+
+      localStorage.setItem('demand_Specificlists', JSON.stringify(data));
    } catch (error) {
       const message =
          error.response && error.response.data.message

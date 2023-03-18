@@ -5,6 +5,8 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import {
    userLoginReducer,
    userDetailsReducer,
+   userTenantListReducer,
+   userTenantCreateReducer,
    userTenancyRegisterReducer,
    tenantDashboardDetailsReducer,
    userTenancyProfileReducer,
@@ -65,7 +67,9 @@ const reducer = combineReducers({
     userTenancyRegister: userTenancyRegisterReducer,
     userTenancyProfile : userTenancyProfileReducer,
     tenantDashboardDetails : tenantDashboardDetailsReducer,
-    userUpdateTenancyProfile : userUpdateTenancyProfileReducer,
+   userUpdateTenancyProfile: userUpdateTenancyProfileReducer,
+   userTenantCreate: userTenantCreateReducer,
+   userTenantList : userTenantListReducer,
     
 
    demandCategoryCreate : demandCategoryCreateReducer,
@@ -115,11 +119,19 @@ const userInfoTenancyFromStorage = localStorage.getItem('userInfoTenancy')
 const tenantFromStorage = localStorage.getItem('tenant')
    ? JSON.parse(localStorage.getItem('tenant'))
    : null;
+const demandSpecificListFromStorage = localStorage.getItem('demand_Specificlists')
+   ? JSON.parse(localStorage.getItem('demand_Specificlists'))
+   : null;
+const demandGenerateListFromStorage = localStorage.getItem('demand_lists')
+   ? JSON.parse(localStorage.getItem('demand_lists'))
+   : null;
 
 const initialState = {
    userLogin: { userInfo: userInfoFromStorage },
    userTenancyProfile: { userInfoTenancy: userInfoTenancyFromStorage },
    tenantDashboardDetails: { tenant: tenantFromStorage },
+   demandSpecificList: { demand_Specificlists: demandSpecificListFromStorage },
+   demandGenerateList: { demand_lists: demandGenerateListFromStorage },
 };
 
 const middleware = [thunk];

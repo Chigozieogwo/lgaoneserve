@@ -42,7 +42,7 @@ const GeneratedListScreen = ({ match }) => {
     // User is currently on this page
  const [currentPage, setCurrentPage] = useState(1);
  // No of Records to be displayed on each page   
- const [recordsPerPage] = useState(5);
+ const [recordsPerPage] = useState(20);
  
  const indexOfLastRecord = currentPage * recordsPerPage;
  const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
@@ -56,18 +56,6 @@ const GeneratedListScreen = ({ match }) => {
    // const nPages = Math.ceil(data?.length / recordsPerPage)
 //   const nPages = Array.from({ length: Math.ceil(data.length / recordsPerPage) })
 
-   const [data1, setData1] = useState([]);
-   const [currentPage1, setCurrentPage1] = useState(1);
-   const [itemsPerPage, setItemsPerPage] = useState(5);
-
-   const indexOfLastItem = currentPage1 * itemsPerPage;
-   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-   const currentRecords2 = data.slice(indexOfFirstItem, indexOfLastItem);
-
-
-
-
-      const paginate = (pageNumber) => setCurrentPage1(pageNumber);
 
 
    const userDetails = useSelector((state) => state.userDetails);
@@ -89,9 +77,9 @@ const GeneratedListScreen = ({ match }) => {
 //    })
 
 
-
-
 const sortedArray = _.orderBy(demand_lists, [(obj) => new Date(obj.date)], ['asc'])
+
+
 
 // const array = [{date:"2018-05-11"},{date:"2018-05-12"},{date:"2018-05-10"}]
 // const sortedArray  = demand_lists.sort((a,b) => new Moment(a.demand_list.demandNoticeBatch.createdAt).format('YYYYMMDD') - new Moment(b.demand_list.demandNoticeBatch.createdAt).format('YYYYMMDD'))
@@ -109,7 +97,7 @@ const sortedArray = _.orderBy(demand_lists, [(obj) => new Date(obj.date)], ['asc
       dispatch(demandCategoryDetailsAction(lgaKey));
       setTimeout(() => {
          if(!loadingGenerateList){
-            setData1(sortedArray)
+            
             setData(sortedArray)
           }
       },1000)

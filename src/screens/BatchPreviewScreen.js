@@ -131,18 +131,7 @@ const { tenant  } = tenantDashboardDetails;
    a.remove()
  }
  
-//  const exportToJson = e => {
-//    e.preventDefault()
-//    downloadFile({
-//      data: JSON.stringify(demand_batchs.users),
-//      fileName: 'users.json',
-//      fileType: 'text/json',
-//    })
-//  }
-// if (successDownload) {
-//    setShowModalPrint(false);
 
-// }
 const flatten = (demand_batchs) => {
    let demandNotices = demand_batchs.demandNoticesList;
 
@@ -459,7 +448,7 @@ csvExporter.generateCsv(demand_batchs)
                                    </csvlink> */}
                                    
                         </div>
- {  demand_batchs?.demandNoticesList?.slice(0,14)?.map((batch,index) => 
+ {  demand_batchs?.demandNoticesList?.slice(0,11)?.map((batch,index) => 
  
 
  <div key={index} class="flex my-1 flex-row items-center bg-white border rounded-lg shadow-md md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">

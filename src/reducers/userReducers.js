@@ -22,7 +22,14 @@ import {
     TENANT_DASHBOARD_DETAILS_FAIL,
     TENANT_DASHBOARD_DETAILS_REQUEST,
     TENANT_DASHBOARD_DETAILS_SUCCESS,
-    TENANT_DASHBOARD_DETAILS_RESET,
+   TENANT_DASHBOARD_DETAILS_RESET,
+   USER_TENANT_CREATE_REQUEST,
+   USER_TENANT_CREATE_SUCCESS,
+   USER_TENANT_CREATE_FAIL,
+   USER_TENANT_CREATE_RESET,
+   USER_TENANT_LIST_REQUEST,
+   USER_TENANT_LIST_SUCCESS,
+   USER_TENANT_LIST_FAIL,
 
     
     
@@ -132,37 +139,38 @@ export const tenantDashboardDetailsReducer = (state = { tenant: {} }, action) =>
  }
  
  
-//  export const userListReducer1 = (state = { users: [] }, action) => {
-//    switch (action.type) {
-//      case USER_LIST_REQUEST:
-//        return { loading: true }
-//      case USER_LIST_SUCCESS:
-//        return { loading: false, users: action.payload }
-//      case USER_LIST_FAIL:
-//        return { loading: false, error: action.payload }
-//      case USER_LIST_RESET:
-//        return { users: [] }
-//      default:
-//        return state
-//    }
-//  }
+ export const userTenantCreateReducer = (state = {}, action) => {
+   //   const { type, payload } = action
+   switch (action.type) {
+      case USER_TENANT_CREATE_REQUEST:
+         return { loading: true };
+      case USER_TENANT_CREATE_SUCCESS:
+         return { loading: false, userTenant: action.payload, success: true };
+      case USER_TENANT_CREATE_RESET:
+         return {  };
+      case USER_TENANT_CREATE_FAIL:
+         return { loading: false, error: action.payload };
+      default:
+         return state;
+   }
+};
  
-//  export const userListReducer = (state = { users: [] }, action) => {
-//    //   const { type, payload } = action
-//    switch (action.type) {
-//      case USER_LIST_REQUEST:
-//        return { loading: true }
-//      case USER_LIST_SUCCESS:
-//        return {
-//          loading: false,
-//          users: action.payload.users,
-//          count: action.payload.count,
-//          pages: action.payload.pages,
-//          page: action.payload.page,
-//        }
-//      case USER_LIST_FAIL:
-//        return { loading: false, error: action.payload }
-//      default:
-//        return state
-//    }
-//  }
+ export const userTenantListReducer = (state = { userTenantLists: [] }, action) => {
+   //   const { type, payload } = action
+   switch (action.type) {
+     case USER_TENANT_LIST_REQUEST:
+       return { loading: true }
+     case USER_TENANT_LIST_SUCCESS:
+       return {
+         loading: false,
+         userTenantLists: action.payload,
+         count: action.payload,
+         pages: action.payload,
+         page: action.payload,
+       }
+     case USER_TENANT_LIST_FAIL:
+       return { loading: false, error: action.payload }
+     default:
+       return state
+   }
+  }

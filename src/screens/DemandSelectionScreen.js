@@ -12,7 +12,7 @@ import Message from '../components/Message';
 import Loader from '../components/Loader';
 import { logout, getUserDetails } from '../actions/userActions';
 import {demandGenerateCreateAction ,listDemandGenerateLists ,  } from '../actions/demandGenerateActions';
-import {demandSpecificCreateAction } from '../actions/demandSpecificActions';
+import {demandSpecificCreateAction,listDemandSpecificLists } from '../actions/demandSpecificActions';
 import {demandCategoryDetailsAction } from '../actions/demandCategoryActions';
 import {listLocations,listStates } from '../actions/locationActions';
 
@@ -26,11 +26,13 @@ import { DEMAND_SPECIFIC_CREATE_RESET } from '../constants/demandSpecificConstan
 const DemandSelectionScreen = ({ match }) => {
    const [selectedState, setSelectedState] = useState('');
    const [lgaKey, setLgaKey] = useState('');
+   const [id, setId] = useState('');
    const [demandNoticeCategoryId, setDemandNoticeCategoryId] = useState('');
    const [numberOfEntriesToGenerate, setNumberOfEntriesToGenerate] = useState(0);
 
     const [showModalSpecific, setShowModalSpecific] = useState(false);
     const [showModalMultiple, setShowModalMultiple] = useState(false);
+    const [showModalPayerData, setShowModalPayerData] = useState(false);
 
    
     const [payerFirstName, setPayerFirstName] = useState('');
@@ -39,7 +41,7 @@ const DemandSelectionScreen = ({ match }) => {
     const [payerABBSIN, setPayerABBSIN] = useState('');
     const [payerPhoneNumber, setPayerPhoneNumber] = useState('');
     const [payerEmail, setPayerEmail] = useState('');
-    const [message, setMessage] = useState('');
+    const [message, setMessage] = useState('The User ABBSIN/Phone Number Already Exist Generate New Demand Notice');
 
    const location = useLocation();
    const navigate = useNavigate();
@@ -51,7 +53,14 @@ const DemandSelectionScreen = ({ match }) => {
 
    const userDetails = useSelector((state) => state.userDetails);
    const { loading, error, user } = userDetails;
-   // console.log(userInfo + "here is the user")
+   console.log(payerFirstName + "here is the user")
+   console.log(payerLastName + "here is the user")
+   console.log(payerEmail + "here is the user")
+   console.log(payerPhoneNumber + "here is the user")
+   console.log(payerHomeAddress + "here is the user")
+   console.log(payerABBSIN + "here is the user")
+   console.log(lgaKey + "here is the user")
+   console.log(demandNoticeCategoryId + "here is the user")
 
    
    const locationList = useSelector((state) => state.locationList);
@@ -175,24 +184,62 @@ const submitSpecificHandler = (e) => {
 
    
 };
+const submitSpecificHandler2 = (e) => {
+   e.preventDefault();
+   dispatch(
+      demandSpecificCreateAction(
+         // demand_specific?.payerEntityRecord?._id,
+         payerPhoneNumber,
+         payerFirstName,
+         payerLastName,
+         payerABBSIN,
+         payerHomeAddress,
+         payerEmail,
+       lgaKey,
+       demandNoticeCategoryId,
+      // Number (numberOfEntriesToGenerate),
+       
+       )
+       
+    );
+    
+    dispatch({
+      type:DEMAND_SPECIFIC_CREATE_RESET
+   });
+    
+
+
+   
+
+    if (!errorSpecificCreate) {
+       
+       setShowModalSpecific(false);
+   } else {
+      
+    }
+
+   
+};
 
 if (success) {
    navigate(`/demand-notices/${demand_generate?.demandNoticesList[0].demandNoticeBatchId}`);
   
    }
+
 if (demand_specific?.successful) {
  
    navigate(`/demand-notices/specific/${demand_specific?.demandNoticeGenerated?.demandNotice._id}`);
-   dispatch({
-      type:DEMAND_SPECIFIC_CREATE_RESET
-   });
-} else {
-   // setShowModalSpecific(true);
-   console.log(' +++++++++++++++++++++++++++++++ message here +++++++++++++++++++++++++++++')
    // dispatch({
-   //          type:DEMAND_GENERATE_CREATE_RESET
-   //       });
-   }
+   //    type:DEMAND_SPECIFIC_CREATE_RESET
+   // });
+} 
+// if (demand_specific?.successful) {
+ 
+//    navigate(`/demand-notices/specific/${demand_specific?.demandNoticeGenerated?.demandNotice._id}`);
+//    dispatch({
+//       type:DEMAND_SPECIFIC_CREATE_RESET
+//    });
+// } 
 
 // if (demand_specific?.successful) {
 //    navigate(`/demand-notices/specific/${demand_specific?.demandNoticeGenerated?.demandNotice._id}`);
@@ -204,11 +251,15 @@ if (demand_specific?.successful) {
 //    });
 // }
    
-   // if (demand_specific?.successful === false) {
-   //    // navigate(`/demand-notices/specific/${demand_specific?.demandNoticeGenerated?.demandNotice._id}`);
-   //    setShowModalSpecific(true);
-     
-   // } 
+   if (success_Specific) {
+      // navigate(`/demand-notices/specific/${demand_specific?.demandNoticeGenerated?.demandNotice._id}`);
+      console.log(' 22 +++++++++++++++++++++++++++++++ message here +++++++++++++++++++++++++++++')
+      setTimeout(() => {
+         setShowModalPayerData(true);
+  
+            //  navigate(`/demand-notices/${demand_generate?.demandNoticesList[0].demandNoticeBatchId}`);
+          }, 1000);
+   } 
 
 // setTimeout(() => {
   
@@ -251,34 +302,31 @@ if (demand_specific?.successful) {
       dispatch(listStates())
       dispatch(listLocations(selectedState))
             dispatch(getUserDetails('profile'));
-            // dispatch(listLocations());
+            dispatch(listDemandSpecificLists());
             dispatch(listDemandGenerateLists());
             dispatch(demandCategoryDetailsAction(lgaKey));
             dispatch({
                type:DEMAND_GENERATE_CREATE_RESET
             });
            
+            if (success_Specific) {
+               setPayerFirstName(demand_specific.payerEntityRecord.firstName)
+               setPayerLastName(demand_specific.payerEntityRecord.lastName)
+               setPayerEmail(demand_specific.payerEntityRecord.email)
+               setPayerPhoneNumber(demand_specific.payerEntityRecord.phoneNumber)
+               setPayerABBSIN(demand_specific.payerEntityRecord.abbsin)
+               setPayerHomeAddress(demand_specific.payerEntityRecord.homeAddress)
+               
+            } 
+
+       dispatch({
+      type:DEMAND_SPECIFIC_CREATE_RESET
+   });
+    
+         
       
-      // if (!userInfo) {
-      //    navigate('/');
-      // } else {
-      //    // dispatch(getUserDetails('profile'));
-      //    if (!user || !user.name) {
-      //       // dispatch({ type: USER_UPDATE_PROFILE_RESET });
-      //       dispatch(listStates())
-      // dispatch(listLocations(selectedState))
-      //       dispatch(getUserDetails('profile'));
-      //       // dispatch(listLocations());
-      //       dispatch(listDemandGenerateLists());
-      //       dispatch(demandCategoryDetailsAction(lgaKey));
-      //       // navigate(`/demand-notices/${demand_generate?.demandNoticesList[0].demandNoticeBatchId}`);
-      //       dispatch({
-      //          type:DEMAND_GENERATE_CREATE_RESET
-      //       });
-      //    }
-      // }
       
-   }, [dispatch,lgaKey,selectedState]);
+   }, [dispatch,lgaKey,selectedState,success_Specific]);
    // useEffect(() => {
      
    //    navigate(`/demand-notices/${demand_generate?.demandNoticesList[0].demandNoticeBatchId}`);
@@ -368,11 +416,11 @@ if (demand_specific?.successful) {
                                              </svg>
                                           </button>
                                        </div> 
-                                       {message && (
+                                       {/* {message && (
                                           <Message variant="danger">
                                              {errorSpecificCreate}
                                           </Message>
-                                       )}
+                                       )} */}
                                        <form
                                          //  onSubmit={submitHandler}
                                           class="space-y-6 px-4 md:p-0"
@@ -451,6 +499,211 @@ if (demand_specific?.successful) {
                                     </div>
                                  </div>
                               </div>
+                           ) : null}
+                      {showModalPayerData ? (
+                            <div
+                            // onClick={handleClose}
+                            tabindex="-1"
+                            class="flex  justify-center  bg-[rgb(0,0,0,0.35)] align-center overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 md:inset-0 h-modal md:h-full"
+                         >
+                            <div class="relative ml-0  md:ml-24  w-full max-w-4xl h-full md:h-auto">
+                            <div>
+                            
+                                       </div>
+                               
+                               <div class="">
+                                   
+                                  <div class=" max-w-4xl bg-white mt-20 ml-0 p-4 md:ml-24 rounded-lg border border-gray-200 shadow-md sm:p-6 lg:p-8 dark:bg-gray-800 dark:border-gray-700">
+                                  <div class="flex justify-end">
+                                            <div></div>
+                                        
+                                        <button
+                                           onClick={handleClose}
+                                           type="button"
+                                           class=" text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white"
+                                           data-modal-toggle="popup-modal"
+                                        >
+                                           <svg
+                                              class="w-5 h-5"
+                                              fill="currentColor"
+                                              viewBox="0 0 20 20"
+                                              xmlns="http://www.w3.org/2000/svg"
+                                           >
+                                              <path
+                                                 fill-rule="evenodd"
+                                                 d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                                 clip-rule="evenodd"
+                                              ></path>
+                                           </svg>
+                                        </button>
+                                     </div> 
+
+                                 {errorSpecificCreate ? (<Message >
+                                           {errorSpecificCreate}
+                                        </Message> ): null}
+                                     
+
+
+
+
+
+<form>
+<h5 class="text-xl  text-center font-medium text-gray-900 dark:text-white">
+                                            Regenerate Specific Demand Notice
+                                       </h5>
+                                       <p className='px-6 py-4 my-4 bg-blue-500 text-center text-white rounded-md'>{ showModalPayerData ? message : null}</p>
+ <div class="grid gap-6 mb-6 md:grid-cols-2">
+     <div>
+     <label for="text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">First Name</label>
+                                             <input value={payerFirstName} onChange={(e) => setPayerFirstName(e.target.value)} type="text" name="text" id="text" placeholder="First Name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required></input>
+                 
+     </div>
+     <div>
+     <label for="text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Last Name</label>
+                     <input value={payerLastName} onChange={(e) => setPayerLastName(e.target.value)} type="text" name="text" id="text" placeholder="Last Name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required ></input>
+                 
+     </div>
+     
+                                       <div>
+                                       <label for="lga" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">State</label>
+
+<select value={selectedState} onChange={event => setSelectedState(event.target.value)}  id="lga" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500">
+                                       <option selected>Select State</option>
+                 
+                                       { stateNames?.map((state, index) => (
+
+<option key={state.value} value={state.stateKey}>{state.stateName}</option>
+//                                           
+                                       
+                                       ))}
+</select>
+</div>
+
+
+
+
+
+
+     <div>
+     <label for="lga" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Local Govt. Area</label>
+     <select value={lgaKey} onChange={handleChangeLga}  id="lga" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500">
+                                       <option selected>Select LGA</option>
+                 
+                                       { locations?.map((lga, index) => (
+
+<option key={lga.value} value={lga.lgaKey}>{lga.lgaName}</option>
+//                                           
+                                       
+                                       ))}
+</select>
+     </div>
+                                       
+     
+     <div>
+         <label for="" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">ABSSIN</label>
+         <input value={payerABBSIN} onChange={(e) => setPayerABBSIN(e.target.value)} type="text" id="company" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500" placeholder="24500180045" required></input>
+     </div>  
+     <div>
+     <label for="category" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Category</label>
+<select onChange={handleChangeDemandNoticeCategoryId} id="countries" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500">
+                                       <option selected>Select Category</option>
+
+
+                                       
+                                       {demand_category === 'undefined' ? null : demand_category?.data?.demandNoticeCategories.map((demand_notice_category, index) => (
+
+<option key={demand_notice_category._id} value={demand_notice_category._id}>{demand_notice_category.categoryName}</option>
+//                                           
+                                       
+                                       ))
+                                          }
+
+</select>
+     
+     </div>  
+     <div>
+         <label for="phone" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Phone number</label>
+         <input value={payerPhoneNumber} onChange={(e) => setPayerPhoneNumber(e.target.value)} type="tel" id="phone" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500" placeholder="07034564908" pattern="[0-9]{11}" required></input>
+                                       </div>
+                                       
+      <div>
+     <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email address</label>
+     <input value={payerEmail} onChange={(e) => setPayerEmail(e.target.value)} type="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500" placeholder="john.doe@gmail.com" ></input>
+ 
+     </div>                                   
+     
+     
+     
+ </div><div>
+     <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Address</label>
+     <input value={payerHomeAddress} onChange={(e) => setPayerHomeAddress(e.target.value)} type="text" id="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500" placeholder="Address" required ></input>
+ 
+     </div>
+  
+ 
+ 
+                                    <div className='flex justify-center items-center mt-8'>
+                                    <button
+                                             onClick={submitSpecificHandler2}
+                                             type="submit"
+                                             class="w-1/3 text-white bg-green-700 hover:bg-green-600 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-600"
+                                          >
+                                             Regenerate 
+                                          </button>      
+</div>
+ 
+ 
+ 
+</form>
+
+
+
+
+                                 
+                                     <form
+                                       //  onSubmit={submitHandler}
+                                        class="space-y-6 px-4 md:p-0"
+                                     >
+
+                                        
+                                          {/* <div>
+                                             <label
+                                                for="name"
+                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                                             >
+                                                Your Name
+                                             </label>
+                                             <input
+                                                type="name"
+                                                name="name"
+                                                value={name}
+                                                onChange={(e) =>
+                                                   setName(e.target.value)
+                                                }
+                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                                                placeholder="john Doe"
+                                             ></input>
+                                          </div> */}
+                                          <div>
+                   
+                 
+                 </div>
+
+                                 
+
+                
+                                         
+                                          
+
+                                          
+                                         
+
+                                         
+                                       </form>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
                            ) : null}
                       {showModalSpecific ? (
                                <div

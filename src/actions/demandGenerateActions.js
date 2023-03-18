@@ -269,6 +269,7 @@ async (dispatch, getState) => {
          type: DEMAND_GENERATE_LIST_SUCCESS,
          payload: data
       });
+      localStorage.setItem('demand_lists', JSON.stringify(data));
    } catch (error) {
       const message =
          error.response && error.response.data.message

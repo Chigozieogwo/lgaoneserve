@@ -88,15 +88,15 @@ import {
     //   const { type, payload } = action
     switch (action.type) {
        case DEMAND_SPECIFIC_LIST_REQUEST:
-          return { loading: true };
+          return {...state, loading: true };
        case DEMAND_SPECIFIC_LIST_SUCCESS:
           return {
              loading: false,
              demand_Specificlists: action.payload,
              count: action.payload,
              pages: action.payload,
-             success: true,
              page: action.payload
+            //  success: true,
           };
        case DEMAND_SPECIFIC_LIST_FAIL:
           return { loading: false, error: action.payload };
@@ -105,3 +105,23 @@ import {
     }
  };
  
+
+//  export const demandGenerateListReducer = (state = { demand_lists: [] }, action) => {
+//    //   const { type, payload } = action
+//    switch (action.type) {
+//       case DEMAND_GENERATE_LIST_REQUEST:
+//          return { loading: true };
+//       case DEMAND_GENERATE_LIST_SUCCESS:
+//          return {
+//             loading: false,
+//             demand_lists: action.payload,
+//             count: action.payload,
+//             pages: action.payload,
+//             page: action.payload
+//          };
+//       case DEMAND_GENERATE_LIST_FAIL:
+//          return { loading: false, error: action.payload };
+//       default:
+//          return state;
+//    }
+// };

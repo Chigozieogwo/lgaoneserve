@@ -17,6 +17,7 @@ import GeneratedListScreen from './screens/GeneratedListScreen.js'
 import CreateCategoryScreen from './screens/CreateCategoryScreen.js'
 import StateCreateScreen from './screens/StateCreateScreen.js'
 import LgaCreateScreen from './screens/LgaCreateScreen.js'
+import TenantUserScreen from './screens/TenantUserScreen.js'
 import CategoryDetailRevenueScreen from './screens/CategoryDetailRevenueScreen.js'
 // import ReportScreen from './screens/ReportScreen.js'
 // import CompanyListScreen from './screens/CompanyListScreen.js'
@@ -82,6 +83,11 @@ function App() {
                      element={<CategoryEditScreen />}
               />
               
+              <Route
+                     exact
+                     path="/users/admin"
+                     element={<TenantUserScreen />}
+                  />
               <Route
                      exact
                      path="/locations/states"
