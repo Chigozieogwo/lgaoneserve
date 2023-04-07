@@ -116,9 +116,9 @@ export const demandCategoryDetailsAction = ( lga ) => async (dispatch, getState)
          }
        };
 
-      console.log(lga + " the keyword main")
-      console.log(lga + " the keyword main")
-      console.log(lga + " the keyword main")
+      // console.log(lga + " the keyword main")
+      // console.log(lga + " the keyword main")
+      // console.log(lga + " the keyword main")
 
       let data;
          if (lga) {
