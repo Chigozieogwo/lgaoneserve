@@ -17,6 +17,7 @@ import GeneratedListScreen from './screens/GeneratedListScreen.js'
 import CreateCategoryScreen from './screens/CreateCategoryScreen.js'
 import StateCreateScreen from './screens/StateCreateScreen.js'
 import LgaCreateScreen from './screens/LgaCreateScreen.js'
+import PaymentScreen from './screens/PaymentScreen.js'
 import TenantUserScreen from './screens/TenantUserScreen.js'
 import CategoryDetailRevenueScreen from './screens/CategoryDetailRevenueScreen.js'
 // import ReportScreen from './screens/ReportScreen.js'
@@ -97,6 +98,11 @@ function App() {
                      exact
                      path="/locations/states/:name"
                      element={<LgaCreateScreen />}
+                  />
+          <Route
+                     exact
+                     path="/payment-portal"
+                     element={<PaymentScreen />}
                   />
           <Route
                      exact

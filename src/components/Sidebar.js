@@ -191,7 +191,7 @@ const Sidebar = () => {
                      
          
           </Link>
-               <Link to="" className="flex flex-col space-y-0 items-center justify-center group">
+               <Link to="/payment-portal" className="flex flex-col space-y-0 items-center justify-center group">
                   
                <div className="">
           <img class="w-8 group-hover:opacity-80 group-hover:cursor-pointer " src={credit} height="" width=""></img>
